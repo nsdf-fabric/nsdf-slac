@@ -158,6 +158,53 @@ Execute it:
 python3 test-test_slac.py
 ```
 
+If you just want to access the head of the object:
+
+```python
+import boto3
+from botocore.client import Config
+
+config = Config(signature_version = 's3v4')
+from pprint import pprint
+
+# boto3.set_stream_logger(name='botocore')
+
+s3 = boto3.client('s3',
+    endpoint_url='https://maritime.sealstorage.io/api/v0/s3',
+    aws_access_key_id='any',
+    aws_secret_access_key='any',
+    config=config
+)
+
+# change this as needed
+h=s3.head_object(Bucket="utah",Key="supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0001.mid.gz")
+
+pprint(h)
+```
+It will print out:
+
+```
+{'AcceptRanges': 'bytes',
+ 'ContentDisposition': 'inline; filename="07180811_2320_F0001.mid.gz"',
+ 'ContentLength': 51324722,
+ 'ContentType': 'application/gzip',
+ 'ETag': '"da19bcf1d26252830e3c77ecb53cf697"',
+ 'LastModified': datetime.datetime(2024, 2, 20, 17, 52, 36, tzinfo=tzutc()),
+ 'Metadata': {'Mtime': '1534047716.951417509'},
+ 'ResponseMetadata': {'HTTPHeaders': {'accept-ranges': 'bytes',
+                                      'access-control-expose-headers': 'Content-Disposition',
+                                      'content-disposition': 'inline; '
+                                                             'filename="07180811_2320_F0001.mid.gz"',
+                                      'content-length': '51324722',
+                                      'content-type': 'application/gzip',
+                                      'date': 'Fri, 23 Feb 2024 01:25:38 GMT',
+                                      'etag': '"da19bcf1d26252830e3c77ecb53cf697"',
+                                      'last-modified': 'Tue, 20 Feb 2024 '
+                                                       '17:52:36 GMT',
+                                      'x-amz-meta-mtime': '1534047716.951417509'},
+                      'HTTPStatusCode': 200,
+                      'RetryAttempts': 0}}
+```
 
 ## (INTERNAL USE ONLY) Transfer Data to the Public
 
@@ -191,8 +238,6 @@ while [[ 1 == 1 ]] ; do
   rclone --progress  --transfers 16  --size-only sync  slac_private://${PREFIX} slac_public://utah/${PREFIX}
 done
 ```
-
-
 
 # Install cvmfs
 
@@ -303,3 +348,4 @@ python -c "import CDMSDataCatalog"
 # ./releases/centos7/V04-08/lib/python3.7/site-packages/rawio
 python -c "import rawio"
 ```
+
