@@ -1,4 +1,4 @@
-# nsdf-slac
+# nsdf-slac public data
 
 - 6.4T bytes 
 - 39524 objects
@@ -159,7 +159,7 @@ python3 test-test_slac.py
 ```
 
 
-## (INTERNAL USE ONLY) Transfer Data 
+## (INTERNAL USE ONLY) Transfer Data to the Public
 
 You need credentials to SLAC data  from `nsdf-vault`
 
@@ -190,4 +190,116 @@ screen -S nsdf-slac-data-transfer
 while [[ 1 == 1 ]] ; do
   rclone --progress  --transfers 16  --size-only sync  slac_private://${PREFIX} slac_public://utah/${PREFIX}
 done
+```
+
+
+
+# Install cvmfs
+
+
+```bash
+# https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
+wget https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
+sudo dpkg -i cvmfs-release-latest_all.deb
+rm -f cvmfs-release-latest_all.deb
+sudo apt-get update
+sudo apt-get install cvmfs
+
+# for windows WSL2
+# ln -s /usr/kill /usr/bin/kill
+# sudo cvmfs_config wsl2_start
+
+sudo cvmfs_config setup
+
+REPOS="
+ams.cern.ch
+annie.opensciencegrid.org
+argoneut.opensciencegrid.org
+atlas.cern.ch
+cdarkside.opensciencegrid.org
+cdf.opensciencegrid.org
+cdms.opensciencegrid.org
+cms.cern.ch
+cms.osgstorage.org
+cms-ib.cern.ch
+config-osg.opensciencegrid.org
+connect.opensciencegrid.org
+coupp.opensciencegrid.org
+d0.opensciencegrid.org
+des.opensciencegrid.org
+des.osgstorage.org
+dune.opensciencegrid.org
+fermilab.opensciencegrid.org
+gm2.opensciencegrid.org
+grid.cern.ch
+gwosc.osgstorage.org
+icarus.opensciencegrid.org
+icecube.opensciencegrid.org
+lariat.opensciencegrid.org
+ligo.osgstorage.org
+ligo-containers.opensciencegrid.org
+minerva.opensciencegrid.org
+minerva.osgstorage.org
+minos.opensciencegrid.org
+mu2e.opensciencegrid.org
+mu2e.osgstorage.org
+nexo.opensciencegrid.org
+nova.opensciencegrid.org
+nova.osgstorage.org
+oasis.opensciencegrid.org
+sbnd.opensciencegrid.org
+seaquest.opensciencegrid.org
+sft.cern.ch
+singularity.opensciencegrid.org
+snoplus.egi.eu
+spt.opensciencegrid.org
+stash.osgstorage.org
+uboone.opensciencegrid.org
+uboone.osgstorage.org
+veritas.opensciencegrid.org
+xenon.opensciencegrid.org
+"
+
+REPOS_COMMA_SEP=$(echo $REPOS | xargs | sed -e 's/ /,/g')
+
+cat << EOF | sudo tee /etc/cvmfs/default.local
+CVMFS_REPOSITORIES=${REPOS_COMMA_SEP}
+CVMFS_QUOTA_LIMIT=20000
+CVMFS_HTTP_PROXY=DIRECT
+EOF
+
+cvmfs_config probe
+```
+
+# cvmfs run docker
+
+
+```bash
+
+docker run -ti \
+  -w ${PWD} \
+  -v /cvmfs:/cvmfs \
+  -v ${PWD}:${PWD} \
+  centos:7  \
+  /bin/bash
+
+yum install -y which
+
+# Ihink this command install python packages
+pushd /cvmfs/cdms.opensciencegrid.org
+
+#./setup_cdms.sh -L
+source setup_cdms.sh V04-10
+
+popd
+
+# check I have all packages
+
+# /cvmfs/cdms.opensciencegrid.org/releases/centos7/V04-08/lib/python3.7/site-packages/CDMSDataCatalog
+python -c "import CDMSDataCatalog"
+
+# http://titus.stanford.edu:8080/git/summary/?r=Analysis/pyRawIO.git
+# find ./releases/centos7/V04-08 -iname "*rawio*"
+# ./releases/centos7/V04-08/lib/python3.7/site-packages/rawio
+python -c "import rawio"
 ```
