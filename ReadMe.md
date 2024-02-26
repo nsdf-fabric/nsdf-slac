@@ -234,10 +234,18 @@ To sync data between different endpoints, I need to use rclone
 # better to use a screen session
 screen -S nsdf-slac-data-transfer
 
+# you can use rclone...
 while [[ 1 == 1 ]] ; do
   rclone --progress  --transfers 16  --size-only sync  slac_private://${PREFIX} slac_public://utah/${PREFIX}
 done
+
+# or see transfer.py which add a checksum
+# ...
+
 ```
+
+
+
 
 # Install cvmfs
 
