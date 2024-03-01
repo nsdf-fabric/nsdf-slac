@@ -34,17 +34,11 @@ def Shell(cmd):
 	return subprocess.check_output(cmd, shell=True, text=True)
 
 # ////////////////////////////////////////////////////////////////
-def Upload(src_key, local_filename, dst_key):
+def Upload(src_key, local_filename, dst_key, done_filename):
 
 	#  remove from another run
 	if os.path.isfile(local_filename):
 		os.remove(local_filename)
-
-	done_filename=f"{local_filename}.done"
-
-	if os.path.isfile(done_filename):
-		print("Skipping",src_key, "since already done")
-		return
 
 	src=ConnectSrc()
 	dst=ConnectDst()
@@ -72,17 +66,25 @@ if __name__=="__main__":
 
 	print("Collecting files")
 	jobs=[]
+	tot=0
 	for it in ConnectSrc()['bucket'].objects.filter(Prefix=src_prefix):
 		src_key=it.key
 		if src_key.endswith(".mid.gz"):
 			local_filename=f"{dst_prefix}/{src_key}"
 			dst_key=f"{dst_prefix}/{src_key}"
-			jobs.append([Upload, src_key,local_filename,dst_key])
-	print(f"Found {len(jobs)} files")
+			done_filename=f"{local_filename}.done"
+			tot+=1
+			if os.path.isfile(done_filename):
+				print("Skipping",src_key, "since already done")
+				continue
+			jobs.append([Upload, src_key,local_filename,dst_key,done_filename])
+	print(f"Found {len(jobs)} new jobs out of {tot}")
 
-	with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+	todo=tot
+	with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
 		futures = [executor.submit(*job) for job in jobs]
 		for future in concurrent.futures.as_completed(futures):
-			pass
+			todo-=1
+			print(f"Still todo {todo}")
 
 
