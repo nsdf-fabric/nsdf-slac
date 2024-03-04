@@ -137,14 +137,7 @@ import boto3
 from botocore.client import Config
 
 config = Config(signature_version = 's3v4')
-
-s3 = boto3.resource('s3',
-  endpoint_url='https://maritime.sealstorage.io/api/v0/s3',
-  aws_access_key_id='any',
-  aws_secret_access_key='any',
-  config=config,
-)
-
+s3 = boto3.resource('s3',endpoint_url='https://maritime.sealstorage.io/api/v0/s3', aws_access_key_id='any', aws_secret_access_key='any', config=config, verify=False,)
 bucket = s3.Bucket("utah")
 
 # change this as needed
@@ -152,7 +145,6 @@ key="supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz"
 bucket.download_file(key,"example.mid.gz")
 print(f"file {key} downloaded")
 ```
-
 
 Execute it:
 
