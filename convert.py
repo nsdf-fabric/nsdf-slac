@@ -80,18 +80,20 @@ def SaveJSON(filename,d):
 		out.write(d)
 
 # ///////////////////////////////////////////////////////////////
-def ConvertJob(key):
+def ConvertJob(K,key):
 
+	import time
+	t1=time.time()
 	key_noext=key.replace(".mid.gz","")
 	
-	print("Doing",key)
+	print("Doing",K, key)
 			 
 	# download file
 	os.makedirs(os.path.dirname(key),exist_ok=True)
 	bucket.download_file(key,key)
-	print(f"Downloaded file {key} {os.path.getsize(key)}")
+	# print(f"Downloaded file {key} {os.path.getsize(key)}")
 
-	# generate JSON, save xml and binary data
+	# generate JSON, save xml cand binary data
 	reader = midas.file_reader.MidasFile(key)
 	events=[]
 	for E,evt in enumerate(reader):
@@ -105,13 +107,13 @@ def ConvertJob(key):
 				sub_key=f"{key_noext}/events/{E:05d}/non_bank_data.xml"
 				SaveXML(sub_key,non_bank_data)
 				bucket.upload_file(sub_key,	sub_key)
-				print("Uploaded xml file",sub_key,os.path.getsize(sub_key))
+				# print("Uploaded xml file",sub_key,os.path.getsize(sub_key))
 				# os.remove(sub_key)
 			else:
 				sub_key=f"{key_noext}/events/{E:05d}/non_bank_data.bin"
 				SaveBinary(sub_key,non_bank_data)
 				bucket.upload_file(sub_key,	sub_key)
-				print("Uploaded binary file",sub_key,os.path.getsize(sub_key))
+				# print("Uploaded binary file",sub_key,os.path.getsize(sub_key))
 				# os.remove(sub_key)
 			parsed["non_bank_data"]={"key":sub_key}
 		else:
@@ -125,7 +127,7 @@ def ConvertJob(key):
 				sub_key=f"{key_noext}/events/{E:05d}/banks/{bank_name}/data.npz"
 				SaveArray(sub_key,data)
 				bucket.upload_file(sub_key,	sub_key)
-				print("Uploaded data",sub_key,os.path.getsize(sub_key))
+				# print("Uploaded data",sub_key,os.path.getsize(sub_key))
 				os.remove(sub_key)
 				bank["data"]={
 					"key":	 sub_key, 
@@ -148,7 +150,7 @@ def ConvertJob(key):
 	Shell(f"gzip --keep --force {json_filename}")
 	gz_filename=json_filename+".gz"
 	bucket.upload_file(gz_filename,	gz_filename)
-	print("Uploaded json file",gz_filename,os.path.getsize(gz_filename))
+	# print("Uploaded json file",gz_filename,os.path.getsize(gz_filename))
 	os.remove(gz_filename)
 
 	# to avoid to run the same job over and over
@@ -157,7 +159,7 @@ def ConvertJob(key):
 
 	# cannot afford to keep all midas files around
 	os.remove(key)
-	print("Done",key)
+	print("Done",K, key,f"in {time.time()-t1} seconds")
 
 # ////////////////////////////////////////////////////////////////
 if __name__=="__main__":
@@ -167,7 +169,7 @@ if __name__=="__main__":
 	# download list of files
 	os.makedirs("supercdms-data",exist_ok=True)
 	if not os.path.isfile("supercdms-data/list.txt"):
-		Shell(f"aws s3 --profile slac_public --endpoint-url {endpoint_url} --no-verify-ssl ls --recursive s3://utah/supercdms-data/CDMS/UMN/R68/Raw/	" + "| awk '{print $4}' > supercdms-data/list.txt")
+		Shell(f"aws s3 --profile slac_public --endpoint-url {endpoint_url} --no-verify-ssl ls --recursive s3://utah/supercdms-data/CDMS/UMN/R68/Raw/ | grep '.mid.gz'	| awk '{print $4}' > supercdms-data/list.txt")
 
 	conn=Connect(profile_name="sealstorage", endpoint_url=endpoint_url, bucket_name="utah", verify=False)
 	bucket=conn['bucket']
@@ -178,26 +180,28 @@ if __name__=="__main__":
 
 	jobs=[]
 	tot=0
-	for I,key in enumerate(files):
+	for K,key in enumerate(files):
 		key_noext=key.replace(".mid.gz","")
 		done_filename=f"{key_noext}.done"
 		tot+=1
 		if os.path.isfile(done_filename): 
 			continue
-		jobs.append((key,))
+		jobs.append((K,key,))
 
 	print(f"Found {len(jobs)} new jobs out of {tot}")
 
 	# ConvertJob(*jobs[0])
 	import concurrent
-	todo=tot
-	with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
+	todo=len(jobs)
+	with concurrent.futures.ProcessPoolExecutor (max_workers=64) as executor:
 		futures = [executor.submit(ConvertJob, *job) for job in jobs]
 		for future in concurrent.futures.as_completed(futures):
 			todo-=1
-			print(f"Still todo {todo}")
-
-
+			try:
+				result = future.result()
+				# print(f"Still todo {todo}")
+			except Exception as ex:
+				print(f'Error {ex}')
 
 
 	

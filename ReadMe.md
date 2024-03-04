@@ -116,6 +116,8 @@ s5 ls s3://utah/supercdms-data/CDMS/UMN/
 
 # copy files
 s5 cp s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz .
+
+s5 du  --humanize "s3://utah/supercdms-data/*"
 ```
 
 
@@ -205,6 +207,56 @@ It will print out:
                       'HTTPStatusCode': 200,
                       'RetryAttempts': 0}}
 ```
+
+## (INTERNAL USE ONLY) Convert data
+
+```bash
+screen -S nsdf-transfer
+source .venv\bin\activate
+
+alias s5='s5cmd --profile slac_public  --endpoint-url https://maritime.sealstorage.io/api/v0/s3 --no-verify-ssl'
+
+python3 convert.py
+
+files=$(find /mnt/hdd2/supercdms-data/ -iname "*.json" | head -n 40)
+for it in ${files} ; do
+  grep "header" ${it} | wc -l
+  # grep data.npz ${it} | wc -l
+done
+
+
+s5 ls --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/*.mid.gz"
+
+# 2024/02/27 23:05:43             46.0M  07180808_1558_F0001.mid.gz
+# 2024/02/27 23:06:03            176.9M  07180808_1558_F0002.mid.gz
+# 2024/02/27 23:06:01            171.9M  07180808_1558_F0003.mid.gz
+# 2024/02/27 23:06:03            171.5M  07180808_1558_F0004.mid.gz
+# 2024/02/27 23:06:02            173.8M  07180808_1558_F0005.mid.gz
+# 2024/02/27 23:06:03            171.4M  07180808_1558_F0006.mid.gz
+# 2024/02/27 23:05:49            175.4M  07180808_1558_F0007.mid.gz
+# 2024/02/27 23:05:54            172.7M  07180808_1558_F0008.mid.gz
+# 2024/02/27 23:06:04            172.7M  07180808_1558_F0009.mid.gz
+# 2024/02/27 23:06:03            142.9M  07180808_1558_F0010.mid.gz
+
+s5 ls --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/*.mid.gz"
+
+# 2024/02/27 23:05:43             46.0M  07180808_1558_F0001.mid.gz -> 59.2M
+# 2024/02/27 23:06:03            176.9M  07180808_1558_F0002.mid.gz -> 215M
+# 2024/02/27 23:06:01            171.9M  07180808_1558_F0003.mid.gz -> 209M
+# 2024/02/27 23:06:03            171.5M  07180808_1558_F0004.mid.gz
+# 2024/02/27 23:06:02            173.8M  07180808_1558_F0005.mid.gz
+# 2024/02/27 23:06:03            171.4M  07180808_1558_F0006.mid.gz
+# 2024/02/27 23:05:49            175.4M  07180808_1558_F0007.mid.gz
+# 2024/02/27 23:05:54            172.7M  07180808_1558_F0008.mid.gz
+# 2024/02/27 23:06:04            172.7M  07180808_1558_F0009.mid.gz
+# 2024/02/27 23:06:03            142.9M  07180808_1558_F0010.mid.gz
+
+s5 du --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/07180808_1558_F0001/*"
+
+
+
+```
+
 
 ## (INTERNAL USE ONLY) Transfer Data to the Public
 
