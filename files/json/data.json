@@ -1,6 +1,7 @@
 [
-    {
-        "url": "https://maritime.sealstorage.io/api/v0/s3/utah/supercdms-data/CDMS/UMN/R68/Raw/07180813_0958/07180813_0958_F0008/events/00001/banks/SCD0/data.npz",
-        "name_file": "data.npz"
-    }
+  {
+    "key": "supercdms-data/CDMS/UMN/R68/Raw/07180813_0958/07180813_0958_F0008/events/00001/banks/SCD0/data.npz",
+    "url": "https://maritime.sealstorage.io/api/v0/s3/utah/supercdms-data/CDMS/UMN/R68/Raw/07180813_0958/07180813_0958_F0008/events/00001/banks/SCD0/data.npz",
+    "name_file": "data.npz"
+  }
 ]
