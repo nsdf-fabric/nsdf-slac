@@ -89,8 +89,8 @@ def ConvertJob(K,key):
 	print("Doing",K, key)
 			 
 	# download file
-	os.makedirs(os.path.dirname(key),exist_ok=True)
-	bucket.download_file(key,key)
+	# os.makedirs(os.path.dirname(key),exist_ok=True)
+	# bucket.download_file(key,key)
 	# print(f"Downloaded file {key} {os.path.getsize(key)}")
 
 	# generate JSON, save xml cand binary data
@@ -106,13 +106,13 @@ def ConvertJob(K,key):
 			if non_bank_data[0:5]==b"<?xml":
 				sub_key=f"{key_noext}/events/{E:05d}/non_bank_data.xml"
 				SaveXML(sub_key,non_bank_data)
-				bucket.upload_file(sub_key,	sub_key)
+				# bucket.upload_file(sub_key,	sub_key)
 				# print("Uploaded xml file",sub_key,os.path.getsize(sub_key))
 				# os.remove(sub_key)
 			else:
 				sub_key=f"{key_noext}/events/{E:05d}/non_bank_data.bin"
 				SaveBinary(sub_key,non_bank_data)
-				bucket.upload_file(sub_key,	sub_key)
+				# bucket.upload_file(sub_key,	sub_key)
 				# print("Uploaded binary file",sub_key,os.path.getsize(sub_key))
 				# os.remove(sub_key)
 			parsed["non_bank_data"]={"key":sub_key}
@@ -126,9 +126,9 @@ def ConvertJob(K,key):
 				data=np.array(data)
 				sub_key=f"{key_noext}/events/{E:05d}/banks/{bank_name}/data.npz"
 				SaveArray(sub_key,data)
-				bucket.upload_file(sub_key,	sub_key)
+				# bucket.upload_file(sub_key,	sub_key)
 				# print("Uploaded data",sub_key,os.path.getsize(sub_key))
-				os.remove(sub_key)
+				# os.remove(sub_key)
 				bank["data"]={
 					"key":	 sub_key, 
 					"shape": str(data.shape),
@@ -149,7 +149,7 @@ def ConvertJob(K,key):
 	# compressed JSON
 	Shell(f"gzip --keep --force {json_filename}")
 	gz_filename=json_filename+".gz"
-	bucket.upload_file(gz_filename,	gz_filename)
+	# bucket.upload_file(gz_filename,	gz_filename)
 	# print("Uploaded json file",gz_filename,os.path.getsize(gz_filename))
 	os.remove(gz_filename)
 
@@ -158,50 +158,51 @@ def ConvertJob(K,key):
 	Shell(f"touch {done_filename}")
 
 	# cannot afford to keep all midas files around
-	os.remove(key)
+	# TODO: remove the midas files
+	# os.remove(key)
 	print("Done",K, key,f"in {time.time()-t1} seconds")
 
 # ////////////////////////////////////////////////////////////////
-if __name__=="__main__":
+# if __name__=="__main__":
 
-	endpoint_url="https://maritime.sealstorage.io/api/v0/s3"
+# 	endpoint_url="https://maritime.sealstorage.io/api/v0/s3"
 
-	# download list of files
-	os.makedirs("supercdms-data",exist_ok=True)
-	if not os.path.isfile("supercdms-data/list.txt"):
-		Shell(f"aws s3 --profile slac_public --endpoint-url {endpoint_url} --no-verify-ssl ls --recursive s3://utah/supercdms-data/CDMS/UMN/R68/Raw/ | grep '.mid.gz'	| awk '{print $4}' > supercdms-data/list.txt")
+# 	# download list of files
+# 	os.makedirs("supercdms-data",exist_ok=True)
+# 	if not os.path.isfile("supercdms-data/list.txt"):
+# 		Shell(f"aws s3 --profile slac_public --endpoint-url {endpoint_url} --no-verify-ssl ls --recursive s3://utah/supercdms-data/CDMS/UMN/R68/Raw/ | grep '.mid.gz'	| awk '{print $4}' > supercdms-data/list.txt")
+# 	conn=Connect(profile_name="sealstorage", endpoint_url=endpoint_url, bucket_name="utah", verify=False)
+# 	bucket=conn['bucket']
 
-	conn=Connect(profile_name="sealstorage", endpoint_url=endpoint_url, bucket_name="utah", verify=False)
-	bucket=conn['bucket']
+# 	with open("supercdms-data/list.txt","r") as f:
+# 		files=[it.strip() for it in f.readlines() if it.strip().endswith(".mid.gz")]
+# 	print("found",len(files),".mid.gz files")
 
-	with open("supercdms-data/list.txt","r") as f:
-		files=[it.strip() for it in f.readlines() if it.strip().endswith(".mid.gz")]
-	print("found",len(files),".mid.gz files")
+# 	jobs=[]
+# 	tot=0
+# 	for K,key in enumerate(files):
+# 		key_noext=key.replace(".mid.gz","")
+# 		done_filename=f"{key_noext}.done"
+# 		tot+=1
+# 		if os.path.isfile(done_filename): 
+# 			continue
+# 		jobs.append((K,key,))
 
-	jobs=[]
-	tot=0
-	for K,key in enumerate(files):
-		key_noext=key.replace(".mid.gz","")
-		done_filename=f"{key_noext}.done"
-		tot+=1
-		if os.path.isfile(done_filename): 
-			continue
-		jobs.append((K,key,))
+# 	print(f"Found {len(jobs)} new jobs out of {tot}")
 
-	print(f"Found {len(jobs)} new jobs out of {tot}")
-
-	# ConvertJob(*jobs[0])
-	import concurrent
-	todo=len(jobs)
-	with concurrent.futures.ProcessPoolExecutor (max_workers=64) as executor:
-		futures = [executor.submit(ConvertJob, *job) for job in jobs]
-		for future in concurrent.futures.as_completed(futures):
-			todo-=1
-			try:
-				result = future.result()
-				# print(f"Still todo {todo}")
-			except Exception as ex:
-				print(f'Error {ex}')
+# 	# ConvertJob(*jobs[0])
+# 	import concurrent
+# 	todo=len(jobs)
+# 	print(f"Starting {jobs}")
+	# with concurrent.futures.ProcessPoolExecutor (max_workers=64) as executor:
+	# 	futures = [executor.submit(ConvertJob, *job) for job in jobs]
+	# 	for future in concurrent.futures.as_completed(futures):
+	# 		todo-=1
+	# 		try:
+	# 			result = future.result()
+	# 			# print(f"Still todo {todo}")
+	# 		except Exception as ex:
+	# 			print(f'Error {ex}')
 
 
 	
