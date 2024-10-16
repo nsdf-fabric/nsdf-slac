@@ -22,8 +22,9 @@ secret_access_key = any
 endpoint=https://maritime.sealstorage.io/api/v0/s3
 ```
 
-Access the data
--note: If you get any SSL certificate problem pkease add `--no-check-certificate` to the rclone commands as a temporary workaround
+Access the data:
+
+- note: If you get any SSL certificate problem pkease add `--no-check-certificate` to the rclone commands as a temporary workaround
 
 ```bash
 
