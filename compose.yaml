@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    image: slac-dashboard:latest
+    container_name: dashboard
+    ports:
+      - "127.0.0.1:10042:10042"
+    env_file:
+      - ".env"
+    restart: always
+    volumes:
+      - "idx:/usr/src/channels_dashboard/idx"
+
+volumes:
+  idx:
