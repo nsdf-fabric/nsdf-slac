@@ -1,7 +1,9 @@
-#include "../IOLibrary/src/cdms_iolibrary.h"
-#include "../IOLibrary/src/midas_file_reader.h"
+#include "../../IOLibrary/src/cdms_iolibrary.h"
+#include "../../IOLibrary/src/midas_file_reader.h"
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <ostream>
 #include <string>
 
 std::string channelType(int t) {
@@ -13,11 +15,23 @@ std::string baselineControl(int b) {
 }
 
 void printChannelInfo(CDMSIOLIB::CHANNEL chan) {
-    std::cout << "\n{\n" << "Name: " << chan.channelName << "\n" << "Type: " << channelType(chan.channelType) << "\n" << "Baseline Control: "  << baselineControl(chan.baselineControlActive) <<  "\n" << "Number of samples: " << chan.totalLength() <<  "\n}\n";
+    std::cout << "\n{" << "\nName: " << chan.channelName <<
+        "\nType: " << channelType(chan.channelType) <<
+        "\nBaseline Control: "  << baselineControl(chan.baselineControlActive) << 
+        "\nSampling Rate Low: " << chan.samplerateLow << 
+        "\nSampling Rate High: " << chan.samplerateHigh << 
+        "\nNumber of samples: " << chan.totalLength() << 
+        "\nNumber of Pre-Pulse samples: " << chan.prepulseLength << 
+        "\nNumber of On-Pulse samples: " << chan.onpulseLength << 
+        "\nNumber of Post-Pulse samples: " << chan.postpulseLength << "\n}\n";
 }
 
-void printChannelData(uint16_t* addr) {
-
+void printChannelData(uint16_t* addr, int N) {
+    std::cout << "[ ";
+    for(size_t i = 0; i < N; i++) {
+        std::cout << addr[i] << " ";
+    }
+    std::cout <<  "]" << std::endl;
 }
 
 int main(int argc, char **argv) {
@@ -47,7 +61,10 @@ int main(int argc, char **argv) {
         for(auto d: event.detectors) {
             std::cout << "Number of channels in detector " << d.channels.size() << std::endl;
             for(auto chan: d.channels) {
-                if(debug) printChannelInfo(chan);
+                if(debug) {
+                    printChannelInfo(chan);
+                    printChannelData(chan.data, chan.totalLength());
+                } 
             }
         }
 
