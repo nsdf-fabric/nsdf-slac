@@ -125,8 +125,8 @@ class AppState:
             else:
                 self.detectors_map[k] = True
 
-    def load_channel_data(self):
-        if self.scene_data and len(self.detectors_map) > 0:
+    def load_channel_data(self, detectors):
+        if self.scene_data and len(detectors) > 0:
             self.channels_data = get_channels_npz(self.scene_data, self.detectors_map)
         else:
             self.channels_data = []
@@ -385,7 +385,8 @@ def main():
     def update_fig(detectors):
         app_state.toggle_event_controls(True)
         app_state.update_detectors_map(detectors)
-        app_state.load_channel_data()
+        app_state.load_channel_data(detectors)
+        disable_buttons()
         app_state.render_channels(detectors)
         app_state.toggle_event_controls(False)
 
@@ -431,6 +432,17 @@ def main():
         ],
         ncols=5,
     )
+
+    def disable_buttons():
+        """
+        Disable buttons up to max channel count (e.g. if D1 has the most detectors at 4 disable 5-20)
+        """
+        limit = 0
+        for _, arr in app_state.channels_data:
+            limit = max(limit, len(arr))
+        for i in range(20):
+            channels_grid[i].disabled = False if i < limit else True
+
     main_layout = pn.template.MaterialTemplate(
         title="NSDF SLAC",
         header=[evt_bind, detectors_bind, toggle_detectors_bind, fig_bind],
