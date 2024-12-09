@@ -1,5 +1,5 @@
+# import OpenVisus as ov
 import sys
-import OpenVisus as ov
 import panel as pn
 from bokeh.plotting import figure
 import os
@@ -248,6 +248,8 @@ def get_detectors_by_event(remote_url, mid_file_id, event_id):
     return l
 
 
+"""
+
 def channels_by_detector_num(remote_url, mid_file_id, event_id, detector_id):
     channels, channels_data = [], []
     if remote_url != "":
@@ -269,6 +271,7 @@ def channels_by_detector_num(remote_url, mid_file_id, event_id, detector_id):
                 channels.append(filename.split(".")[0])
                 channels_data.append(ov_data)
     return channels, channels_data
+"""
 
 
 # ------- NPZ data extraction ----------
