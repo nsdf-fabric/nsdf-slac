@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-slim
 
 RUN python3 -m pip install pip numpy matplotlib \
    bokeh==3.2.2 panel
@@ -12,5 +12,5 @@ ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
 EXPOSE 10325
 
-CMD ["python3", "-m", "panel", "serve", "dashboard.py", "--allow-websocket-origin='*'",  "--port", "10325" , "--show"]
+CMD ["python3", "-m", "panel", "serve", "slacd.py", "--allow-websocket-origin='*'",  "--port", "10325"  ,"--show"]
 
