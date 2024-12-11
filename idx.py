@@ -13,7 +13,7 @@ def idx(filepath: str):
     arr = np.load(f"{filepath}.npz")
     N = 0
 
-    f = open(f"metadata_{filepath}.txt", "w")
+    f = open(f"{filepath}.txt", "w")
     for k, v in arr.items():
         f.write(f"{k} {N} {N+len(v)}\n")
         N += len(v)
