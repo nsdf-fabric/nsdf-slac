@@ -4,6 +4,8 @@ download:
 	@python download.py
 genidx:
 	@python idx.py
+panel:
+	@panel serve slacd.py --address='0.0.0.0' --allow-websocket-origin='*' --port=9000
 run:
 	@docker run --rm -p 10325:10325 slac
 kill:

@@ -30,7 +30,7 @@ def download_files():
         if full_path.endswith(".mid.gz"):
             mid_file = full_path.split("/")[-1]
             local_path = f"{MIDFILES_DIR}{mid_file}"
-            # donwload file
+            # download file
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             s3.download_file(full_path, local_path)
             # extract channels
