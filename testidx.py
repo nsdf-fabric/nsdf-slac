@@ -44,6 +44,7 @@ def create_channel_metadata_map(filepath: str) -> DefaultDict[str, List]:
             channel_name, lo, hi = line.split(" ")
             mp[channel_name].append(int(lo))
             mp[channel_name].append(int(hi))
+    f.close()
     return mp
 
 
@@ -61,7 +62,7 @@ class AppState:
         self.palettes = {color: generate_palette(color) for color in COLORS}
         self.gradient_idx = 0
         self.mid_files = []
-        self.scene_data = {}
+        self.scene_data: np.ndarray
         self.event_idx = 0
         self.events = []
         self.detectors = []
@@ -127,16 +128,18 @@ class AppState:
         ).read(field="data")
 
     def load_events(self):
-        if self.scene_data:
+        if self.scene_data.any():
             st = set()
-            for k, _ in self.detector_to_channels:
+            for k in self.detector_to_channels.keys():
                 evt = k.split("_")[0]
                 if evt not in st:
                     st.add(evt)
-            self.events = list(st)
+            events = list(st)
+            events.sort()
+            self.events = events
 
     def load_detectors(self, event_id):
-        if self.scene_data:
+        if self.scene_data.any():
             detectors, detectors_map = [], defaultdict(bool)
             for k in self.detector_to_channels.keys():
                 if event_id in k:
@@ -157,7 +160,7 @@ class AppState:
                 self.detectors_map[k] = True
 
     def load_channel_data(self, detectors):
-        if self.scene_data and len(detectors) > 0:
+        if self.scene_data.any() and len(detectors) > 0:
             channels = []
             for k in self.detectors_map.keys():
                 lo, hi = self.detector_to_channels[k]
@@ -249,96 +252,6 @@ def get_mid_files(remote_url: str):
             if filename.endswith(".mid") or filename.endswith(".mid.gz"):
                 mid_files.append(filename.split(".")[0])
     return mid_files
-
-
-def get_event_ids(remote_url, mid_file_id):
-    events = defaultdict(str)
-    if remote_url != "":
-        pass
-    else:
-        events_path = os.path.join(EVENT_FILES_DIR, mid_file_id)
-        for filename in os.listdir(events_path):
-            event_id = filename.split("_")[0]
-            if filename.endswith(".idx") and event_id not in events:
-                events[event_id] = ""
-    return list(events)
-
-
-def get_detectors_by_event(remote_url, mid_file_id, event_id):
-    detectors = defaultdict(str)
-    if remote_url != "":
-        pass
-    else:
-        events_path = os.path.join(EVENT_FILES_DIR, mid_file_id)
-        for filename in os.listdir(events_path):
-            multichoice_detectors = filename.split("_")[1]
-            if (
-                filename.startswith(event_id)
-                and filename.endswith(".idx")
-                and multichoice_detectors not in detectors
-            ):
-                detectors[multichoice_detectors] = ""
-
-    l = list(detectors)
-    l.sort()
-    return l
-
-
-"""
-
-def channels_by_detector_num(remote_url, mid_file_id, event_id, detector_id):
-    channels, channels_data = [], []
-    if remote_url != "":
-        pass
-    else:
-        events_path = os.path.join(EVENT_FILES_DIR, mid_file_id)
-        for filename in os.listdir(events_path):
-            multichoice_detectors = filename.split("_")[1]
-            if (
-                filename.startswith(event_id)
-                and filename.endswith(".idx")
-                and multichoice_detectors == detector_id
-            ):
-                db = ov.LoadDataset(os.path.join(events_path, filename))
-                logic_box = db.getLogicBox()
-                ov_data = db.read(
-                    logic_box=logic_box, max_resolution=db.getMaxResolution()
-                )
-                channels.append(filename.split(".")[0])
-                channels_data.append(ov_data)
-    return channels, channels_data
-"""
-
-
-# ------- NPZ data extraction ----------
-def get_events_npz(data):
-    events = defaultdict(int)
-    for k in data.keys():
-        evt = k.split("_")[0]
-        if evt not in events:
-            events[evt] = 1
-    return list(events)
-
-
-def get_detectors_npz(data, eventID):
-    detectors, detectors_map = [], defaultdict(bool)
-    for k in data.keys():
-        if eventID in k:
-            multichoice_detectors = k.split("_")[1]
-            detectors.append(f"D{multichoice_detectors}")
-            detectors_map[f"{eventID}_{multichoice_detectors}_Phonon_4096"] = True
-    return (detectors, detectors_map)
-
-
-def get_channels_npz(data, detectors):
-    channels_data = []
-    for k, v in data.items():
-        if k in detectors:
-            channels_data.append((k, v))
-    return channels_data
-
-
-# ------------ IDX data extraction ---------------
 
 
 def main():
