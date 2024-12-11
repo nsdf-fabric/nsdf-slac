@@ -1,0 +1,20 @@
+(version)
+6
+(box)
+0 4095 0 799
+(fields)
+data uint16 default_layout() default_value(0) min(0) max(0) 
+(bits)
+V0101010101010101010100
+(bitsperblock)
+16
+(blocksperfile)
+64
+(interleave block)
+0
+(filename_template)
+./07180808_1558_F0001/%04x.bin
+(missing_blocks)
+0
+(arco)
+0
