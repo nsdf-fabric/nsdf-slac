@@ -5,6 +5,7 @@ import os
 import concurrent
 
 MIDFILES_DIR = "./raw/"
+BUCKET_PATH = "CDMS/UMN/R68/Raw/"
 
 
 def get_aws_bucket():
@@ -34,7 +35,25 @@ def download_files():
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             s3.download_file(full_path, local_path)
             # extract channels
-            os.popen(f"./channel_extract {local_path}")
+            proc = os.popen(f"./channel_extract {local_path}")
+            proc.close()
 
 
-download_files()
+def download_file(file: str):
+    """
+    Parameters
+    ----------
+    file(str): the mid file to download in the the format <filename>.mid.gz
+    """
+    s3 = get_aws_bucket()
+    mid_file_name = file.split(".mid")[0]
+    mid_prefix = "_".join(mid_file_name.split("_")[:2])
+
+    s3.download_file(f"{BUCKET_PATH}{mid_prefix}/{file}", f"{MIDFILES_DIR}{file}")
+    proc = os.popen(f"./channel_extract {MIDFILES_DIR}{file}")
+    proc.close()
+    print(f"finished download: {MIDFILES_DIR}{file}")
+
+
+# download_files()
+download_file("07180816_1648_F0006.mid.gz")

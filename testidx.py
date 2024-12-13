@@ -24,7 +24,6 @@ from bisect import bisect_left
 # channel_to_renderer = {'10000_2_Phonon4096_C1': GlyphRender(), '10000_1_Phonon4096_C1': GlyphRenderer()}
 
 MID_FILES_DIR = "./raw/"
-EVENT_FILES_DIR = "./events/"
 IDX_FILES_DIR = "./idx/"
 COLORS = [
     "#ff0000",  # Red
@@ -55,6 +54,17 @@ def generate_palette(hex_color, steps=8):
     )
     palette = [mcolors.to_hex(cmap(i)) for i in range(steps)]
     return palette
+
+
+def get_mid_files(remote_url: str):
+    mid_files = []
+    if remote_url != "":
+        pass
+    else:
+        for filename in os.listdir(MID_FILES_DIR):
+            if filename.endswith(".mid") or filename.endswith(".mid.gz"):
+                mid_files.append(filename.split(".")[0])
+    return mid_files
 
 
 class AppState:
@@ -241,17 +251,6 @@ class AppState:
                     self.channel_to_renderer[d].visible = False
         else:
             self.clean_channels()
-
-
-def get_mid_files(remote_url: str):
-    mid_files = []
-    if remote_url != "":
-        pass
-    else:
-        for filename in os.listdir(MID_FILES_DIR):
-            if filename.endswith(".mid") or filename.endswith(".mid.gz"):
-                mid_files.append(filename.split(".")[0])
-    return mid_files
 
 
 def main():
