@@ -83,6 +83,7 @@ def create_event_metadata_map(filepath: str) -> DefaultDict[str, EventMetadata]:
                 evt_metadata.extract(headers, line)
                 mp[line[0]] = evt_metadata
             i += 1
+    f.close()
     return mp
 
 
