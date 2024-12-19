@@ -283,13 +283,18 @@ class AppState:
     def render_event_metadata(self):
         return pn.pane.Markdown(f"""
        <style>
+       .title {{
+            text-align: center;
+            font-size: 20px;
+            font-weight: 500;
+       }}
         .styled-table {{
             width: 100%;
             margin: 0 auto;
             border-collapse: collapse;
+            font-size: 16px;
         }}
         .styled-table th, .styled-table td {{
-            border: 1px solid black;
             padding: 4px;
             text-align: center;
         }}
@@ -297,6 +302,7 @@ class AppState:
             background-color: #f2f2f2;
         }}
         </style>
+        <div class="title">Event Metadata</div>
         <table class="styled-table">
             <thead>
                 <tr>
@@ -313,7 +319,7 @@ class AppState:
                 </tr>
             </tbody>
         </table>
-    """, styles={'border': '2px solid black'})   
+    """)   
 
     def render_channels(self, detectors):
         detectors = set([d[1] for d in detectors])
