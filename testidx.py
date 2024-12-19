@@ -281,11 +281,11 @@ class AppState:
             )
 
     def render_event_metadata(self):
-        return pn.pane.Markdown(f"""
+        self.event_metadata_widget.object = f"""
        <style>
        .title {{
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 500;
        }}
         .styled-table {{
@@ -299,7 +299,9 @@ class AppState:
             text-align: center;
         }}
         .styled-table th {{
-            background-color: #f2f2f2;
+            background-color: #0072b5;
+            color: #ffffff;
+            border: black solid 1px;
         }}
         </style>
         <div class="title">Event Metadata</div>
@@ -319,7 +321,7 @@ class AppState:
                 </tr>
             </tbody>
         </table>
-    """)   
+    """
 
     def render_channels(self, detectors):
         detectors = set([d[1] for d in detectors])
@@ -412,6 +414,7 @@ def main():
             app_state.load_detectors(eventID)
             app_state.add_legend_glyph()
             app_state.load_event_metadata(eventID)
+            app_state.render_event_metadata()
             multichoice_detectors.options = app_state.detectors
             checkbox_toggle_detectors.disabled = False
 
@@ -423,7 +426,6 @@ def main():
             multichoice_detectors.value = []
             multichoice_detectors.value = app_state.detectors
             checkbox_toggle_detectors.value = True
-            return app_state.render_event_metadata()
 
     def toggle_detectors(state):
         multichoice_detectors.value = app_state.detectors if state else []
@@ -491,7 +493,7 @@ def main():
 
     main_layout = pn.template.MaterialTemplate(
         title="NSDF SLAC",
-        header=[evt_bind, toggle_detectors_bind, fig_bind],
+        header=[evt_bind,detectors_bind ,toggle_detectors_bind, fig_bind],
         sidebar=[
             select_scene,
             input_event,
@@ -499,7 +501,7 @@ def main():
             multichoice_detectors,
             checkbox_toggle_detectors,
             channels_grid,
-            detectors_bind
+            app_state.event_metadata_widget
         ],
         main=[app_state.fig],
         sidebar_width=420,
