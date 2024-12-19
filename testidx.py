@@ -16,6 +16,9 @@ from bokeh.models import (
 )
 import numpy as np
 import matplotlib.colors as mcolors
+import csv
+
+import param
 from svgs import *
 from bisect import bisect_left
 
@@ -25,6 +28,7 @@ from bisect import bisect_left
 
 MID_FILES_DIR = "./raw/"
 IDX_FILES_DIR = "./idx/"
+EVENT_METADATA_DIR = "./metadata/"
 COLORS = [
     "#ff0000",  # Red
     "#ffff00",  # Yellow
@@ -36,6 +40,24 @@ COLORS = [
 ]
 
 
+class EventMetadata:
+    def __init__(self):
+        self.trigger_type = ""
+        self.readout_type = ""
+        self.global_timestamp = ""
+
+    def extract(self, headers: List[str], metadata: List[str]):
+        for i, h in enumerate(headers):
+            match h.strip():
+                case "trigger_type":
+                    self.trigger_type = metadata[i].strip()
+                case "readout_type":
+                    self.readout_type = metadata[i].strip()
+                case "global_timestamp":
+                    self.global_timestamp = int(metadata[i].strip())
+                case _:
+                    continue
+
 def create_channel_metadata_map(filepath: str) -> DefaultDict[str, List]:
     mp = defaultdict(list)
     with open(filepath, "r") as f:
@@ -44,6 +66,23 @@ def create_channel_metadata_map(filepath: str) -> DefaultDict[str, List]:
             mp[channel_name].append(int(lo))
             mp[channel_name].append(int(hi))
     f.close()
+    return mp
+
+
+def create_event_metadata_map(filepath: str) -> DefaultDict[str, EventMetadata]:
+    mp = defaultdict(EventMetadata)
+    i = 0
+    headers = []
+    with open(filepath, "r") as f:
+        reader = csv.reader(f)
+        for line in reader:
+            if i == 0:
+                headers = line
+            else:
+                evt_metadata = EventMetadata()
+                evt_metadata.extract(headers, line)
+                mp[line[0]] = evt_metadata
+            i += 1
     return mp
 
 
@@ -81,6 +120,8 @@ class AppState:
         self.channel_to_renderer = defaultdict(GlyphRenderer)
         self.figure_title = ""
         self.detector_to_channels = defaultdict(List)
+        self.event_to_metadata = defaultdict(EventMetadata)
+        self.event_metadata: EventMetadata
 
         # widgets
         self.fig = self.new_fig("")
@@ -98,6 +139,9 @@ class AppState:
         self.last_event_button = pn.widgets.Button(
             icon=RIGHT_DOUBLE_ARROW, button_type="success", icon_size="1.5em"
         )
+        self.event_metadata_widget = pn.pane.Markdown("""
+        **Event Information**
+        """)
 
     def reset_gradient_idx(self):
         self.gradient_idx = 0
@@ -132,6 +176,9 @@ class AppState:
     def load_scene_data(self, mid_file):
         self.detector_to_channels = create_channel_metadata_map(
             os.path.join(IDX_FILES_DIR, f"{mid_file}_metadata.txt")
+        )
+        self.event_to_metadata = create_event_metadata_map(
+            os.path.join(EVENT_METADATA_DIR, f"{mid_file}.csv")
         )
         self.scene_data = ov.LoadDataset(
             os.path.join(IDX_FILES_DIR, f"{mid_file}.idx")
@@ -179,6 +226,9 @@ class AppState:
             self.channels_data = channels
         else:
             self.channels_data = []
+
+    def load_event_metadata(self, eventID):
+        self.event_metadata = self.event_to_metadata[eventID]
 
     def add_channel(self, channel_name, line: GlyphRenderer):
         self.channel_to_renderer[channel_name] = line
@@ -230,9 +280,43 @@ class AppState:
                 legend_label=f"D{d_num}", line_color=COLORS[int(d_num)], line_width=3
             )
 
+    def render_event_metadata(self):
+        return pn.pane.Markdown(f"""
+       <style>
+        .styled-table {{
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }}
+        .styled-table th, .styled-table td {{
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+        }}
+        .styled-table th {{
+            background-color: #f2f2f2;
+        }}
+        </style>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Trigger Type</th>
+                    <th>Readout Type</th>
+                    <th>Global Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{self.event_metadata.trigger_type}</td>
+                    <td>{self.event_metadata.readout_type}</td>
+                    <td>{self.event_metadata.global_timestamp}</td>
+                </tr>
+            </tbody>
+        </table>
+    """, styles={'border': '2px solid black'})   
+
     def render_channels(self, detectors):
         detectors = set([d[1] for d in detectors])
-
         # create renderers for new detectors, if any
         for channel in self.channels_data:
             channel_name, datarows = channel
@@ -321,6 +405,7 @@ def main():
             app_state.fig_deep_clean()
             app_state.load_detectors(eventID)
             app_state.add_legend_glyph()
+            app_state.load_event_metadata(eventID)
             multichoice_detectors.options = app_state.detectors
             checkbox_toggle_detectors.disabled = False
 
@@ -332,6 +417,7 @@ def main():
             multichoice_detectors.value = []
             multichoice_detectors.value = app_state.detectors
             checkbox_toggle_detectors.value = True
+            return app_state.render_event_metadata()
 
     def toggle_detectors(state):
         multichoice_detectors.value = app_state.detectors if state else []
@@ -372,7 +458,7 @@ def main():
     app_state.last_event_button.on_click(update_event_to_last)
 
     evt_bind = pn.bind(update_events, select_scene)
-    detectors_bind = pn.bind(update_detectors, input_event)
+    detectors_bind = pn.bind(update_detectors ,input_event)
     toggle_detectors_bind = pn.bind(toggle_detectors, checkbox_toggle_detectors)
     fig_bind = pn.bind(update_fig, multichoice_detectors)
     # ---------------------------------------------------
@@ -399,7 +485,7 @@ def main():
 
     main_layout = pn.template.MaterialTemplate(
         title="NSDF SLAC",
-        header=[evt_bind, detectors_bind, toggle_detectors_bind, fig_bind],
+        header=[evt_bind, toggle_detectors_bind, fig_bind],
         sidebar=[
             select_scene,
             input_event,
@@ -407,6 +493,7 @@ def main():
             multichoice_detectors,
             checkbox_toggle_detectors,
             channels_grid,
+            detectors_bind
         ],
         main=[app_state.fig],
         sidebar_width=420,
