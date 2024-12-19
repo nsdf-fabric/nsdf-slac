@@ -8,15 +8,16 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <fstream>
 
 const std::string MID_FILES_DIR="./raw/";
 const std::string NPZ_FILES_DIR="./mid_npz/";
+const std::string METADATA_FILES_DIR="./metadata/";
 const std::string delimeter = ".mid";
 
 std::string channelType(int t) {
     return t == 0 ? "Charge" : "Phonon";
 }
-
 std::string baselineControl(int b) {
     return b == 0 ? "Inactive" : "Active";
 }
@@ -48,6 +49,17 @@ void print2dVector(std::string fname, std::vector<std::vector<uint16_t>> v) {
     }
 }
 
+void extractEventMetadata(CDMSIOLIB::CDMS_EVENT evt, std::ofstream &file) {
+    file << std::to_string(evt.eventNumber) << ","
+         << evt.triggerTypeAsString() << ","
+         << evt.readoutTypeAsString() << ","
+         << std::to_string(evt.global_timestamp) << "\n";
+}
+
+void writeCsvHeaders(std::ofstream &file) {
+    file << "event,trigger_type,readout_type,global_timestamp\n";
+}
+
 std::string generateFilename(unsigned int evtID, int detectorNumber, CDMSIOLIB::CHANNEL &chan) {
     /*
      * Filename format:
@@ -72,7 +84,7 @@ std::vector<uint16_t> extractChannel(uint16_t* addr, int N) {
 }
 
 int main(int argc, char **argv) {
-  int eventsToRead = 1000000000;
+  int eventsToRead = 100;
   std::string filepath = "";
   if(argc == 2)  filepath = argv[1];
   
@@ -89,10 +101,18 @@ int main(int argc, char **argv) {
   std::string zipname = NPZ_FILES_DIR + basefile.substr(0, basefile.find(".mid")) + ".npz";
   if(std::filesystem::exists(zipname)) return 0;
 
+  // metadata file (trigger type, readout type, global timestamp)
+  std::string csvname = METADATA_FILES_DIR + basefile.substr(0, basefile.find(".mid")) + ".csv";
+  std::ofstream metadatafile(csvname);
+  bool csvExists = std::filesystem::exists(csvname);
+  writeCsvHeaders(metadatafile);
+
   while (eventsToRead--) {
     try { event = reader.GetNextEvent();} 
     catch (const std::exception&) { break;}
     
+    extractEventMetadata(event, metadatafile);
+    continue;
     // Parse the channels (Event-> Detectors-> Channels)
     int numberOfDetectors = event.detectors.size();
     std::string fname = "";
@@ -119,4 +139,5 @@ int main(int argc, char **argv) {
         }
     }
   }
+  metadatafile.close();
 }
