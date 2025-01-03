@@ -5,11 +5,12 @@ download:
 genidx:
 	@python idx.py
 panel:
-	@panel serve testidx.py --dev --show
-
+	@panel serve slacidx.py --dev --show
 publish:
-	@panel serve testidx.py --address='0.0.0.0' --allow-websocket-origin='*'  --port=10220
+	@panel serve slacidx.py --address='0.0.0.0' --allow-websocket-origin='*'  --port=10220
 run:
 	@docker run --rm -p 10325:10325 slac
+runidx:
+	@docker run --rm -p 10001:10001 dashboardidx
 kill:
 	@kill $$(lsof -i:10325)

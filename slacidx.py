@@ -17,8 +17,6 @@ from bokeh.models import (
 import numpy as np
 import matplotlib.colors as mcolors
 import csv
-
-import param
 from svgs import *
 from bisect import bisect_left
 
@@ -509,6 +507,5 @@ def main():
     )
 
     main_layout.servable()
-
 
 main()
