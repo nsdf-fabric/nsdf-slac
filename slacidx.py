@@ -40,9 +40,9 @@ COLORS = [
 
 class EventMetadata:
     def __init__(self):
-        self.trigger_type = ""
-        self.readout_type = ""
-        self.global_timestamp = ""
+        self.trigger_type = "Unknown"
+        self.readout_type = "None"
+        self.global_timestamp = 0
 
     def extract(self, headers: List[str], metadata: List[str]):
         for i, h in enumerate(headers):
