@@ -19,6 +19,7 @@ import matplotlib.colors as mcolors
 import csv
 from svgs import *
 from bisect import bisect_left
+from datetime import datetime, timezone
 
 
 # detectors_map = {'10000_2_Phonon4096': False, '10000_1_Phonon4096': False}
@@ -42,7 +43,7 @@ class EventMetadata:
     def __init__(self):
         self.trigger_type = "Unknown"
         self.readout_type = "None"
-        self.global_timestamp = 0
+        self.global_timestamp = "None"
 
     def extract(self, headers: List[str], metadata: List[str]):
         for i, h in enumerate(headers):
@@ -52,7 +53,8 @@ class EventMetadata:
                 case "readout_type":
                     self.readout_type = metadata[i].strip()
                 case "global_timestamp":
-                    self.global_timestamp = int(metadata[i].strip())
+                    dt = datetime.fromtimestamp(int(metadata[i].strip()), tz=timezone.utc)
+                    self.global_timestamp = dt.strftime('%A, %B %d, %Y %I:%M:%S %p UTC')
                 case _:
                     continue
 
