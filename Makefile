@@ -4,10 +4,12 @@ download:
 	@python download.py
 genidx:
 	@python idx.py
-panel:
+dev:
 	@panel serve slacidx.py --dev --show
 publish:
 	@panel serve slacidx.py --address='0.0.0.0' --allow-websocket-origin='*'  --port=10220
+build:
+	@docker build . -t dashboardidx -f Dockerfile.idx
 run:
 	@docker run --rm -p 10325:10325 slac
 runidx:
