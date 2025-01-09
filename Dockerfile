@@ -12,7 +12,7 @@ COPY metadata ./metadata
 
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
-EXPOSE 10325
+EXPOSE 10202
 
-CMD ["python3", "-m", "panel", "serve", "slac.py", "--address", "0.0.0.0" ,"--allow-websocket-origin", "*", "--port", "10325"]
+CMD ["python3", "-m", "panel", "serve", "slac.py", "--address", "0.0.0.0" ,"--allow-websocket-origin", "*", "--port", "10202"]
 

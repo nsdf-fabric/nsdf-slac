@@ -8,7 +8,7 @@ dev:
 build:
 	@docker build . -t dashboard -f Dockerfile
 run:
-	@docker run --rm -p 10325:10325 dashboard
+	@docker run --rm -p 10202:10202 dashboard
 cpp:
 	@g++ -o channel_extract channel_extract.cpp -L$$HOME/IOLibrary/lib -lcdmsio -I$$HOME/installroot/include -L$$HOME/installroot/lib -lCore -L$$HOME/installcnpy/lib -lcnpy -lz
 download:

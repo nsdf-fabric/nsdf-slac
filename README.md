@@ -27,7 +27,7 @@ The NSDF SLAC dashboard provides visualization for the detector channels of the 
 
 ## 📄 Requirements
 
-> If you already have Conda installed on your machine, skip to Installation.
+> If you already have Conda installed on your machine, skip to running the dashboard.
 
 To run the dashboard locally you will need to install [conda](https://docs.anaconda.com/miniconda/install/).
 
@@ -35,7 +35,7 @@ To run the dashboard locally you will need to install [conda](https://docs.anaco
 > Alternatively, you can use the following script to install Conda, but please note that it is provided "as-is" and might have some limitations.
 
 ```bash
-chmod +x setup-conda.sh \
+chmod +x setup-conda.sh &&
 ./setup-conda.sh
 ```
 
@@ -54,8 +54,8 @@ make create_env
 Alternatively, if you prefer to run the commands manually, you can execute the following:
 
 ```bash
-conda remove -n "slac" --all -y \
-conda create -n "slac" python==3.10 -y \
+conda remove -n "slac" --all -y &&
+conda create -n "slac" python==3.10 -y &&
 conda run -n slac pip install -r requirements.txt
 ```
 
@@ -108,27 +108,28 @@ make run
 Alternatively, if you prefer to run the command manually, you can execute the following:
 
 ```bash
-docker run --rm -p 10325:10325 dashboard
+docker run --rm -p 10202:10202 dashboard
 ```
 
 ## 📝 Docs
 
-[Dashboard.md](./docs/dashboard.md): In depth docs on each component from the dashboard.
+[Dashboard.md](./docs/dashboard.md): Docs on each component from the dashboard.
 
 ## Related Publications
 
-- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024.
-- Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society.
-- Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1
-- Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68
+- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
+- Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society, https://doi.org/10.1109/CLOUD60044.2023.00052.
+- Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1.
+- Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68.
 
 ## Copyright and License
 
 Copyright (c) 2025, NSDF
 
 The NSDF SLAC dashboard is distributed under terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) with LLVM Exceptions.
+
 See [LICENSE](./LICENSE) for more details.
 
 ## Acknowledgments
 
-This research is supported by the National Science Foundation (NSF) awards #2138811, #2103845, #2334945, #2138296, and #2331152. The work presented here is partly obtained using resources from ACCESS TG-CIS210128. We thank the Dataverse, Seal Storage, and Vargas Lab, led by Dr. Rodrigo Vargas.
+This research is supported by the National Science Foundation (NSF) awards #2138811, #2103845, #2334945, #2138296, and #2331152. The work presented here is partly obtained using resources from ACCESS TG-CIS210128. We thank the Dataverse, and Seal Storage.
