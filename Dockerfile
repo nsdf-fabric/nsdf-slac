@@ -5,15 +5,14 @@ RUN python3 -m pip install pip numpy matplotlib \
 RUN python3 -m pip install OpenVisusNoGui==2.2.128 
 
 WORKDIR /usr/src/channels_dashboard/
-COPY slacidx.py ./
-COPY svgs.py ./
+COPY slac.py ./
 COPY raw ./raw
 COPY idx ./idx
 COPY metadata ./metadata
 
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
-EXPOSE 10001
+EXPOSE 10325
 
-CMD ["python3", "-m", "panel", "serve", "slacidx.py", "--address", "0.0.0.0" ,"--allow-websocket-origin", "*", "--port", "10001"]
+CMD ["python3", "-m", "panel", "serve", "slac.py", "--address", "0.0.0.0" ,"--allow-websocket-origin", "*", "--port", "10325"]
 
