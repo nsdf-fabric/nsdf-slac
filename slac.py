@@ -468,7 +468,8 @@ def main():
         case_sensitive=False,
         search_strategy="includes",
         placeholder="Search Mid File",
-        value=app_state.mid_files[0])
+        value=app_state.mid_files[0],
+        min_characters=0)
 
     event_controls_tooltip = pn.widgets.TooltipIcon(
         value="first event, prev event, next event, last event"

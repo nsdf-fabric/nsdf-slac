@@ -1,405 +1,141 @@
-# nsdf-slac public data
+<p align="center">
+    <img src="assets/team_logo.png" width="1200" alt="Team logo">
+</p>
 
-- 6.4T bytes 
-- 39524 objects
+<div align="center">
+  <h1>NSDF Dark Matter Initiative</h1>
+</div>
+<br>
+<p align="center">
+  <a href="https://github.com/nsdf-fabric/nsdf-slac/issues" style="text-decoration:none;">
+    <img src="https://img.shields.io/github/issues/nsdf-fabric/nsdf-slac" alt="GitHub issues">
+  </a>
+ <img src="https://img.shields.io/github/commit-activity/w/nsdf-fabric/nsdf-slac" alt="GitHub commit activity">
+</p>
 
-## Access data with rclone
+## Overview
 
-install rclone:
+The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization dashboard and a command-line interface (CLI) for streamlined data download. Researchers can interactively explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
-```bash
-sudo apt install -y rclone
-```
+![Channel Dashboard](./assets/slacdashboard.png)
 
-Add this section to your `~/.config/rclone/rclone.conf`:
+## 🚀 Features
 
-```ini
-[slac_public]
-type = s3
-env_auth = false
-access_key_id = any
-secret_access_key = any
-endpoint=https://maritime.sealstorage.io/api/v0/s3
-```
+- **Explore .mid files**: Explore the events of .mid files in the browser with controls (first event, previous event, next event, last event).
+- **Search events**: Search for specific events using the autocomplete input.
+- **Visualization**: Visualize channel waveforms from multiple detectors.
+- **Channel isolation**: Select or deselect channels from one or more detectors.
+- **Event metadata**: View information about the trigger type, readout type, and timestamp of the events.
+- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the CLI.
+- **Workflow integration**: Leverage `idx_lib` to load and manipulate dark matter data in .idx format, enabling seamless integration into analysis pipelines and machine learning workflows.
 
-Access the data:
+## 📄 Requirements
 
-- note: If you get any SSL certificate problem pkease add `--no-check-certificate` to the rclone commands as a temporary workaround
+> If you already have Conda installed on your machine, skip to running the dashboard.
 
-```bash
+To run the dashboard locally you will need to install [conda](https://docs.anaconda.com/miniconda/install/).
 
-# list files
-rclone ls slac_public:utah/supercdms-data/CDMS/UMN
-
-# copy file
-rclone copy slac_public:utah/supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz .
-```
-
-## Access data with awscli
-
-install awscli:
-
-```bash
-sudo apt  install -y awscli
-
-python3 -m pip install awscli_plugin_endpoint
-```
-
-Add this to your `~/.aws/config` file:
-
-```ini
-[profile slac_public]
-output = json
-s3 =
-    endpoint_url = https://maritime.sealstorage.io/api/v0/s3
-    signature_version = s3v4
-    max_concurrent_requests = 48
-```
-
-Add this to your `~/.aws/credentials` file:
-
-
-```ini
-[slac_public]
-aws_access_key_id = any
-aws_secret_access_key = any
-```
-
-Access the data:
+> [!WARNING]
+> Alternatively, you can use the following script to install Conda, but please note that it is provided "as-is" and might have some limitations.
 
 ```bash
-
-alias s3='aws s3 --profile slac_public --endpoint-url https://maritime.sealstorage.io/api/v0/s3 --no-verify-ssl'
-
-# list files
-s3 ls s3://utah/supercdms-data/CDMS/UMN/
-
-# copy files
-s3 cp s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz .
+chmod +x setup-conda.sh &&
+./setup-conda.sh
 ```
 
+## 🖥️ Running the dashboard
 
-## Access data with s5cmd
+> **_NOTE:_** for the following use tag [v.0.0.1](https://github.com/nsdf-fabric/nsdf-slac/tree/v0.0.1)
 
-install s5cmd
+### 💻 Locally (development)
+
+#### Creating the environment
+
+To run the dashboard locally, you can use the following command to create a Conda environment with all necessary dependencies:
 
 ```bash
-curl -L https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_Linux-64bit.tar.gz | sudo tar xz -C /usr/bin
+make create_env
 ```
 
-Add this to your `~/.aws/config` file:
-
-```ini
-[profile slac_public]
-output = json
-s3 =
-    endpoint_url = https://maritime.sealstorage.io/api/v0/s3
-    signature_version = s3v4
-    max_concurrent_requests = 48
-```
-
-Add this to your `~/.aws/credentials` file:
-
-
-```ini
-[slac_public]
-aws_access_key_id = any
-aws_secret_access_key = any
-```
-
-Access the data:
+Alternatively, if you prefer to run the commands manually, you can execute the following:
 
 ```bash
-
-alias s5='s5cmd --profile slac_public  --endpoint-url https://maritime.sealstorage.io/api/v0/s3 --no-verify-ssl'
-
-# list files
-s5 ls s3://utah/supercdms-data/CDMS/UMN/
-
-# copy files
-s5 cp s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz .
-
-s5 du  --humanize "s3://utah/supercdms-data/*"
+conda remove -n "slac" --all -y &&
+conda create -n "slac" python==3.10 -y &&
+conda run -n slac pip install -r requirements.txt
 ```
 
+#### Development
 
-## Access data with python/boto3
-
-Install boto3
+Once the Conda environment is created, activate it with the following command:
 
 ```bash
-python3 -m pip install --upgrade boto3
+conda activate slac
 ```
 
-Create a `test_slac.py` file with the following content:
-
-```python
-
-import boto3
-from botocore.client import Config
-
-config = Config(signature_version = 's3v4')
-s3 = boto3.resource('s3',endpoint_url='https://maritime.sealstorage.io/api/v0/s3', aws_access_key_id='any', aws_secret_access_key='any', config=config, verify=False,)
-bucket = s3.Bucket("utah")
-
-# change this as needed
-key="supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0008.mid.gz"
-bucket.download_file(key,"example.mid.gz")
-print(f"file {key} downloaded")
-```
-
-Execute it:
+Then, to open the dashboard in your browser, execute the following:
 
 ```bash
-python3 test-test_slac.py
+make dev
 ```
 
-If you just want to access the head of the object:
-
-```python
-import boto3
-from botocore.client import Config
-
-config = Config(signature_version = 's3v4')
-from pprint import pprint
-
-# boto3.set_stream_logger(name='botocore')
-
-s3 = boto3.client('s3',
-    endpoint_url='https://maritime.sealstorage.io/api/v0/s3',
-    aws_access_key_id='any',
-    aws_secret_access_key='any',
-    config=config
-)
-
-# change this as needed
-h=s3.head_object(Bucket="utah",Key="supercdms-data/CDMS/UMN/R68/Raw/07180811_2320/07180811_2320_F0001.mid.gz")
-
-pprint(h)
-```
-It will print out:
-
-```
-{'AcceptRanges': 'bytes',
- 'ContentDisposition': 'inline; filename="07180811_2320_F0001.mid.gz"',
- 'ContentLength': 51324722,
- 'ContentType': 'application/gzip',
- 'ETag': '"da19bcf1d26252830e3c77ecb53cf697"',
- 'LastModified': datetime.datetime(2024, 2, 20, 17, 52, 36, tzinfo=tzutc()),
- 'Metadata': {'Mtime': '1534047716.951417509'},
- 'ResponseMetadata': {'HTTPHeaders': {'accept-ranges': 'bytes',
-                                      'access-control-expose-headers': 'Content-Disposition',
-                                      'content-disposition': 'inline; '
-                                                             'filename="07180811_2320_F0001.mid.gz"',
-                                      'content-length': '51324722',
-                                      'content-type': 'application/gzip',
-                                      'date': 'Fri, 23 Feb 2024 01:25:38 GMT',
-                                      'etag': '"da19bcf1d26252830e3c77ecb53cf697"',
-                                      'last-modified': 'Tue, 20 Feb 2024 '
-                                                       '17:52:36 GMT',
-                                      'x-amz-meta-mtime': '1534047716.951417509'},
-                      'HTTPStatusCode': 200,
-                      'RetryAttempts': 0}}
-```
-
-## (INTERNAL USE ONLY) Convert data
+Alternatively, if you prefer to run the command manually, you can execute the following:
 
 ```bash
-screen -S nsdf-transfer
-source .venv\bin\activate
-
-alias s5='s5cmd --profile slac_public  --endpoint-url https://maritime.sealstorage.io/api/v0/s3 --no-verify-ssl'
-
-python3 convert.py
-
-files=$(find /mnt/hdd2/supercdms-data/ -iname "*.json" | head -n 40)
-for it in ${files} ; do
-  grep "header" ${it} | wc -l
-  # grep data.npz ${it} | wc -l
-done
-
-
-s5 ls --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/*.mid.gz"
-
-# 2024/02/27 23:05:43             46.0M  07180808_1558_F0001.mid.gz
-# 2024/02/27 23:06:03            176.9M  07180808_1558_F0002.mid.gz
-# 2024/02/27 23:06:01            171.9M  07180808_1558_F0003.mid.gz
-# 2024/02/27 23:06:03            171.5M  07180808_1558_F0004.mid.gz
-# 2024/02/27 23:06:02            173.8M  07180808_1558_F0005.mid.gz
-# 2024/02/27 23:06:03            171.4M  07180808_1558_F0006.mid.gz
-# 2024/02/27 23:05:49            175.4M  07180808_1558_F0007.mid.gz
-# 2024/02/27 23:05:54            172.7M  07180808_1558_F0008.mid.gz
-# 2024/02/27 23:06:04            172.7M  07180808_1558_F0009.mid.gz
-# 2024/02/27 23:06:03            142.9M  07180808_1558_F0010.mid.gz
-
-s5 ls --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/*.mid.gz"
-
-# 2024/02/27 23:05:43             46.0M  07180808_1558_F0001.mid.gz -> 59.2M
-# 2024/02/27 23:06:03            176.9M  07180808_1558_F0002.mid.gz -> 215M
-# 2024/02/27 23:06:01            171.9M  07180808_1558_F0003.mid.gz -> 209M
-# 2024/02/27 23:06:03            171.5M  07180808_1558_F0004.mid.gz
-# 2024/02/27 23:06:02            173.8M  07180808_1558_F0005.mid.gz
-# 2024/02/27 23:06:03            171.4M  07180808_1558_F0006.mid.gz
-# 2024/02/27 23:05:49            175.4M  07180808_1558_F0007.mid.gz
-# 2024/02/27 23:05:54            172.7M  07180808_1558_F0008.mid.gz
-# 2024/02/27 23:06:04            172.7M  07180808_1558_F0009.mid.gz
-# 2024/02/27 23:06:03            142.9M  07180808_1558_F0010.mid.gz
-
-s5 du --humanize "s3://utah/supercdms-data/CDMS/UMN/R68/Raw/07180808_1558/07180808_1558_F0001/*"
-
-
-
+panel serve slac.py --dev --show
 ```
 
+### 🐳 Docker
 
-## (INTERNAL USE ONLY) Transfer Data to the Public
+Docker can be used as an alternative method for running and deploying the dashboard. Ensure you have installed [Docker](https://www.docker.com/get-started/) and that the Docker daemon is running on your machine.
 
-You need credentials to SLAC data  from `nsdf-vault`
+#### Building the image
 
+To build the Docker image, run the following:
 
 ```bash
-
-# this is the prefix
-PREFIX=supercdms-data/CDMS/UMN
-
-# rclone 
-rclone ls slac_private:${PREFIX}/
-
-# aws
-aws s3 --profile slac_private ls s3://${PREFIX}/
-
-# s5cmd
-s5cmd --endpoint-url=https://ncsa.osn.xsede.org --profile slac_private --numworkers 64 ls  "s3://${PREFIX}/*"
-s5cmd --endpoint-url=https://ncsa.osn.xsede.org --profile slac_private --numworkers 64 du  --humanize "s3://${PREFIX}/*"
+make build
 ```
 
-To sync data between different endpoints, I need to use rclone
-- See https://towardsdatascience.com/managing-your-cloud-based-data-storage-with-rclone-32fff991e0b3
+Alternatively, if you prefer to run the command manually, you can execute the following:
 
 ```bash
-# better to use a screen session
-screen -S nsdf-slac-data-transfer
-
-# you can use rclone...
-while [[ 1 == 1 ]] ; do
-  rclone --progress  --transfers 16  --size-only sync  slac_private://${PREFIX} slac_public://utah/${PREFIX}
-done
-
-# or see transfer.py which add a checksum
-# ...
-
+docker build . -t dashboard -f Dockerfile
 ```
 
+#### Running the container
 
-
-
-# Install cvmfs
-
+To run the Docker container, execute the following:
 
 ```bash
-# https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
-wget https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
-sudo dpkg -i cvmfs-release-latest_all.deb
-rm -f cvmfs-release-latest_all.deb
-sudo apt-get update
-sudo apt-get install cvmfs
-
-# for windows WSL2
-# ln -s /usr/kill /usr/bin/kill
-# sudo cvmfs_config wsl2_start
-
-sudo cvmfs_config setup
-
-REPOS="
-ams.cern.ch
-annie.opensciencegrid.org
-argoneut.opensciencegrid.org
-atlas.cern.ch
-cdarkside.opensciencegrid.org
-cdf.opensciencegrid.org
-cdms.opensciencegrid.org
-cms.cern.ch
-cms.osgstorage.org
-cms-ib.cern.ch
-config-osg.opensciencegrid.org
-connect.opensciencegrid.org
-coupp.opensciencegrid.org
-d0.opensciencegrid.org
-des.opensciencegrid.org
-des.osgstorage.org
-dune.opensciencegrid.org
-fermilab.opensciencegrid.org
-gm2.opensciencegrid.org
-grid.cern.ch
-gwosc.osgstorage.org
-icarus.opensciencegrid.org
-icecube.opensciencegrid.org
-lariat.opensciencegrid.org
-ligo.osgstorage.org
-ligo-containers.opensciencegrid.org
-minerva.opensciencegrid.org
-minerva.osgstorage.org
-minos.opensciencegrid.org
-mu2e.opensciencegrid.org
-mu2e.osgstorage.org
-nexo.opensciencegrid.org
-nova.opensciencegrid.org
-nova.osgstorage.org
-oasis.opensciencegrid.org
-sbnd.opensciencegrid.org
-seaquest.opensciencegrid.org
-sft.cern.ch
-singularity.opensciencegrid.org
-snoplus.egi.eu
-spt.opensciencegrid.org
-stash.osgstorage.org
-uboone.opensciencegrid.org
-uboone.osgstorage.org
-veritas.opensciencegrid.org
-xenon.opensciencegrid.org
-"
-
-REPOS_COMMA_SEP=$(echo $REPOS | xargs | sed -e 's/ /,/g')
-
-cat << EOF | sudo tee /etc/cvmfs/default.local
-CVMFS_REPOSITORIES=${REPOS_COMMA_SEP}
-CVMFS_QUOTA_LIMIT=20000
-CVMFS_HTTP_PROXY=DIRECT
-EOF
-
-cvmfs_config probe
+make run
 ```
 
-# cvmfs run docker
-
+Alternatively, if you prefer to run the command manually, you can execute the following:
 
 ```bash
-
-docker run -ti \
-  -w ${PWD} \
-  -v /cvmfs:/cvmfs \
-  -v ${PWD}:${PWD} \
-  centos:7  \
-  /bin/bash
-
-yum install -y which
-
-# Ihink this command install python packages
-pushd /cvmfs/cdms.opensciencegrid.org
-
-#./setup_cdms.sh -L
-source setup_cdms.sh V04-10
-
-popd
-
-# check I have all packages
-
-# /cvmfs/cdms.opensciencegrid.org/releases/centos7/V04-08/lib/python3.7/site-packages/CDMSDataCatalog
-python -c "import CDMSDataCatalog"
-
-# http://titus.stanford.edu:8080/git/summary/?r=Analysis/pyRawIO.git
-# find ./releases/centos7/V04-08 -iname "*rawio*"
-# ./releases/centos7/V04-08/lib/python3.7/site-packages/rawio
-python -c "import rawio"
+docker run --rm -p 10202:10202 dashboard
 ```
 
+## 📝 Docs
+
+[Dashboard.md](./docs/dashboard.md): Docs on each component from the dashboard.
+
+## Related Publications
+
+- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
+- Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society, https://doi.org/10.1109/CLOUD60044.2023.00052.
+- Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1.
+- Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68.
+
+## Copyright and License
+
+Copyright (c) 2025, NSDF
+
+The NSDF SLAC dashboard is distributed under terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) with LLVM Exceptions.
+
+See [LICENSE](./LICENSE) for more details.
+
+## Acknowledgments
+
+This research is supported by the National Science Foundation (NSF) awards #2138811, #2103845, #2334945, #2138296, and #2331152. The work presented here is partly obtained using resources from ACCESS TG-CIS210128. We thank the Dataverse, and Seal Storage.
