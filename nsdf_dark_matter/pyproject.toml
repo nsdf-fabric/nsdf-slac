@@ -1,0 +1,17 @@
+[project]
+name = "nsdf-dark-matter"
+version = "0.1.0"
+description = "Library for reading and processing dark matter data in IDX format"
+readme = "README.md"
+authors = [
+    { name = "NSDF Team", email = "info@nationalsciencedatafabric.org" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "OpenVisusNoGui==2.2.128"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
