@@ -623,7 +623,7 @@ def main():
             channels_grid[i].disabled = False if i < limit else True
 
     main_layout = pn.template.MaterialTemplate(
-        title="NSDF SLAC",
+        title="NSDF Dark Matter",
         header=[evt_bind, detectors_bind, toggle_detectors_bind, fig_bind],
         sidebar=[
             select_scene,
