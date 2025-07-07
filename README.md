@@ -22,7 +22,7 @@ and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of 
 
 ## 🚀 Features
 
-- ** Web-based visualization:** Explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser.
+- **Web-based visualization:** Explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser.
 - **Search events**: Search for specific events using the autocomplete input.
 - **Visualization**: Visualize channel waveforms from multiple detectors.
 - **Channel isolation**: Select or deselect channels from one or more detectors.
@@ -32,16 +32,16 @@ and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of 
 
 ## ⚙️Workflow Suite
 
-### NSDF Dark Matter Dashboard
+### 📊 NSDF Dark Matter Dashboard
 
 The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter) provides a web-based interface to visualize and explore dark matter data all within the browser. Learn about the controls that make the dashboard from [dashboard guide](./docs/dashboard.md).
 
-### NSDF Dark Matter CLI
+### 🖥️ NSDF Dark Matter CLI
 
 The [NSDF Dark Matter CLI](./nsdf_dark_matter_cli) offers a pool of operations to access the R68 dark matter dataset. The CLI can be used as part of a workflow to download data which can
 then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter).
 
-### NSDF Dark Matter Library
+### 📚 NSDF Dark Matter Library
 
 The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations to manipulate dark matter data from getting event metadata to detector channel data acquisition. Learn about the library usage in [library guide](./nsdf_dark_matter).
 
