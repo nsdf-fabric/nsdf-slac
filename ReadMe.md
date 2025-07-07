@@ -15,107 +15,35 @@
 
 ## Overview
 
-The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization dashboard, a command-line interface (CLI) for streamlined data download in workflows, and a . Researchers can interactively explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
+The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
+and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
 ![Channel Dashboard](./assets/slacdashboard.png)
 
 ## 🚀 Features
 
-- **Explore .mid files**: Explore the events of .mid files in the browser with controls (first event, previous event, next event, last event).
+- ** Web-based visualization:** Explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser.
 - **Search events**: Search for specific events using the autocomplete input.
 - **Visualization**: Visualize channel waveforms from multiple detectors.
 - **Channel isolation**: Select or deselect channels from one or more detectors.
 - **Event metadata**: View information about the trigger type, readout type, and timestamp of the events.
-- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the `nsdf_dark_matter_cli`.
-- **Workflow integration**: Leverage `nsdf_dark_matter` library to load and manipulate dark matter data, enabling seamless integration into workflow pipelines and machine learning workflows.
+- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./nsdf_dark_matter_cli).
+- **Workflow integration**: Leverage [NSDF Dark Matter Library](./nsdf_dark_matter/) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 
-## 📄 Requirements
+## ⚙️Workflow Suite
 
-> If you already have Conda installed on your machine, skip to running the dashboard.
+### NSDF Dark Matter Dashboard
 
-To run the dashboard locally you will need to install [conda](https://docs.anaconda.com/miniconda/install/).
+The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter) provides a web-based interface to visualize and explore dark matter data all within the browser. Learn about the controls that make the dashboard from [dashboard guide](./docs/dashboard.md).
 
-> [!WARNING]
-> Alternatively, you can use the following script to install Conda, but please note that it is provided "as-is" and might have some limitations.
+### NSDF Dark Matter CLI
 
-```bash
-chmod +x setup-conda.sh &&
-./setup-conda.sh
-```
+The [NSDF Dark Matter CLI](./nsdf_dark_matter_cli) offers a pool of operations to access the R68 dark matter dataset. The CLI can be used as part of a workflow to download data which can
+then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter).
 
-## 🖥️ Running the dashboard
+### NSDF Dark Matter Library
 
-> **_NOTE:_** for the following use tag [v.0.0.1](https://github.com/nsdf-fabric/nsdf-slac/tree/v0.0.1)
-
-### 💻 Locally (development)
-
-#### Creating the environment
-
-To run the dashboard locally, you can use the following command to create a Conda environment with all necessary dependencies:
-
-```bash
-make create_env
-```
-
-Alternatively, if you prefer to run the commands manually, you can execute the following:
-
-```bash
-conda remove -n "slac" --all -y &&
-conda create -n "slac" python==3.10 -y &&
-conda run -n slac pip install -r requirements.txt
-```
-
-#### Development
-
-Once the Conda environment is created, activate it with the following command:
-
-```bash
-conda activate slac
-```
-
-Then, to open the dashboard in your browser, execute the following:
-
-```bash
-make dev
-```
-
-Alternatively, if you prefer to run the command manually, you can execute the following:
-
-```bash
-panel serve slac.py --dev --show
-```
-
-### 🐳 Docker
-
-Docker can be used as an alternative method for running and deploying the dashboard. Ensure you have installed [Docker](https://www.docker.com/get-started/) and that the Docker daemon is running on your machine.
-
-#### Building the image
-
-To build the Docker image, run the following:
-
-```bash
-make build
-```
-
-Alternatively, if you prefer to run the command manually, you can execute the following:
-
-```bash
-docker build . -t dashboard -f Dockerfile
-```
-
-#### Running the container
-
-To run the Docker container, execute the following:
-
-```bash
-make run
-```
-
-Alternatively, if you prefer to run the command manually, you can execute the following:
-
-```bash
-docker run --rm -p 10202:10202 dashboard
-```
+The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations to manipulate dark matter data from getting event metadata to detector channel data acquisition. Learn about the library usage in [library guide](./nsdf_dark_matter).
 
 ## 📝 Docs
 
@@ -123,7 +51,7 @@ docker run --rm -p 10202:10202 dashboard
 
 ## Related Publications
 
-- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
+- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorze⚙️lli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
 - Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society, https://doi.org/10.1109/CLOUD60044.2023.00052.
 - Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1.
 - Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68.
