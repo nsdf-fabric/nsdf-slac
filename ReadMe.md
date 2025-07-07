@@ -15,7 +15,7 @@
 
 ## Overview
 
-The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization dashboard and a command-line interface (CLI) for streamlined data download. Researchers can interactively explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
+The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization dashboard, a command-line interface (CLI) for streamlined data download in workflows, and a . Researchers can interactively explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
 ![Channel Dashboard](./assets/slacdashboard.png)
 
@@ -26,8 +26,8 @@ The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessin
 - **Visualization**: Visualize channel waveforms from multiple detectors.
 - **Channel isolation**: Select or deselect channels from one or more detectors.
 - **Event metadata**: View information about the trigger type, readout type, and timestamp of the events.
-- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the CLI.
-- **Workflow integration**: Leverage `idx_lib` to load and manipulate dark matter data in .idx format, enabling seamless integration into analysis pipelines and machine learning workflows.
+- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the `nsdf_dark_matter_cli`.
+- **Workflow integration**: Leverage `nsdf_dark_matter` library to load and manipulate dark matter data, enabling seamless integration into workflow pipelines and machine learning workflows.
 
 ## 📄 Requirements
 

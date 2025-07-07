@@ -1,8 +1,0 @@
-numpy
-matplotlib
-bokeh==3.2.2
-panel
-openvisuspy
-ipykernel
-OpenVisusNoGui==2.2.128
-boto3==1.35.99
