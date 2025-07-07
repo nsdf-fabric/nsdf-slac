@@ -4,7 +4,7 @@ from rich import print as richprint
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing_extensions import Annotated
-from r68_dataset import R68_DATASET
+from nsdf_dark_matter_cli.r68_dataset import R68_DATASET
 from concurrent.futures import ThreadPoolExecutor
 import os
 import requests
@@ -61,7 +61,7 @@ def download_processed_files(midfile: str):
     if os.path.exists(local_path):
         return
 
-    response = requests.get("http://localhost:8000/gen-url", params={"filename" : midfile})
+    response = requests.get("http://localhost:17600/api/v1/darkmatter/gen-url", params={"filename" : midfile})
 
     if response.status_code != 200:
         typer.secho("could not retrieve object resource", fg=typer.colors.RED)
@@ -144,7 +144,3 @@ def download(
             richprint(
                 f"[bold red]Error fetching the processed files for {filename} {e}[/bold red]"
             )
-
-
-if __name__ == "__main__":
-    app()

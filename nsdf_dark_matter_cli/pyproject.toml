@@ -3,10 +3,16 @@ name = "nsdf-dark-matter-cli"
 version = "0.1.0"
 description = "NSDF Dark Matter CLI"
 readme = "README.md"
+authors = [
+    { name = "NSDF Team", email = "info@nationalsciencedatafabric.org" }
+]
 requires-python = ">=3.10"
 dependencies = [
+    "typer==0.16.0",
     "boto3==1.35.99",
-    "requests==2.32.3",
-    "python-dotenv==1.0.1",
-    "typer==0.15.1"
+    "requests==2.32.4",
+    "python-dotenv==1.0.1"
 ]
+
+[project.scripts]
+nsdf-cli = "nsdf_dark_matter_cli.cli:app"
