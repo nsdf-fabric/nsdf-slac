@@ -18,17 +18,17 @@
 The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
 and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
-![Channel Dashboard](./assets/slacdashboard.png)
+![Channel Dashboard](./assets/dashboard/slacdashboard.png)
 
 ## 🚀 Features
 
-- **Web-based visualization:** Explore .mid files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps—all within the browser.
+- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser.
+- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./docs/cli.md).
+- **Workflow integration**: Leverage [NSDF Dark Matter Library](./docs/library.md) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 - **Search events**: Search for specific events using the autocomplete input.
 - **Visualization**: Visualize channel waveforms from multiple detectors.
 - **Channel isolation**: Select or deselect channels from one or more detectors.
 - **Event metadata**: View information about the trigger type, readout type, and timestamp of the events.
-- **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./nsdf_dark_matter_cli).
-- **Workflow integration**: Leverage [NSDF Dark Matter Library](./nsdf_dark_matter/) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 
 ## ⚙️Workflow Suite
 
@@ -39,15 +39,11 @@ The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/
 ### 🖥️ NSDF Dark Matter CLI
 
 The [NSDF Dark Matter CLI](./nsdf_dark_matter_cli) offers a pool of operations to access the R68 dark matter dataset. The CLI can be used as part of a workflow to download data which can
-then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter).
+then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter). Learn about the CLI from [CLI guide](./docs/cli.md).
 
 ### 📚 NSDF Dark Matter Library
 
-The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations to manipulate dark matter data from getting event metadata to detector channel data acquisition. Learn about the library usage in [library guide](./nsdf_dark_matter).
-
-## 📝 Docs
-
-[Dashboard.md](./docs/dashboard.md): Docs on each component from the dashboard.
+The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations to manipulate dark matter data from getting event metadata to detector channel data acquisition. Learn about the library usage in [library guide](./docs/library.md).
 
 ## Related Publications
 
@@ -66,4 +62,4 @@ See [LICENSE](./LICENSE) for more details.
 
 ## Acknowledgments
 
-This research is supported by the National Science Foundation (NSF) awards #2138811, #2103845, #2334945, #2138296, and #2331152. The work presented here is partly obtained using resources from ACCESS TG-CIS210128. We thank the Dataverse, and Seal Storage.
+This research is supported by the National Science Foundation (NSF) awards #2138811, #2103845, #2334945, #2138296, and #2331152. The work presented here is partly obtained using resources from ACCESS TG-CIS210128. We thank the Scientist Cloud Storage.

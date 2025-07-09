@@ -49,4 +49,4 @@ idx/
 
 ## What's Next?
 
-Now that you have some data, it’s time to dive into analysis! Head over to the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter) to learn how to start working with the dataset.
+Now that you have some data, it’s time to dive into analysis! Head over to the [NSDF Dark Matter Library guide](./library.md) to learn how to start working with the dataset.
