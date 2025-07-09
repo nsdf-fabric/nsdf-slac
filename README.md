@@ -22,7 +22,7 @@ and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of 
 
 ## 🚀 Features
 
-- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser.
+- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./docs/cli.md).
 - **Workflow integration**: Leverage [NSDF Dark Matter Library](./docs/library.md) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 - **Search events**: Search for specific events using the autocomplete input.
@@ -47,7 +47,7 @@ The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations t
 
 ## Related Publications
 
-- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorze⚙️lli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
+- Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
 - Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society, https://doi.org/10.1109/CLOUD60044.2023.00052.
 - Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1.
 - Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68.

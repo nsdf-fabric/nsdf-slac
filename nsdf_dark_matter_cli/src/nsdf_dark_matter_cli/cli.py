@@ -13,7 +13,7 @@ IDX_FILES_DIR = "./idx"
 MID_PATTERN = r"^\d{8}_\d{4}_F\d{4}$"
 FILE_PATTERN = r"^\d{8}_\d{4}_F\d{4}\.mid\.gz$"
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 
 
 def download_file(local_path, midfile, kv):
@@ -61,7 +61,7 @@ def download_processed_files(midfile: str):
     if os.path.exists(local_path):
         return
 
-    response = requests.get("http://localhost:17600/api/v1/darkmatter/gen-url", params={"filename" : midfile})
+    response = requests.get("https://services.nationalsciencedatafabric.org/api/v1/darkmatter/gen-url", params={"filename" : midfile})
 
     if response.status_code != 200:
         typer.secho("could not retrieve object resource", fg=typer.colors.RED)
@@ -75,8 +75,7 @@ def download_processed_files(midfile: str):
             executor.submit(download_file, local_path, midfile, kv)
 
 
-app = typer.Typer(no_args_is_help=True, help="NSDF SLAC CLI")
-configpath, credpath = ".aws/config", ".aws/credentials"
+app = typer.Typer(no_args_is_help=True, help="NSDF Dark Matter CLI")
 console = Console()
 
 
