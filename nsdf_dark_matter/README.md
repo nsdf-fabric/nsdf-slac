@@ -1,8 +1,9 @@
 # NSDF Dark Matter Library
 
 The `nsdf_dark_matter` library offers a pool of operations to manipulate dark matter data. The R68 dataset can be processed with the library.
+Check out the [library guide](https://github.com/nsdf-fabric/nsdf-slac/blob/main/docs/library.md) for a step by step walkthrough.
 
-### Library usage example
+### Library Usage Example
 
 ```python
 from nsdf_dark_matter.idx import CDMS, load_all_data

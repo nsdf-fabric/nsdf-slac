@@ -1,54 +1,52 @@
-# NSDF SLAC CLI
+# NSDF Dark Matter CLI
 
-The NSDF SLAC CLI provides a way to access all the processed dark matter data in remote storage. It is composed of a few
-commands to enable data access.
+The `nsdf_dark_matter` CLI offers a pool of operations to access and download the R68 dark matter dataset. The CLI serves as a top level component in a workflow to download data which can
+then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter)
 
-## Prerequisites
+## Getting Started
 
-In order to use the CLI, you will need to setup the credentials. This can be done in two ways.
+To explore all available CLI commands and options, run the following help command:
 
-1. config command: The config command sets up the credentials for you.
+![Help Command](../assets/cli/cli-help.gif)
 
-2. manually: If you would rather setup the credentials, you will need to specify the profile, and credentials
-   as follows:
+### Listing remote files
 
-```bash
-# ~/.aws/config
-[example-profile]
-region = us-east-1
-output = json
-s3 =
-    endpoint_url = https://example-endpoint.com
-    signature_version = s3v4
-    max_concurrent_requests = 4
-```
+Want to know what files are available to download? Use the ls command to list them. You can also limit how many results you see by passing the `--limit` flag.
+
+![List command](../assets/cli/cli-ls.gif)
 
 ```bash
-# ~/.aws/credentials
-[example-profile]
-aws_access_key_id = access-key-example
-aws_secret_access_key = secret-access-key-example
+nsdf-cli ls --limit 5
 ```
 
-## Local setup
-
-To run locally, you sure to have the following credentials in a `.env` file in the same level as the cli.
+Looking for something specific? Use the `--prefix` flag to filter files by name:
 
 ```bash
-ENDPOINT_URL="your-endpoint-url"
-AWS_ACCESS_KEY_ID="your-aws-access-key-id"
-AWS_SECRET_ACCESS_KEY="your-aws-secret-access-key"
-BUCKET_NAME="your-bucket-name"
+nsdf-cli ls --prefix 07180928_2310
 ```
 
-Then, you can download data as follows
+### Downloading a dataset locally
+
+Once you've found the file you want, downloading it is easy with the `download` command:
+
+![Download Command](../assets/cli/cli-download.gif)
 
 ```bash
-python cli.py download <mid-file>
+nsdf-cli download 07180827_0000_F0001
 ```
 
-## Commands
+Downloaded files go into the idx directory, and each one gets its own subfolder based on the mid_id. After downloading a few datasets, your folder might look like this:
 
-- **version**: The version command provides the semantic versioning of the CLI
-- **config**: The config command sets up the credentials to be able to access the processed dark matter data.
-- **download**: The download command allows the user to download all the associated processed files related to a mid file.
+```console
+idx/
+   |
+   07180925_0000_F0001/
+   |
+   07181007_0000_F0001/
+   |
+   07180916_0000_F0002/
+```
+
+## What's Next?
+
+Now that you have some data, it’s time to dive into analysis! Head over to the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter) to learn how to start working with the dataset.
