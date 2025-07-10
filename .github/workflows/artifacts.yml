@@ -40,6 +40,7 @@ jobs:
             SUFFIX="windows"
           else
             SUFFIX="linux"
+          fi
 
           mv "$WHEEL" "$(basename "$WHEEL" .whl)-$SUFFIX.whl"
 
