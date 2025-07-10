@@ -1,0 +1,51 @@
+name: Build CLI Artifact
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Build CLI wheel
+        run: |
+          cd nsdf_dark_matter_cli
+          uv build
+
+        shell: bash
+      - name: Rename wheel with OS suffix
+        run: |
+          cd nsdf_dark_matter_cli/dist
+          WHEEL=$(ls *.whl)
+
+          if [[ "${matrix.os}" == "macos-latest" ]]; then
+            SUFFIX="macos"
+          elif [[ "${matrix.os}" == "windows-latest" ]]; then
+            SUFFIX="windows"
+          else
+            SUFFIX="linux"
+
+          mv "$WHEEL" "$(basename "$WHEEL" .whl)-$SUFFIX.whl"
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: nsdf_dark_matter_cli/dist/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
