@@ -9,6 +9,10 @@ To explore all available CLI commands and options, run the following help comman
 
 ![Help Command](../assets/cli/cli-help.gif)
 
+```bash
+nsdf-cli --help
+```
+
 ### Listing remote files
 
 Want to know what files are available to download? Use the ls command to list them. You can also limit how many results you see by passing the `--limit` flag.
