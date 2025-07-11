@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="assets/team_logo.png" width="1200" alt="Team logo">
+    <img src="./docs/assets/team/team_logo.png" width="1200" alt="Team logo">
 </p>
 
 <div align="center">
@@ -18,9 +18,9 @@
 The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
 and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
-![Channel Dashboard](./assets/dashboard/slacdashboard.png)
+![Channel Dashboard](./docs/assets/dashboard/slacdashboard.png)
 
-## 🚀 Features
+## 🧰 Features
 
 - **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./docs/cli.md).

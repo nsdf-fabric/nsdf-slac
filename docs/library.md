@@ -6,9 +6,9 @@ Once you've downloaded the dataset using the NSDF Dark Matter CLI, this library 
 ## Prerequisites
 
 If you do not have already an `idx` directory with dark matter datasets, you can check the [CLI guide](./cli.md) for a step by step walkthrough
-on how to obtain a dataset.
+on how to obtain a dataset. If you are following from the CLI guide you can use the same environment and skip to [Installing the Library]()
 
-## Getting Started
+## 🚀 Getting Started
 
 To begin, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
 
@@ -16,7 +16,7 @@ In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a vir
 
 > **_NOTE:_** If you prefer, you can use a different environment manager such as [conda](https://www.anaconda.com/docs/getting-started/miniconda/main) or Python's built-in [venv](https://docs.python.org/3/library/venv.html).
 
-### 🧪 Creating the environment
+### Creating the environment
 
 To create a new virtual environment using uv, run the following command in your terminal:
 
@@ -26,7 +26,7 @@ uv venv darkmatter_lib_env --python 3.10
 
 This creates an isolated Python environment named darkmatter_env.
 
-### ⚡Activating the environment
+### Activating the environment
 
 Next, activate the environment with:
 
@@ -36,7 +36,7 @@ source darkmatter_lib_env/bin/activate
 
 You should now see the environment name in your terminal prompt, indicating it’s active.
 
-### 🚀 Installing the Library
+### Installing the Library
 
 We are ready to install the library. First, download the `wheel` file.
 
@@ -51,6 +51,8 @@ uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
 ```
 
 That's it! The library is now installed and ready to use. We can start working with it.
+
+## 📚 NSDF Dark Matter Library
 
 ### Importing the Library
 
@@ -69,6 +71,8 @@ To work with the different operations of the library, we need to start by loadin
 cdms = load_all_data('idx/07180827_0000_F0001')
 ```
 
+## ⚡Event Methods
+
 ### Getting event IDs
 
 We can query for all the event IDs of the dataset like so.
@@ -84,6 +88,21 @@ Let's fetch the event metadata of our first event with the `get_event_metadata` 
 ```python
 metadata = cdms.get_event_metadata(event_ids[0])
 ```
+
+### Getting All Detectors of an Event
+
+We can query to all the detectors of an event with the `get_detectors_by_event` method.
+Let's do that for our last event.
+
+```python
+dec_ids = cdms.get_detectors_by_event(event_ids[-1])
+
+# channel data for those detectors
+for detector_id in dec_ids:
+    channel_data = cdms.get_detector_channels(detector_id)
+```
+
+## ⚙️Detector methods
 
 ### Getting Detector IDs
 
@@ -101,20 +120,7 @@ Let's get the channel data for our first detector with the `get_detector_channel
 channel_data =  cdms.get_detector_channels(detector_ids[0])
 ```
 
-### Getting All Detectors of an Event
-
-We can query to all the detectors of an event with the `get_detectors_by_event` method.
-Let's do that for our last event.
-
-```python
-dec_ids = cdms.get_detectors_by_event(event_ids[-1])
-
-# channel data for those detectors
-for detector_id in dec_ids:
-    channel_data = cdms.get_detector_channels(detector_id)
-```
-
-### Full Example
+## Full Example
 
 ```python
 from nsdf_dark_matter.idx import load_all_data
@@ -128,20 +134,20 @@ event_ids = cdms.get_event_ids()
 # getting the metadata for the first event
 metadata = cdms.get_event_metadata(event_ids[0])
 
-# getting all detector ids
-detector_ids = cdms.get_detector_ids()
-
-# getting channels associated with a the first detector id
-channel_data =  cdms.get_detector_channels(detector_ids[0])
-
 # getting all detectors for the last event id
 dec_ids = cdms.get_detectors_by_event(event_ids[-1])
 # channel data for those detectors
 for detector_id in dec_ids:
     channel_data = cdms.get_detector_channels(detector_id)
+
+# getting all detector ids
+detector_ids = cdms.get_detector_ids()
+
+# getting channels associated with a the first detector id
+channel_data =  cdms.get_detector_channels(detector_ids[0])
 ```
 
-## What's Next?
+## Next Steps
 
 Now that you can manipulate the data, you could:
 

@@ -1,0 +1,35 @@
+site_name: NSDF Dark Matter
+repo_url: https://github.com/nsdf-fabric/nsdf-slac
+theme:
+  name: material
+  logo: assets/team/nsdflogo.png
+  favicon: assets/team/nsdflogo.png
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - navigation.footer
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.highlight
+  - pymdownx.superfences
+nav:
+  - Home: index.md
+  - NSDF CLI Guide: cli.md
+  - NSDF Library Guide: library.md
+  - NSDF Dashboard Guide: dashboard.md
