@@ -10,9 +10,51 @@ on how to obtain a dataset.
 
 ## Getting Started
 
+To begin, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
+
+In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a virtual environment. You can install `uv` by following this [installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+
+> **_NOTE:_** If you prefer, you can use a different environment manager such as [conda](https://www.anaconda.com/docs/getting-started/miniconda/main) or Python's built-in [venv](https://docs.python.org/3/library/venv.html).
+
+### 🧪 Creating the environment
+
+To create a new virtual environment using uv, run the following command in your terminal:
+
+```bash
+uv venv darkmatter_lib_env --python 3.10
+```
+
+This creates an isolated Python environment named darkmatter_env.
+
+### ⚡Activating the environment
+
+Next, activate the environment with:
+
+```bash
+source darkmatter_lib_env/bin/activate
+```
+
+You should now see the environment name in your terminal prompt, indicating it’s active.
+
+### 🚀 Installing the Library
+
+We are ready to install the library. First, download the `wheel` file.
+
+```bash
+wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark_matter-0.1.0-py3-none-any.whl
+```
+
+Now, we can install the library by passing the wheel file with the following uv command:
+
+```bash
+uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+```
+
+That's it! The library is now installed and ready to use. We can start working with it.
+
 ### Importing the Library
 
-First, lets import the `load_all_data` function from the idx module.
+First, import the `load_all_data` function from the idx module.
 
 ```python
 from nsdf_dark_matter.idx import load_all_data

@@ -5,9 +5,7 @@ then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fab
 
 ## Getting Started
 
-### 🐍 Python tooling
-
-Before getting started, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
+To begin, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
 
 In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a virtual environment. You can install `uv` by following this [installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
@@ -18,7 +16,7 @@ In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a vir
 To create a new virtual environment using uv, run the following command in your terminal:
 
 ```bash
-uv venv darkmatter_env --python 3.10
+uv venv darkmatter_cli_env --python 3.10
 ```
 
 This creates an isolated Python environment named darkmatter_env.
@@ -28,7 +26,7 @@ This creates an isolated Python environment named darkmatter_env.
 Next, activate the environment with:
 
 ```bash
-source darkmatter_env/bin/activate
+source darkmatter_cli_env/bin/activate
 ```
 
 You should now see the environment name in your terminal prompt, indicating it’s active.
