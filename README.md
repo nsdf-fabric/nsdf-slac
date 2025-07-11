@@ -20,7 +20,11 @@ and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of 
 
 ![Channel Dashboard](./docs/assets/dashboard/slacdashboard.png)
 
-## 🧰 Features
+## ⚡Quick Start
+
+To get up and running quickly, follow the step-by-step guides found in the [NSDF Dark Matter documentation](https://nsdf-fabric.github.io/nsdf-slac/)
+
+## 🚀 Features
 
 - **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./docs/cli.md).
