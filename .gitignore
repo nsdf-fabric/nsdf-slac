@@ -8,3 +8,4 @@ mid_npz
 idx
 configuration.yml
 *.egg-info
+site
