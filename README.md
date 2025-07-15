@@ -42,7 +42,7 @@ The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/
 
 ### 🖥️ NSDF Dark Matter CLI
 
-The [NSDF Dark Matter CLI](./nsdf_dark_matter_cli) offers a pool of operations to access the R68 dark matter dataset. The CLI can be used as part of a workflow to download data which can
+The [NSDF Dark Matter CLI](./nsdf_dark_matter_cli) offers a pool of operations to access the R76 dark matter dataset. The CLI can be used as part of a workflow to download data which can
 then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter). Learn about the CLI from [CLI guide](./docs/cli.md).
 
 ### 📚 NSDF Dark Matter Library

@@ -2,7 +2,7 @@
 
 ![Help Command](./assets/cli/cli-help.gif)
 
-The `NSDF Dark Matter CLI` offers a pool of operations to access and download the R68 dark matter dataset. The CLI serves as a top level component in a workflow to download data which can
+The `NSDF Dark Matter CLI` offers a pool of operations to access and download the R76 dark matter dataset. The CLI serves as a top level component in a workflow to download data which can
 then be analyzed with the [NSDF Dark Matter Library](./library.md)
 
 ## 🚀 Getting Started

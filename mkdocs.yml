@@ -6,8 +6,8 @@ theme:
   favicon: assets/team/nsdflogo.png
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: teal
+      accent: teal
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
@@ -20,7 +20,10 @@ theme:
   features:
     - content.code.copy
     - content.code.annotate
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.footer
+    - navigation.top
     - search.suggest
 
 markdown_extensions:

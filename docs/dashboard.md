@@ -1,5 +1,13 @@
 # NSDF Dark Matter Dashboard
 
+![NSDF Dark Matter Dashboard](assets/dashboard/nsdfdashboard_labeled.png)
+
+<figure>
+<figcaption>
+(1) allows file selection and control (2) allows event selection. Control (3) filters data by electronics readout boards, and control (4) selects individual channels. Table (5) shows event metadata, and plot (6) provides an interactive view of pulse shapes
+</figcaption> 
+</figure>
+
 The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter) provides a way to visualize the **SuperCDMS DAQ data** format and follows the event structure defined by [Midas](https://daq00.triumf.ca/MidasWiki/index.php/Event_Structure). The dashboard is made up of multiple components and is divided into two main sections: the sidebar controls and the channels plot.
 
 ## ☰ Sidebar controls

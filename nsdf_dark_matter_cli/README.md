@@ -1,6 +1,6 @@
 # NSDF Dark Matter CLI
 
-The `nsdf_dark_matter` CLI offers a pool of operations to access and download the R68 dark matter dataset. The CLI serves as a top level component to access data in a workflow which can
+The `nsdf_dark_matter` CLI offers a pool of operations to access and download the R76 dark matter dataset. The CLI serves as a top level component to access data in a workflow which can
 then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fabric/nsdf-slac/tree/main/nsdf_dark_matter). Check the [CLI guide](https://github.com/nsdf-fabric/nsdf-slac/blob/main/docs/cli.md) for a step by step walkthrough.
 
 ## NSDF CLI Usage Example

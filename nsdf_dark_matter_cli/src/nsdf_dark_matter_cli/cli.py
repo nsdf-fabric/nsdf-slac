@@ -4,7 +4,7 @@ from rich import print as richprint
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing_extensions import Annotated
-from nsdf_dark_matter_cli.r68_dataset import R68_DATASET
+from nsdf_dark_matter_cli.r76_dataset import R76_DATASET
 from concurrent.futures import ThreadPoolExecutor
 import os
 import requests
@@ -94,17 +94,17 @@ def ls(prefix: Annotated[str, typer.Option(help="List all files that start with 
     """
 
     if prefix:
-        for file in R68_DATASET:
+        for file in R76_DATASET:
             if file.startswith(prefix):
                 richprint(f"[bold green]{file}[/bold green]")
         return
 
-    if limit < 0 or limit > len(R68_DATASET):
+    if limit < 0 or limit > len(R76_DATASET):
         richprint(f"[bold red] Invalid limit set {limit}[/bold red]")
         return
 
     for i in range(0, limit):
-        richprint(f"[bold green]{R68_DATASET[i]}[/bold green]")
+        richprint(f"[bold green]{R76_DATASET[i]}[/bold green]")
 
 
 @app.command()

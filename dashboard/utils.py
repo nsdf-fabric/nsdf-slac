@@ -5,15 +5,7 @@ from botocore.client import Config
 from boto3.session import Session
 import os
 
-METADATA_DIR = "./metadata"
-MIDFILES_DIR = "./raw/"
-NPZ_FILES_DIR = "./mid_npz/"
-IDX_FILES_DIR = "./idx/"
-BUCKET_PATH = "CDMS/UMN/R68/Raw/"
 PREFIX = "cdms/umn/slac/idx/"
-SEAL_PREFIX = "supercdms-data/CDMS/UMN/R68/Raw/"
-FILE_PATTERN = r"^\d{8}_\d{4}_F\d{4}\.mid\.gz$"
-MID_PATTERN = r"^\d{8}_\d{4}_F\d{4}$"
 
 
 def get_aws_bucket(verify=True):

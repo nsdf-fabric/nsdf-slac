@@ -2,7 +2,7 @@
 
 Welcome to the documentation for the **NSDF Dark Matter initiative**!
 
-This set of guides is designed to help you interact and analyze the **R68 dark matter dataset** using our suite of tools.
+This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools.
 
 Whether you're just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
 
