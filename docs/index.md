@@ -2,21 +2,19 @@
 
 Welcome to the documentation for the **NSDF Dark Matter initiative**!
 
-This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools.
+This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
 
-Whether you're just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
+<img src="./assets/dashboard/slacdashboard.png" alt="Your image description" style="border: 2px solid teal;">
 
-![Channel Dashboard](./assets/dashboard/slacdashboard.png)
-
-## 🚀 Quick Start
+## ⚡Quick Start
 
 - [🔧 CLI Guide](./cli.md): Learn how to access and download dark matter datasets using the `nsdf-cli` command-line interface.
-- [📦 Library Guide](./library.md): Explore how to load and analyze the dataset using the Python API.
+- [📚 Library Guide](./library.md): Explore how to load and analyze a dark matter dataset using the Python API.
 - [📊 Dashboard Guide](./dashboard.md): Understand the components of the web-based dashboard for visualizing dark matter events and detectors.
 
-## 🧰 Features
+## 🚀 Features
 
-- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
+- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and time stamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./cli.md).
 - **Workflow integration**: Leverage [NSDF Dark Matter Library](./library.md) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 - **Search events**: Search for specific events using the autocomplete input.

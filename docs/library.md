@@ -6,7 +6,7 @@ Once you've downloaded the dataset using the NSDF Dark Matter CLI, this library 
 ## Prerequisites
 
 If you do not have already an `idx` directory with dark matter datasets, you can check the [CLI guide](./cli.md) for a step by step walkthrough
-on how to obtain a dataset. If you are following from the CLI guide you can use the same environment and skip to [Installing the Library]()
+on how to obtain a dataset. If you are following from the CLI guide you can use the same environment and skip to [Installing the Library](#installing-the-library)
 
 ## 🚀 Getting Started
 
