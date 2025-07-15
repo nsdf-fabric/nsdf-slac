@@ -117,7 +117,7 @@ detector_ids = cdms.get_detector_ids()
 Let's get the channel data for our first detector with the `get_detector_channels` method.
 
 ```python
-channel_data =  cdms.get_detector_channels(detector_ids[0])
+channel_data = cdms.get_detector_channels(detector_ids[0])
 ```
 
 ## Full Example
@@ -144,7 +144,7 @@ for detector_id in dec_ids:
 detector_ids = cdms.get_detector_ids()
 
 # getting channels associated with a the first detector id
-channel_data =  cdms.get_detector_channels(detector_ids[0])
+channel_data = cdms.get_detector_channels(detector_ids[0])
 ```
 
 ## Next Steps
