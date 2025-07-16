@@ -12,43 +12,43 @@ The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/
 
 ## ☰ Sidebar controls
 
-![sidebar_controls](./assets/dashboard/leftsidebar.png)
+<img src="/nsdf-slac/assets/dashboard/leftsidebar.png" alt="Sidebar controls" style="border: 2px solid teal;">
 
 The controls located in the left sidebar manipulate the display of the channels plot section. The following components are part of the sidebar controls: the mid file selector, event text input, event controls, detector section, channel button grid, and event metadata table.
 
 ### Mid File Selector
 
-![mid_file_selector](./assets/dashboard/midfileselect_section.png)
+<img src="/nsdf-slac/assets/dashboard/midfileselect_section.png" alt="Mid file selection component" style="border: 2px solid teal;">
 
 The mid file selector allows the user to select a specific mid file record from the storage. After selecting a mid file, the event text input becomes available.
 
 ### Event text input
 
-![event_text_input](./assets/dashboard/eventtextinput_section.png)
+<img src="/nsdf-slac/assets/dashboard/eventtextinput_section.png" alt="Event text input" style="border: 2px solid teal;">
 
 The event text input facilitates navigation through the different events as specified by the **SuperCDMS DAQ data format**. The user can search an specific event by typing the eventID number.
 
 ### Event controls
 
-![event_controls](./assets/dashboard/eventcontrols_section.png)
+<img src="/nsdf-slac/assets/dashboard/eventcontrols_section.png" alt="Event controls" style="border: 2px solid teal;">
 
 The event controls provide an alternative way to navigate through events in order. It consists of four buttons: first event, previous event, next event, and last event. When used in combination with the event text input, these buttons also allow navigation with respect to the eventID selected.
 
 ### Detector section
 
-![detectormultichoice](./assets/dashboard/multichoicedetectors_section.png)
+<img src="/nsdf-slac/assets/dashboard/multichoicedetectors_section.png" alt="Multichoice detector component" style="border: 2px solid teal;">
 
 The detector multichoice allows the user to select the detectors of interest for a specific event. By selecting or deselecting a detector, the channels plot on the right updates accordingly (with all detectors selected by default). A checkbox is provided to enable or disable all detectors at once.
 
 ### Channel button grid
 
-![channel_button_grid](./assets/dashboard/channelgrid_section.png)
+<img src="/nsdf-slac/assets/dashboard/channelgrid_section.png" alt="Channel button grid" style="border: 2px solid teal;">
 
 The channel button grid corresponds to the 20 possible channels that a detector might have (all selected by default). When clicked, it will toggle the inclusion of channels from the selected detectors, either displaying or hiding them on the channels plot.
 
 ### Event metadata table
 
-![event_metadata_table](./assets/dashboard/eventmetadata_section.png)
+<img src="/nsdf-slac/assets/dashboard/eventmetadata_section.png" alt="Event metadata table" style="border: 2px solid teal;">
 
 The event metadata table dynamically displays the trigger type, readout type, and global timestamp associated with an eventID.
 

@@ -85,7 +85,7 @@ nsdf-cli download 07180827_0000_F0001
 
 ![Download Command](./assets/cli/cli-download.gif)
 
-Downloaded files go into the idx directory, and each one gets its own subfolder based on the mid_id. After downloading a few datasets, your folder might look like this:
+Downloaded files go into the idx directory, and each one gets its own subfolder based on the `mid_id`. After downloading a few datasets, your folder might look like this:
 
 ```console
 idx/
@@ -95,6 +95,22 @@ idx/
    07181007_0000_F0001/
    |
    07180916_0000_F0002/
+```
+
+A `mid_id` directory is composed of the following files:
+
+```console
+07180925_0000_F0001/
+                   |
+                   07180827_0000_F0001.csv
+                   |
+                   07180827_0000_F0001.txt
+                   |
+                   07180827_0000_F0001.idx
+                   |
+                   07180925_0000_F0001/
+                                      |
+                                      0000.bin
 ```
 
 ## Next Steps

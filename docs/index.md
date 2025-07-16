@@ -4,7 +4,7 @@ Welcome to the documentation for the **NSDF Dark Matter initiative**!
 
 This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
 
-<img src="./assets/dashboard/slacdashboard.png" alt="Your image description" style="border: 2px solid teal;">
+<img src="./assets/dashboard/slacdashboard.png" alt="NSDF Dark Matter Dashboard" style="border: 2px solid teal;">
 
 ## ⚡Quick Start
 
