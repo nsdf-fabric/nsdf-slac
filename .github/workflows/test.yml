@@ -16,9 +16,6 @@ jobs:
     steps:
       - name: 📥 Checkout repo
         uses: actions/checkout@v4
-
+      - uses: dagger/dagger-for-github@8.0.0
       - name: Test NSDF Dark Matter Library
-        uses: dagger/dagger-for-github@8.0.0
-        with:
-          call: test-nsdf-library
-          version: "0.18.14"
+        run: dagger call test-nsdf-library
