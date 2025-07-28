@@ -23,17 +23,19 @@ jobs:
       - name: Install uv
         run: pip install uv
 
-      - name: Build CLI wheel
+      - name: Build and Publish CLI wheel
         run: |
           cd nsdf_dark_matter_cli
           uv build
+          uv publish
 
-      - name: Build Library wheel
+      - name: Build and Publish Library wheel
         run: |
           cd nsdf_dark_matter
           uv build
+          uv publish
 
-      - name: Upload to release
+      - name: Upload Artifacts to release
         uses: softprops/action-gh-release@v2
         with:
           files: |
