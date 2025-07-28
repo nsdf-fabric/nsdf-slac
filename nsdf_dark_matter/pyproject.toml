@@ -12,6 +12,21 @@ dependencies = [
     "OpenVisusNoGui==2.2.138"
 ]
 
+classifiers = [
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Developers',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3.10',
+    'Topic :: Software Development',
+    'Topic :: Scientific/Engineering',
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[project.urls]
+documentation = "https://nsdf-fabric.github.io/nsdf-slac/"
+source = "https://github.com/nsdf-fabric/nsdf-slac"
+tracker = "https://github.com/nsdf-fabric/nsdf-slac/issues"
+"release notes" = "https://github.com/nsdf-fabric/nsdf-slac/releases"
