@@ -19,7 +19,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "numpy" },
-    { name = "openvisusnogui", specifier = "==2.2.128" },
+    { name = "openvisusnogui", specifier = "==2.2.138" },
 ]
 
 [[package]]
@@ -150,18 +150,18 @@ wheels = [
 
 [[package]]
 name = "openvisusnogui"
-version = "2.2.128"
+version = "2.2.138"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/51/12/518975c79d4df26a55cd06fdef5fc83598f186b07b34d634dbbde302d3eb/OpenVisusNoGui-2.2.128-cp310-none-macosx_10_9_x86_64.whl", hash = "sha256:742b2c0e0c5f6448eb26fbd6ccc830b0980980cb02ee78152d40a77ed1191926", size = 32139132, upload-time = "2023-12-14T09:36:04.101Z" },
-    { url = "https://files.pythonhosted.org/packages/05/4a/f7e65bfdd1a83cd504cc16edb20481f0d71bf3fa958d004671b193c9a6c3/OpenVisusNoGui-2.2.128-cp310-none-macosx_11_0_arm64.whl", hash = "sha256:3e3b95c2bb02bbaf0abdc91d9aecf8536020af4222ba5a4fe49b8d34216c655c", size = 30691598, upload-time = "2023-12-14T13:01:34.573Z" },
-    { url = "https://files.pythonhosted.org/packages/16/39/11d7a7b34a87a1c7b689008832dffd859069ce8e90a3c021e47e1c5358fe/OpenVisusNoGui-2.2.128-cp310-none-manylinux2010_x86_64.whl", hash = "sha256:1f6e2a0b237744039512d4c0a7283958abe27ef4ac7412f5b6becc17040b42b7", size = 33089507, upload-time = "2023-12-14T09:23:04.217Z" },
-    { url = "https://files.pythonhosted.org/packages/5a/cd/d75a6414ed4e68054273aa92d89f00b8c73db83dc7c5eaf975b8f6c99010/OpenVisusNoGui-2.2.128-cp310-none-manylinux2014_aarch64.whl", hash = "sha256:b4ab5232c5aa477979c49e227e5a8c2e05504d6e63a1ef62826ec8658745dc4d", size = 32658699, upload-time = "2023-12-14T09:18:12.864Z" },
-    { url = "https://files.pythonhosted.org/packages/1f/2c/6a712150baf1a143bb2bc64749fd4ac893dd4e60efa968e6f5e28281f43a/OpenVisusNoGui-2.2.128-cp310-none-win_amd64.whl", hash = "sha256:c72b33b1f812bc77eb7d03b012d30bb11a8419fcd36aa611dd1989d02a523a26", size = 30745421, upload-time = "2023-12-14T09:30:17.431Z" },
-    { url = "https://files.pythonhosted.org/packages/a6/83/f00fdc7c9077b4b3a61139d7ffe4607eaddefe1ba686b7f2c44057e6e4b2/OpenVisusNoGui-2.2.128-cp311-none-macosx_10_9_x86_64.whl", hash = "sha256:28419603c6749865f092ab5811026c58a24504a681b9f1e862fece8d1e0b8cbf", size = 32139222, upload-time = "2023-12-14T09:35:48.398Z" },
-    { url = "https://files.pythonhosted.org/packages/84/21/9c6f431bdec41c6f587e998b3fc45090964a4ce224dee6cefd61ca2668b7/OpenVisusNoGui-2.2.128-cp311-none-macosx_11_0_arm64.whl", hash = "sha256:dece81892f26d1bec73060bd4df36ba6742d7859240953b74260201474682c0b", size = 30691626, upload-time = "2023-12-14T13:06:17.968Z" },
-    { url = "https://files.pythonhosted.org/packages/de/e8/b8aae00c700f36b31cc271973cd4f47efde73f29e9f187eb5b2a8e5a1960/OpenVisusNoGui-2.2.128-cp311-none-win_amd64.whl", hash = "sha256:3d9ff1f6d2fe82cd46dee140af2e81845987e8d21aa5f08fbd8f8c1393af4281", size = 30744747, upload-time = "2023-12-14T09:30:25.532Z" },
-    { url = "https://files.pythonhosted.org/packages/97/21/87dabfcb4c06d350e049afb8e001996eb96ddad3d22a5687e479865d8aa7/OpenVisusNoGui-2.2.128-cp312-none-macosx_10_9_x86_64.whl", hash = "sha256:47b8e10f08b7e92c44a8c1e38dbf909c53a831cf549a7759a598bfdfd1d5e4be", size = 32142208, upload-time = "2023-12-14T10:02:04.957Z" },
-    { url = "https://files.pythonhosted.org/packages/70/f8/c8707e91c6f16f9b6ce1460b6b8f163a03336f0cc6e13e6e4fe02dbd52b8/OpenVisusNoGui-2.2.128-cp312-none-macosx_11_0_arm64.whl", hash = "sha256:7d1bd71036418f6c429102d170035fecae7b599e9864d8654956935a05580b7f", size = 30695924, upload-time = "2023-12-14T14:51:10.071Z" },
-    { url = "https://files.pythonhosted.org/packages/73/90/b3584348789162d7be6b01c09552423c85922d182a992fd65ddc83ad28f7/OpenVisusNoGui-2.2.128-cp312-none-win_amd64.whl", hash = "sha256:61e6304f59c51d23e279b82f9b7fc79a6e8b7d5ae5fca47c5ec7a87b2fc4ec82", size = 30750056, upload-time = "2023-12-14T09:30:42.604Z" },
+    { url = "https://files.pythonhosted.org/packages/2a/7c/4d0ffa200ba7732a7b756309d3222388156c3d3d2bddabe465a80fc35814/OpenVisusNoGui-2.2.138-cp310-none-macosx_11_0_arm64.whl", hash = "sha256:b48c1111ce5cfb23997f684d07030d77dfc3d017fb4f94278c59b98d18c9515a", size = 30745902, upload-time = "2025-02-04T14:09:19.017Z" },
+    { url = "https://files.pythonhosted.org/packages/83/7b/8a5ec0a405ea5d27d9b76ee30bac4dbb0bdffa9cf162e8113b58983e9048/OpenVisusNoGui-2.2.138-cp310-none-manylinux2014_x86_64.whl", hash = "sha256:e78a212aa5f79deee4ced504531ddea1a511ea649edf895f88d1318fd8e526f2", size = 34223755, upload-time = "2024-12-08T10:43:05.001Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/c4/78d5ceb928a6f8938f51c72d25aaf479bee0d2b51f2db79d84ad88dd0d6e/OpenVisusNoGui-2.2.138-cp310-none-win_amd64.whl", hash = "sha256:79d43f425a2d78439510c46184ac7881ec85c8cf0986f427e613bfa75b1e10a6", size = 31240554, upload-time = "2024-12-08T10:52:21.347Z" },
+    { url = "https://files.pythonhosted.org/packages/0a/30/8bbced79743f5f00efea6c58e5e94dbdcad91db941efa91a569c7a533418/OpenVisusNoGui-2.2.138-cp311-none-macosx_11_0_arm64.whl", hash = "sha256:9c18412921169468b5fc84b499bef2ba797a8903239963685a5f3c785ee3daae", size = 30745955, upload-time = "2025-02-04T14:14:29.633Z" },
+    { url = "https://files.pythonhosted.org/packages/09/dc/1d883524faa84b0a727e5c24c64073c6c53f1f06cad65c547a6d4f857598/OpenVisusNoGui-2.2.138-cp311-none-manylinux2014_x86_64.whl", hash = "sha256:0f8c1409d71deaf642cc30132170b7bdbf57d6d5351669f0a89e9d3c093c7641", size = 34223900, upload-time = "2024-12-08T10:43:03.066Z" },
+    { url = "https://files.pythonhosted.org/packages/37/85/564af9e7e8510ad4c2f178c8c4a0b0d45815bbe9bcf59eab63b30afc23ee/OpenVisusNoGui-2.2.138-cp311-none-win_amd64.whl", hash = "sha256:c9fdeb0e237a57baa1c92bc7bd385d31f3c1f8815f1e79f1e5bba49a97ec9fcd", size = 31243354, upload-time = "2024-12-08T10:52:27.455Z" },
+    { url = "https://files.pythonhosted.org/packages/3d/53/d1e30295f8b3f7f41c24000b7ba6d97b9e9d6fe1d79d972c7b59a3691ad3/OpenVisusNoGui-2.2.138-cp312-none-macosx_11_0_arm64.whl", hash = "sha256:a593925c182181d718303c7d266a77b4adfe05309371a5f3770bbf5515829827", size = 30747422, upload-time = "2025-02-04T14:19:34.915Z" },
+    { url = "https://files.pythonhosted.org/packages/96/16/6b0f986bb1486c664924f147fdc2337346be3a0ebac778ddf8030f02353b/OpenVisusNoGui-2.2.138-cp312-none-manylinux2014_x86_64.whl", hash = "sha256:1afb926a58fd5d0f5d92b0dc9a3120b196e5c4f0797d60449c7d629bb1df51f4", size = 34223113, upload-time = "2024-12-08T10:43:00.605Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/dd/167b3acb5bcb82645096e0a5442d5c935c70e4f6b04e7bc95f50f58f21a7/OpenVisusNoGui-2.2.138-cp312-none-win_amd64.whl", hash = "sha256:669bddb16133fc1f08545756d444d6506c578cf0f1ec6bfa7afb9965ba4e240d", size = 31248518, upload-time = "2024-12-08T10:50:58.155Z" },
+    { url = "https://files.pythonhosted.org/packages/98/0c/5e5b205d9a8d359ff122dc7871c4a75f0ac46d431abc3b47decfd277f9dc/OpenVisusNoGui-2.2.138-cp313-none-macosx_11_0_arm64.whl", hash = "sha256:b4dcd3467b45867b4145e809dcd1305a62eacbef07f4e0adda617b72f429c877", size = 30747259, upload-time = "2025-02-04T14:26:42.728Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/eb/ba378b4ea3cc7157d1174859ca12c2ec1376cb99024f2212f4c1e38ca6a7/OpenVisusNoGui-2.2.138-cp313-none-win_amd64.whl", hash = "sha256:087d0fb9c00d5ef390f3f03b0cec4623e4cd7a006e082335b60fa3fabc00b854", size = 31248540, upload-time = "2024-12-08T10:53:21.021Z" },
 ]
