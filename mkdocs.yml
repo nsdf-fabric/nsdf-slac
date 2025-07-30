@@ -34,6 +34,7 @@ theme:
   features:
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
     - navigation.sections
     - navigation.instant
     - navigation.instant.progress
@@ -47,6 +48,8 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
 nav:
   - Home: index.md
   - NSDF CLI Guide: cli.md

@@ -21,45 +21,57 @@ then be analyzed with the [NSDF Dark Matter Library](./library.md)
 
 To create a new virtual environment, run the following command in your terminal:
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    uv venv darkmatter_cli_env --python 3.10
-    ```
+    !!! info "uv"
 
-??? info "Conda"
+        ```bash
+        uv venv darkmatter_cli_env --python 3.10
+        ```
 
-    ```bash
-    conda create -n darkmatter_cli_env python=3.10
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
 
-    ```bash
-    python -m venv darkmatter_cli_env
-    ```
+        ```bash
+        conda create -n darkmatter_cli_env python=3.10
+        ```
+
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        python -m venv darkmatter_cli_env
+        ```
 
 ### Activating the environment
 
 Next, we activate the environment:
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    source darkmatter_cli_env/bin/activate
-    ```
+    !!! info "uv (recommended)"
 
-??? info "Conda"
+        ```bash
+        source darkmatter_cli_env/bin/activate
+        ```
 
-    ```bash
-    conda activate darkmatter_cli_env
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
 
-    ```bash
-    source darkmatter_cli_env/bin/activate
-    ```
+        ```bash
+        conda activate darkmatter_cli_env
+        ```
+
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        source darkmatter_cli_env/bin/activate
+        ```
 
 ---
 
@@ -77,23 +89,29 @@ wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark
 
 Now, we can install the CLI by passing the wheel file with the following command:
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    uv pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
-    ```
+    !!! info "uv (recommended)"
 
-??? info "Conda"
+        ```bash
+        uv pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
+        ```
 
-    ```bash
-    pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
 
-    ```bash
-    pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
-    ```
+        ```bash
+        pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
+        ```
+
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        pip install nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
+        ```
 
 ---
 

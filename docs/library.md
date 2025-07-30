@@ -26,45 +26,57 @@ Once you've downloaded the dataset using the NSDF Dark Matter CLI, this library 
 
 To create a new virtual environment, run the following command in your terminal:
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    uv venv darkmatter_lib_env --python 3.10
-    ```
+    !!! info "uv (recommended)"
 
-??? info "Conda"
+        ```bash
+        uv venv darkmatter_lib_env --python 3.10
+        ```
 
-    ```bash
-    conda create -n darkmatter_lib_env python=3.10
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
 
-    ```bash
-    python -m venv darkmatter_lib_env
-    ```
+        ```bash
+        conda create -n darkmatter_lib_env python=3.10
+        ```
+
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        python -m venv darkmatter_lib_env
+        ```
 
 ### Activating the environment
 
 Next, we activate the environment:
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    source darkmatter_lib_env/bin/activate
-    ```
+    !!! info "uv (recommended)"
 
-??? info "Conda"
+        ```bash
+        source darkmatter_lib_env/bin/activate
+        ```
 
-    ```bash
-    conda activate darkmatter_lib_env
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
 
-    ```bash
-    source darkmatter_lib_env/bin/activate
-    ```
+        ```bash
+        conda activate darkmatter_lib_env
+        ```
+
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        source darkmatter_lib_env/bin/activate
+        ```
 
 ---
 
@@ -80,23 +92,28 @@ We are ready to install the library. First, download the `wheel` file.
 wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark_matter-0.1.0-py3-none-any.whl
 ```
 
-???+ info "uv (recommended)"
+=== "uv (recommended)"
 
-    ```bash
-    uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
-    ```
+    !!! info "uv (recommended)"
 
-??? info "Conda"
+        ```bash
+        uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+        ```
 
-    ```bash
-    pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
-    ```
+=== "Conda"
 
-??? info "Python venv"
+    !!! info "Conda"
+        ```bash
+        pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+        ```
 
-    ```bash
-    pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
-    ```
+=== "Python venv"
+
+    !!! info "Python venv"
+
+        ```bash
+        pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+        ```
 
 ---
 
@@ -172,30 +189,33 @@ channel_data = cdms.get_detector_channels(detector_ids[0])
 
 ## Full Example
 
-```python
-from nsdf_dark_matter.idx import load_all_data
+=== "main.py"
 
-# Loading the data from a valid idx structure
-cdms = load_all_data('idx/07180827_0000_F0001')
+    ``` python
+    from nsdf_dark_matter.idx import load_all_data
 
-# getting all event ids
-event_ids = cdms.get_event_ids()
+    # Loading the data from a valid idx structure
+    cdms = load_all_data('idx/07180827_0000_F0001')
 
-# getting the metadata for the first event
-metadata = cdms.get_event_metadata(event_ids[0])
+    # getting all event ids
+    event_ids = cdms.get_event_ids()
 
-# getting all detectors for the last event id
-dec_ids = cdms.get_detectors_by_event(event_ids[-1])
-# channel data for those detectors
-for detector_id in dec_ids:
-    channel_data = cdms.get_detector_channels(detector_id)
+    # getting the metadata for the first event
+    metadata = cdms.get_event_metadata(event_ids[0])
 
-# getting all detector ids
-detector_ids = cdms.get_detector_ids()
+    # getting all detectors for the last event id
+    dec_ids = cdms.get_detectors_by_event(event_ids[-1])
 
-# getting channels associated with a the first detector id
-channel_data = cdms.get_detector_channels(detector_ids[0])
-```
+    # channel data for those detectors
+    for detector_id in dec_ids:
+        channel_data = cdms.get_detector_channels(detector_id)
+
+    # getting all detector ids
+    detector_ids = cdms.get_detector_ids()
+
+    # getting channels associated with a the first detector id
+    channel_data = cdms.get_detector_channels(detector_ids[0])
+    ```
 
 ## Next Steps
 
