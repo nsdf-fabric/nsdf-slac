@@ -17,9 +17,24 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
   features:
     - content.code.copy
     - content.code.annotate
+    - navigation.sections
     - navigation.instant
     - navigation.instant.progress
     - navigation.footer
@@ -31,8 +46,11 @@ markdown_extensions:
   - codehilite
   - pymdownx.highlight
   - pymdownx.superfences
+  - pymdownx.details
 nav:
   - Home: index.md
   - NSDF CLI Guide: cli.md
   - NSDF Library Guide: library.md
   - NSDF Dashboard Guide: dashboard.md
+extra_css:
+  - stylesheets/overrides.css

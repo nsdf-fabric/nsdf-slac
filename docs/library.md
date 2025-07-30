@@ -5,38 +5,74 @@ Once you've downloaded the dataset using the NSDF Dark Matter CLI, this library 
 
 ## Prerequisites
 
-If you do not have already an `idx` directory with dark matter datasets, you can check the [CLI guide](./cli.md) for a step by step walkthrough
-on how to obtain a dataset. If you are following from the CLI guide you can use the same environment and skip to [Installing the Library](#installing-the-library)
+!!! note "Prerequisites"
+
+    If you do not have already an `idx` directory with dark matter datasets, you can check the [CLI guide](./cli.md) for a step by step walkthrough
+    on how to obtain a dataset. If you are following from the CLI guide you can use the same environment and skip to [Installing the Library](#installing-the-library)
 
 ## 🚀 Getting Started
 
-To begin, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
+!!! info "Virtual Environment"
 
-In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a virtual environment. You can install `uv` by following this [installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+    To begin, make sure you have Python 3.10 or higher installed on your machine. You can download it from the official website: [Install Python](https://www.python.org/downloads/).
 
-> **_NOTE:_** If you prefer, you can use a different environment manager such as [conda](https://www.anaconda.com/docs/getting-started/miniconda/main) or Python's built-in [venv](https://docs.python.org/3/library/venv.html).
+    In this guide, we will be using [uv](https://docs.astral.sh/uv/) to manage a virtual environment. You can install `uv` by following this [installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+
+!!! note
+
+    If you prefer, you can use a different environment manager such as [conda](https://www.anaconda.com/docs/getting-started/miniconda/main) or Python's built-in [venv](https://docs.python.org/3/library/venv.html).
 
 ### Creating the environment
 
-To create a new virtual environment using uv, run the following command in your terminal:
+To create a new virtual environment, run the following command in your terminal:
 
-```bash
-uv venv darkmatter_lib_env --python 3.10
-```
+???+ info "uv (recommended)"
 
-This creates an isolated Python environment named darkmatter_env.
+    ```bash
+    uv venv darkmatter_lib_env --python 3.10
+    ```
+
+??? info "Conda"
+
+    ```bash
+    conda create -n darkmatter_lib_env python=3.10
+    ```
+
+??? info "Python venv"
+
+    ```bash
+    python -m venv darkmatter_lib_env
+    ```
 
 ### Activating the environment
 
-Next, activate the environment with:
+Next, we activate the environment:
 
-```bash
-source darkmatter_lib_env/bin/activate
-```
+???+ info "uv (recommended)"
+
+    ```bash
+    source darkmatter_lib_env/bin/activate
+    ```
+
+??? info "Conda"
+
+    ```bash
+    conda activate darkmatter_lib_env
+    ```
+
+??? info "Python venv"
+
+    ```bash
+    source darkmatter_lib_env/bin/activate
+    ```
+
+---
 
 You should now see the environment name in your terminal prompt, indicating it’s active.
 
 ### Installing the Library
+
+#### From Release
 
 We are ready to install the library. First, download the `wheel` file.
 
@@ -44,11 +80,25 @@ We are ready to install the library. First, download the `wheel` file.
 wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark_matter-0.1.0-py3-none-any.whl
 ```
 
-Now, we can install the library by passing the wheel file with the following uv command:
+???+ info "uv (recommended)"
 
-```bash
-uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
-```
+    ```bash
+    uv pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+    ```
+
+??? info "Conda"
+
+    ```bash
+    pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+    ```
+
+??? info "Python venv"
+
+    ```bash
+    pip install nsdf_dark_matter-0.1.0-py3-none-any.whl
+    ```
+
+---
 
 That's it! The library is now installed and ready to use. We can start working with it.
 
