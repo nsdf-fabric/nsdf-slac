@@ -49,6 +49,10 @@ then be analyzed with the [NSDF Dark Matter Library](https://github.com/nsdf-fab
 
 The [NSDF Dark Matter Library](./nsdf_dark_matter) offers a pool of operations to manipulate dark matter data from getting event metadata to detector channel data acquisition. Learn about the library usage in [library guide](./docs/library.md).
 
+## 🤝 Contributing
+
+Contributions are always welcome, no matter how large or small. Read our [contributing guide](https://nsdf-fabric.github.io/nsdf-slac/contributing/) to learn on how you can start to contribute to the NSDF Dark Matter Initiative.
+
 ## Related Publications
 
 - Michela Taufer, Heberth Martinez, Aashish Panta, Paula Olaya, Jack Marquez, Amy Gooch, Giorgio Scorzelli and Valerio Pascucci. ‘Leveraging National Science Data Fabric Services to Train Data Scientists’. In: Proceedings of the 2024 Workshop on Education for High-Performance Computing (EduHPC)-Workshops of The International Conference on High Performance Computing, Network, Storage, and Analysis (SC24). Atlanta, GA, USA: IEEE Computer Society, 2024, https://doi.ieeecomputersociety.org/10.1109/SCW63240.2024.00053.
