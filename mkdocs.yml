@@ -40,6 +40,8 @@ theme:
     - navigation.instant.progress
     - navigation.footer
     - navigation.top
+    - navigation.path
+    - navigation.expand
     - search.suggest
 
 markdown_extensions:
@@ -50,11 +52,17 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
+  - attr_list
 nav:
   - Home: index.md
   - NSDF CLI Guide: cli.md
   - NSDF Library Guide: library.md
   - NSDF Dashboard Guide: dashboard.md
+  - Contributing:
+      - Contributing Guide: contributing.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+  - Acknowledgements: acknowledgment.md
+
 extra_css:
   - stylesheets/overrides.css
 copyright: >
