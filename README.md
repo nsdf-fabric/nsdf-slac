@@ -7,10 +7,10 @@
 </div>
 <br>
 <p align="center">
-  <a href="https://github.com/nsdf-fabric/nsdf-slac/issues" style="text-decoration:none;">
-    <img src="https://img.shields.io/github/issues/nsdf-fabric/nsdf-slac" alt="GitHub issues">
-  </a>
- <img src="https://img.shields.io/github/commit-activity/w/nsdf-fabric/nsdf-slac" alt="GitHub commit activity">
+  <a href="https://github.com/nsdf-fabric/nsdf-slac/releases"><img src="https://img.shields.io/github/release/nsdf-fabric/nsdf-slac" alt="Latest Release"></a>
+  <a href="https://github.com/nsdf-fabric/nsdf-slac/issues"><img src="https://img.shields.io/github/issues/nsdf-fabric/nsdf-slac" alt="Github issues"></a>
+  <img src="https://img.shields.io/github/commit-activity/w/nsdf-fabric/nsdf-slac" alt="GitHub commit activity">
+   <a href="https://github.com/nsdf-fabric/nsdf-slac/actions"><img src="https://github.com/nsdf-fabric/nsdf-slac/workflows/Test/badge.svg" alt="Test Status"></a>
 </p>
 
 ## Overview
