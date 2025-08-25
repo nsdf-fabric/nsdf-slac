@@ -23,7 +23,7 @@ To create a new virtual environment, run the following command in your terminal:
 
 === "uv (recommended)"
 
-    !!! info "uv"
+    !!! info "uv (recommended)"
 
         ```bash
         uv venv darkmatter_cli_env --python 3.10
@@ -79,9 +79,19 @@ You should now see the environment name in your terminal prompt, indicating itâ€
 
 ### Installing the CLI
 
+#### pip (recommended)
+
+To install the CLI via pip, run the following command.
+
+!!! info "CLI pip installation"
+
+    ```bash
+    pip install nsdf-dark-matter-cli
+    ```
+
 #### From release
 
-We are ready to install the CLI. First, download the `wheel` file.
+To install the CLI from releases, download the `wheel` file.
 
 ```bash
 wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark_matter_cli-0.1.0-py3-none-any.whl
