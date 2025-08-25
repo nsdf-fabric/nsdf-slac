@@ -7,10 +7,12 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       matrix:
         os: [ubuntu-latest]
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
