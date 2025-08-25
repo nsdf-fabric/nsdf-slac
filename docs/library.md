@@ -84,9 +84,19 @@ You should now see the environment name in your terminal prompt, indicating itâ€
 
 ### Installing the Library
 
+#### pip (recommended)
+
+To install the library via pip, run the following command:
+
+!!! info "Library pip installation"
+
+    ```bash
+    pip install nsdf-dark-matter
+    ```
+
 #### From Release
 
-We are ready to install the library. First, download the `wheel` file.
+To install the library from releases, download the `wheel` file.
 
 ```bash
 wget https://github.com/nsdf-fabric/nsdf-slac/releases/download/v0.1.0/nsdf_dark_matter-0.1.0-py3-none-any.whl
