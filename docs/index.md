@@ -1,12 +1,14 @@
-# NSDF Dark Matter Documentation
+# Nexus-DM Documentation
 
-Welcome to the documentation for the **NSDF Dark Matter initiative**!
+<img src="./assets/team/nexus-dm_logo.png" alt="Nexus DM: networked exchange for dark matter, connect data, code, and community"/>
 
-This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
+**Nexus-DM** is a collaborative initiative between the [National Science Data Fabric](https://nationalsciencedatafabric.org/) (NSDF) and partner institutions, including the [University of Colorado Denver](https://clas.ucdenver.edu/physics/amy-roberts-phd) and the University of Minnesota. The project delivers an integrated suite of tools for accessing, visualizing, and analyzing dark matter data. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
 To learn more about the background and goals of this effort, read our paper: _["The Making of a Community Dark Matter Dataset with the National Science Data Fabric"](https://arxiv.org/abs/2507.13297)_.
 
 <img src="./assets/dashboard/slacdashboard.png" alt="NSDF Dark Matter Dashboard" style="border: 2px solid teal;">
+
+This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
 
 ## ⚡Quick Start
 
