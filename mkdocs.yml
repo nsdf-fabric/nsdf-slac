@@ -1,4 +1,4 @@
-site_name: NSDF Dark Matter
+site_name: NEXUS-DM Documentation
 repo_url: https://github.com/nsdf-fabric/nsdf-slac
 theme:
   name: material
