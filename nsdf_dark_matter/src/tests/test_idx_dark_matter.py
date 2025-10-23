@@ -1,101 +1,94 @@
-import unittest
+import os
+import pytest
 from nsdf_dark_matter.idx import load_all_data, EventMetadata, CDMS
 
 
-class TestClassMethods(unittest.TestCase):
+@pytest.fixture(scope="class")
+def setup_cdms(request):
+    request.cls.event_metadata = EventMetadata()
+    request.cls.cdms = CDMS()
+    request.cls.cdms._load_from_dir(os.path.abspath(os.path.join(os.path.dirname(__file__), "fixtures/idx/07180808_1558_F0001/")))
+    request.cls.headers = ["event_id", "trigger_type", "readout_type", "global_timestamp"]
+    request.cls.expected = {
+        "eventID": "10000",
+        "trigger_type": "Physics",
+        "readout_type": "None",
+        "global_timestamp": "Wednesday, August 08, 2018 08:58:03 PM UTC",
+    }
 
-    @classmethod
-    def setUpClass(cls):
-        cls.event_metadata = EventMetadata()
-        cls.cdms = CDMS()
-        cls.cdms._load_from_dir("fixtures/idx/07180808_1558_F0001/")
-        cls.headers = ["event_id", "trigger_type", "readout_type", "global_timestamp"]
-        cls.expected = {
-            "eventID": "10000",
-            "trigger_type": "Physics",
-            "readout_type": "None",
-            "global_timestamp": "Wednesday, August 08, 2018 08:58:03 PM UTC",
-        }
 
+@pytest.mark.usefixtures("setup_cdms")
+class TestClassMethods:
     def test_event_metadata_extraction(self):
-        metadata = [
-            "10000",
-            "Physics",
-            "None",
-            "1533761883",
-        ]
+        metadata = ["10000", "Physics", "None", "1533761883"]
         self.event_metadata.extract(self.headers, metadata)
-        self.assertEqual(
-            self.event_metadata.trigger_type, self.expected["trigger_type"]
-        )
-        self.assertEqual(
-            self.event_metadata.readout_type, self.expected["readout_type"]
-        )
-        self.assertEqual(
-            self.event_metadata.global_timestamp, self.expected["global_timestamp"]
-        )
+
+        assert self.event_metadata.trigger_type == self.expected["trigger_type"]
+        assert self.event_metadata.readout_type == self.expected["readout_type"]
+        assert self.event_metadata.global_timestamp == self.expected["global_timestamp"]
 
     def test_cdms_get_metadata(self):
         metadata = self.cdms.get_event_metadata("10000")
-        self.assertIsNotNone(metadata)
-        self.assertEqual(metadata.trigger_type, self.expected["trigger_type"])
-        self.assertEqual(metadata.readout_type, self.expected["readout_type"])
-        self.assertEqual(metadata.global_timestamp, self.expected["global_timestamp"])
+        assert metadata is not None
+        assert metadata.trigger_type == self.expected["trigger_type"]
+        assert metadata.readout_type == self.expected["readout_type"]
+        assert metadata.global_timestamp == self.expected["global_timestamp"]
 
     def test_cdms_get_invalid_metadata(self):
         metadata = self.cdms.get_event_metadata("-1")
-        self.assertIsNone(metadata)
+        assert metadata is None
 
     def test_cdms_get_detector_channels(self):
         channels = self.cdms.get_detector_channels("10000_0_Phonon_4096")
-        self.assertIsNotNone(channels)
+        assert channels is not None
 
     def test_cdms_get_invalid_detector_channels(self):
         channels = self.cdms.get_detector_channels("20000")
-        self.assertTrue(len(channels) == 0)
+        assert len(channels) == 0
 
     def test_cdms_get_event_ids(self):
         event_ids = self.cdms.get_event_ids()
-        self.assertIsNotNone(event_ids)
-        self.assertTrue(len(event_ids) != 0)
+        assert event_ids is not None
+        assert len(event_ids) != 0
 
     def test_cdms_get_detector_ids(self):
         detector_ids = self.cdms.get_detector_ids()
-        self.assertIsNotNone(detector_ids)
-        self.assertTrue(len(detector_ids) != 0)
+        assert detector_ids is not None
+        assert len(detector_ids) != 0
 
     def test_cdms_get_detectors_by_event(self):
         detector_ids = self.cdms.get_detectors_by_event("10000")
-        self.assertIsNotNone(detector_ids)
-        self.assertTrue(len(detector_ids) != 0)
+        assert detector_ids is not None
+        assert len(detector_ids) != 0
 
     def test_event_id_to_metadata_workflow(self):
         event_ids = self.cdms.get_event_ids()
         metadata = self.cdms.get_event_metadata(event_ids[0])
-        self.assertIsNotNone(metadata)
-        self.assertEqual(metadata.trigger_type, self.expected["trigger_type"])
-        self.assertEqual(metadata.readout_type, self.expected["readout_type"])
-        self.assertEqual(metadata.global_timestamp, self.expected["global_timestamp"])
+        assert metadata is not None
+        assert metadata.trigger_type == self.expected["trigger_type"]
+        assert metadata.readout_type == self.expected["readout_type"]
+        assert metadata.global_timestamp == self.expected["global_timestamp"]
 
     def test_detector_id_to_channels_workflow(self):
         detector_ids = self.cdms.get_detector_ids()
+
         chan = self.cdms.get_detector_channels(detector_ids[0])
-        self.assertTrue(len(chan) != 0)
-        self.assertTrue(len(chan) == 4)
-        self.assertTrue(len(chan[0]) == 4096)
+        assert len(chan) != 0
+        assert len(chan) == 4
+        assert len(chan[0]) == 4096
 
         chan2 = self.cdms.get_detector_channels(detector_ids[-1])
-        self.assertTrue(len(chan2) != 0)
-        self.assertTrue(len(chan2) == 4)
-        self.assertTrue(len(chan2[0]) == 4096)
+        assert len(chan2) != 0
+        assert len(chan2) == 4
+        assert len(chan2[0]) == 4096
 
 
-
-class TestDataLoaderFunctions(unittest.TestCase):
+class TestDataLoaderFunctions:
     def test_load_all_data(self):
-        data = load_all_data("fixtures/idx/07180808_1558_F0001/")
-        self.assertIsNotNone(data)
-        self.assertIsNotNone(data.channels)
+        data = load_all_data(os.path.abspath(os.path.join(os.path.dirname(__file__), "fixtures/idx/07180808_1558_F0001/")))
+        assert data is not None
+        assert data.channels is not None
+
         expected = {
             "eventID": "10000",
             "trigger_type": "Physics",
@@ -105,24 +98,20 @@ class TestDataLoaderFunctions(unittest.TestCase):
 
         # event metadata
         metadata = data.get_event_metadata("10000")
-        self.assertEqual(metadata.trigger_type, expected["trigger_type"])
-        self.assertEqual(metadata.readout_type, expected["readout_type"])
-        self.assertEqual(metadata.global_timestamp, expected["global_timestamp"])
+        assert metadata.trigger_type == expected["trigger_type"]
+        assert metadata.readout_type == expected["readout_type"]
+        assert metadata.global_timestamp == expected["global_timestamp"]
 
         # detector channels
         channels = data.get_detector_channels("10000_0_Phonon_4096")
-        self.assertIsNotNone(channels)
+        assert channels is not None
 
         # detector ids
         detector_ids = data.get_detector_ids()
-        self.assertIsNotNone(detector_ids)
-        self.assertTrue(len(detector_ids) != 0)
+        assert detector_ids is not None
+        assert len(detector_ids) != 0
 
         # event ids
         event_ids = data.get_event_ids()
-        self.assertIsNotNone(event_ids)
-        self.assertTrue(len(event_ids) != 0)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        assert event_ids is not None
+        assert len(event_ids) != 0

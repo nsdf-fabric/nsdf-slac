@@ -4,16 +4,27 @@ from rich import print as richprint
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing_extensions import Annotated
-from nsdf_dark_matter_cli.r76_dataset import R76_DATASET
 from concurrent.futures import ThreadPoolExecutor
 import os
 import requests
+import csv
+from importlib import resources
 
 IDX_FILES_DIR = "./idx"
 MID_PATTERN = r"^\d{8}_\d{4}_F\d{4}$"
 FILE_PATTERN = r"^\d{8}_\d{4}_F\d{4}\.mid\.gz$"
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"
+
+
+def load_dataset() -> list[str, str, str]:
+    dataset = []
+    with resources.files("nsdf_dark_matter_cli").joinpath("r_dataset.csv").open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            dataset.append([row["filename"], row["size"], row["rseries"]])
+
+    return dataset
 
 
 def download_file(local_path, midfile, kv):
@@ -79,6 +90,17 @@ app = typer.Typer(no_args_is_help=True, help="NSDF Dark Matter CLI")
 console = Console()
 
 
+@app.callback()
+def main(
+    ctx: typer.Context,
+):
+    try:
+        ctx.obj = load_dataset()
+    except Exception as e:
+        richprint(f"[bold red]Failed to load dataset: {e}[/bold red]")
+        raise typer.Exit(code=1)
+
+
 @app.command()
 def version():
     """
@@ -88,23 +110,30 @@ def version():
 
 
 @app.command()
-def ls(prefix: Annotated[str, typer.Option(help="List all files that start with prefix")] = "", limit: Annotated[int, typer.Option(help="The number of files to show")] = 100):
+def ls(ctx: typer.Context,
+       prefix: Annotated[str, typer.Option("--prefix","-p",help="List all files that start with prefix")] = "",
+       limit: Annotated[int, typer.Option("--limit","-l",help="The number of files to show")] = 100):
     """
     List all the files available to download from remote
     """
+    dataset = ctx.obj
 
-    if prefix:
-        for file in R76_DATASET:
-            if file.startswith(prefix):
-                richprint(f"[bold green]{file}[/bold green]")
-        return
-
-    if limit < 0 or limit > len(R76_DATASET):
+    if limit < 0 or limit > len(dataset):
         richprint(f"[bold red] Invalid limit set {limit}[/bold red]")
         return
 
+    # prefix option
+    if prefix:
+        for entry in dataset:
+            filename, size, rseries = entry[0], entry[1], entry[2]
+            if filename.startswith(prefix) and limit:
+                richprint(f"[bold green]{filename}\t{size}\t{rseries}[/bold green]")
+                limit -= 1
+        return
+
+    # limit option
     for i in range(0, limit):
-        richprint(f"[bold green]{R76_DATASET[i]}[/bold green]")
+        richprint(f"[bold green]{dataset[i][0]}\t{dataset[i][1]}\t{dataset[i][2]}[/bold green]")
 
 
 @app.command()
