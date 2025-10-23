@@ -1,6 +1,6 @@
 [project]
 name = "nsdf-dark-matter"
-version = "0.2.0"
+version = "0.3.0"
 description = "Library for reading and processing dark matter data in IDX format"
 readme = "README.md"
 authors = [
