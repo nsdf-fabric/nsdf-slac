@@ -2,7 +2,7 @@
 
 ![Terminal showing CLI help output with available commands: version, ls, and download](./assets/cli/cli-help.gif)
 
-The `NSDF Dark Matter CLI` offers a pool of operations to access and download the R76 dark matter dataset. The CLI serves as a top level component in a workflow to download data which can
+The `NSDF Dark Matter CLI` offers a pool of operations to access and download dark matter datasets. The CLI serves as a top level component in a workflow to download data which can
 then be analyzed with the [NSDF Dark Matter Library](./library.md)
 
 ## 🚀 Getting Started
@@ -150,8 +150,12 @@ nsdf-cli ls --limit 5
 Looking for something specific? Use the `--prefix` flag to filter files by name:
 
 ```bash
-nsdf-cli ls --prefix 07180928_2310
+nsdf-cli ls --prefix 072 --limit 5
 ```
+
+![Terminal showing CLI ls command output with prefix flag. It list the name of the files available in remote storage](./assets/cli/cli-prefix.gif)
+
+Great! we have found files from the **R76** dataset.
 
 ### Downloading a dataset locally
 

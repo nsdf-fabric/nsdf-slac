@@ -1,6 +1,6 @@
 # NSDF Dark Matter Library
 
-The `nsdf_dark_matter` library offers a pool of operations to work with the `R76` dark matter dataset.
+The `nsdf_dark_matter` library offers a pool of operations to work with dark matter datasets (R68, R76).
 Once you've downloaded the dataset using the NSDF Dark Matter CLI, this library helps you load and explore the data with a Python API.
 
 ## Prerequisites

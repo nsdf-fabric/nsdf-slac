@@ -8,7 +8,7 @@ To learn more about the background and goals of this effort, read our paper: _["
 
 <img src="./assets/dashboard/slacdashboard.png" alt="NSDF Dark Matter Dashboard" style="border: 2px solid teal;">
 
-This set of guides is designed to help you interact and analyze the **R76 dark matter dataset** using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
+This set of guides is designed to help you interact and analyze dark matter datasets such as **R68** and **R76**, using our suite of tools. Whether you are just getting started or diving into advanced workflows, these instructions will walk you through installation, setup, and usage.
 
 ## ⚡Quick Start
 
