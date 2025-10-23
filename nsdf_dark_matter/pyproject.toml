@@ -9,7 +9,7 @@ authors = [
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
-    "OpenVisusNoGui==2.2.138"
+    "openvisusnogui==2.2.138"
 ]
 
 classifiers = [
@@ -30,3 +30,8 @@ documentation = "https://nsdf-fabric.github.io/nsdf-slac/"
 source = "https://github.com/nsdf-fabric/nsdf-slac"
 tracker = "https://github.com/nsdf-fabric/nsdf-slac/issues"
 "release notes" = "https://github.com/nsdf-fabric/nsdf-slac/releases"
+
+[dependency-groups]
+test = [
+    "pytest>=8.4.1",
+]

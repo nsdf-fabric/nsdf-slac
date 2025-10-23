@@ -1,6 +1,6 @@
 [project]
 name = "nsdf-dark-matter-cli"
-version = "0.2.0"
+version = "0.3.0"
 description = "NSDF Dark Matter CLI"
 readme = "README.md"
 authors = [
@@ -11,6 +11,7 @@ dependencies = [
     "typer==0.16.0",
     "requests==2.32.4",
 ]
+
 classifiers = [
     'Intended Audience :: Science/Research',
     'Intended Audience :: Developers',
@@ -29,3 +30,8 @@ documentation = "https://nsdf-fabric.github.io/nsdf-slac/"
 source = "https://github.com/nsdf-fabric/nsdf-slac"
 tracker = "https://github.com/nsdf-fabric/nsdf-slac/issues"
 "release notes" = "https://github.com/nsdf-fabric/nsdf-slac/releases"
+
+[dependency-groups]
+test = [
+    "pytest>=8.4.1",
+]
