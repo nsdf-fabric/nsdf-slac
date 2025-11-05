@@ -1,0 +1,62 @@
+cff-version: 1.2.0
+message: "If you are referencing Nexus-DM in a publication, please cite it as below."
+authors:
+  - family-names: Roberts
+    given-names: Amy
+  - family-names: Marquez
+    given-names: Jack
+  - family-names: NG
+    given-names: Kin Hong
+  - family-names: Mickelson
+    given-names: Kitty
+  - family-names: Panta
+    given-names: Aashish
+  - family-names: Scorzelli
+    given-names: Giorgio
+  - family-names: Gooch
+    given-names: Amy
+  - family-names: Cushman
+    given-names: Prisca
+  - family-names: Fritts
+    given-names: Matthew
+  - family-names: Neog
+    given-names: Himangshu
+  - family-names: Pascucci 
+    given-names: Valerio
+  - family-names: Taufer 
+    given-names: Michela
+title: "The Making of a Community Dark Matter Dataset with the National Science Data Fabric"
+doi: 10.48550/arXiv.2507.13297
+date-released: 2025-07-17
+url: "https://arxiv.org/abs/2507.13297"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: Roberts
+    given-names: Amy
+  - family-names: Marquez
+    given-names: Jack
+  - family-names: NG
+    given-names: Kin Hong
+  - family-names: Mickelson
+    given-names: Kitty
+  - family-names: Panta
+    given-names: Aashish
+  - family-names: Scorzelli
+    given-names: Giorgio
+  - family-names: Gooch
+    given-names: Amy
+  - family-names: Cushman
+    given-names: Prisca
+  - family-names: Fritts
+    given-names: Matthew
+  - family-names: Neog
+    given-names: Himangshu
+  - family-names: Pascucci 
+    given-names: Valerio
+  - family-names: Taufer 
+    given-names: Michela
+  doi: "10.48550/arXiv.2507.13297"
+  month: 7
+  title: "The Making of a Community Dark Matter Dataset with the National Science Data Fabric"
+  year: 2025
