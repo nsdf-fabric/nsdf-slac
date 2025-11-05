@@ -53,6 +53,9 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 nav:
   - Home: index.md
   - NSDF CLI Guide: cli.md
@@ -61,7 +64,9 @@ nav:
   - Contributing:
       - Contributing Guide: contributing.md
       - Code of Conduct: CODE_OF_CONDUCT.md
-  - Acknowledgements: acknowledgment.md
+  - Research:
+      - Citations: citations.md
+      - Acknowledgements: acknowledgment.md
 
 extra_css:
   - stylesheets/overrides.css
