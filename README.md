@@ -3,7 +3,7 @@
 </p>
 
 <div align="center">
-  <h1>NSDF Dark Matter Initiative</h1>
+  <h1>Nexus-DM</h1>
 </div>
 <br>
 <p align="center">
@@ -15,14 +15,14 @@
 
 ## Overview
 
-The **NSDF Dark Matter Initiative** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
+**Nexus-DM** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
 and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
 ![Channel Dashboard](./docs/assets/dashboard/slacdashboard.png)
 
 ## ⚡Quick Start
 
-To get up and running quickly, follow the step-by-step guides found in the [NSDF Dark Matter documentation](https://nsdf-fabric.github.io/nsdf-slac/)
+To get up and running quickly, follow the step-by-step guides found in the [Nexus-DM documentation](https://nsdf-fabric.github.io/nsdf-slac/)
 
 ## 🚀 Features
 
@@ -59,6 +59,14 @@ Contributions are always welcome, no matter how large or small. Read our [contri
 - Paula Olaya, Jakob Luettgau, Camila Roa, Ricardo Llamas, Rodrigo Vargas, Sophia Wen, I-Hsin Chung, Seetharami Seelam, Yoonho Park, Jay Lofstead, and Michela Taufer. Enabling Scalability in the Cloud for Scientific Workflows: An Earth Science Use Case. In Proceedings of IEEE CLOUD, pages 1–10, Chicago, IL, USA, June 2023. IEEE Computer Society, https://doi.org/10.1109/CLOUD60044.2023.00052.
 - Laboy, Gabriel; Ashworth, Jay; Olaya, Paula; Martinez, Heberth; Marquez, Jack; Panta, Aashish; Scorzelli, Giorgio; Taufer, Michela; Pascucci, Valerio, 2024, "NSDF OpenVisus Tutorial - GEOtiled Terrain Parameters", https://doi.org/10.7910/DVN/B33F4X, Harvard Dataverse, V1.
 - Llamas, R., L. Valera, P. Olaya, M. Taufer, R. Vargas (2022). 1-km soil moisture predictions in the United States with SOMOSPIE, HydroShare, https://doi.org/10.4211/hs.79162a679f8a4273be582561a5504f68.
+
+## Citing Nexus-DM
+
+If you are referencing Nexus-DM in a publication, please cite the following paper:
+
+- Amy Roberts, Jack Marquez, Kin Hong NG, Kitty Mickelson, Aashish Panta, Giorgio Scorzelli, Amy Gooch, Prisca Cushman, Matthew Fritts, Himangshu Neog, Valerio Pascucci, Michela Taufer. The Making of a Community Dark Matter Dataset with the National Science Data Fabric. arXiv preprint arXiv:2507.13297 (2025).
+
+On GitHub, you can copy this citation in APA or BibTeX format via the "Cite this repository" button. Or, see the comments in `CITATION.cff` for the raw BibTeX.
 
 ## Copyright and License
 
