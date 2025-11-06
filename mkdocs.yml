@@ -62,6 +62,7 @@ nav:
   - NSDF Library Guide: library.md
   - NSDF Dashboard Guide: dashboard.md
   - Contributing:
+      - Opening Issues: issues.md
       - Contributing Guide: contributing.md
       - Code of Conduct: CODE_OF_CONDUCT.md
   - Research:

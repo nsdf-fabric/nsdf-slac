@@ -7,13 +7,11 @@
 ??? abstract "Bibtex"
 
     ```
-    @misc{roberts2025makingcommunitydarkmatter,
-      title={The Making of a Community Dark Matter Dataset with the National Science Data Fabric},
-      author={Amy Roberts and Jack Marquez and Kin Hong NG and Kitty Mickelson and Aashish Panta and Giorgio Scorzelli and Amy Gooch and Prisca Cushman and Matthew Fritts and Himangshu Neog and Valerio Pascucci and Michela Taufer},
-      year={2025},
-      eprint={2507.13297},
-      archivePrefix={arXiv},
-      primaryClass={hep-ex},
-      url={https://arxiv.org/abs/2507.13297},
+    @article{Roberts_The_Making_of_2025,
+    author = {Roberts, Amy and Marquez, Jack and NG, Kin Hong and Mickelson, Kitty and Panta, Aashish and Scorzelli, Giorgio and Gooch, Amy and Cushman, Prisca and Fritts, Matthew and Neog, Himangshu and Pascucci, Valerio and Taufer, Michela},
+    doi = {10.48550/arXiv.2507.13297},
+    month = jul,
+    title = {{The Making of a Community Dark Matter Dataset with the National Science Data Fabric}},
+    year = {2025}
     }
     ```
