@@ -56,11 +56,18 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Home: index.md
   - NSDF CLI Guide: cli.md
   - NSDF Library Guide: library.md
   - NSDF Dashboard Guide: dashboard.md
+  - Tutorials:
+      - Visualizing Pulses: plotting_tutorial.md
   - Contributing:
       - Opening Issues: issues.md
       - Contributing Guide: contributing.md

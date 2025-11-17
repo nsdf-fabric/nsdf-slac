@@ -16,6 +16,10 @@ This set of guides is designed to help you interact and analyze dark matter data
 - [📚 Library Guide](./library.md): Explore how to load and analyze a dark matter dataset using the Python API.
 - [📊 Dashboard Guide](./dashboard.md): Understand the components of the web-based dashboard for visualizing dark matter events and detectors.
 
+### Tutorials
+
+- [Visualizing Pulses](./plotting_tutorial.md): Learn how to combine the CLI, and library to visualize event pulses with Matplotlib with this tutorial!
+
 ## 🚀 Features
 
 - **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and time stamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).

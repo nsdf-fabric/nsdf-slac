@@ -236,3 +236,4 @@ Now that you can manipulate the data, you could:
 - 📊 Build dark matter dashboards
 
 We have provided a web-based visualization of the entire dataset with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter). Check the [dashboard guide](./dashboard.md) to learn more about its components!
+or learn how to visualize pulses with the [Visualizing Pulses Tutorial](./plotting_tutorial.md).
