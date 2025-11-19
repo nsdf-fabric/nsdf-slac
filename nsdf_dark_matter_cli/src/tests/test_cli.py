@@ -33,7 +33,7 @@ class TestListCommand:
 
     def test_ls_prefix(self, golden_files: Dict[str, str]):
         """Compare ls command with --prefix against golden file"""
-        result = runner.invoke(app, ["ls", "--prefix", "072"])
+        result = runner.invoke(app, ["ls", "--prefix", "07220702_1055"])
 
         assert result.exit_code == 0
 
