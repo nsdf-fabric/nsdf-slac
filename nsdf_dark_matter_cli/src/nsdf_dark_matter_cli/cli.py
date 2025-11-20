@@ -9,22 +9,34 @@ import os
 import requests
 import csv
 from importlib import resources
+from importlib.metadata import version as semver
 
 IDX_FILES_DIR = "./idx"
 MID_PATTERN = r"^\d{8}_\d{4}_F\d{4}$"
 FILE_PATTERN = r"^\d{8}_\d{4}_F\d{4}\.mid\.gz$"
 
-__version__ = "0.3.0"
+app = typer.Typer(no_args_is_help=True, help="NSDF Dark Matter CLI")
+console = Console()
 
 
-def load_dataset() -> list[str, str, str]:
-    dataset = []
-    with resources.files("nsdf_dark_matter_cli").joinpath("r_dataset.csv").open("r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            dataset.append([row["filename"], row["size"], row["rseries"]])
+def load_dataset():
+    """
+    Load Available Dataset
+    """
+    try:
+        dataset = []
+        with resources.files("nsdf_dark_matter_cli").joinpath("r_dataset.csv").open("r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                dataset.append([row["filename"], row["size"], row["rseries"]])
+    except Exception as e:
+        richprint(f"[bold red]Failed to load dataset: {e}[/bold red]")
+        raise typer.Exit(code=1)
 
     return dataset
+
+
+DATASET = load_dataset()
 
 
 def download_file(local_path, midfile, kv):
@@ -86,54 +98,34 @@ def download_processed_files(midfile: str):
             executor.submit(download_file, local_path, midfile, kv)
 
 
-app = typer.Typer(no_args_is_help=True, help="NSDF Dark Matter CLI")
-console = Console()
-
-
-@app.callback()
-def main(
-    ctx: typer.Context,
-):
-    try:
-        ctx.obj = load_dataset()
-    except Exception as e:
-        richprint(f"[bold red]Failed to load dataset: {e}[/bold red]")
-        raise typer.Exit(code=1)
-
-
 @app.command()
 def version():
     """
-    Shows the semantic versioning of the CLI
+    CLI Version
     """
-    richprint(f"NSDF Dark Matter CLI: {__version__}")
+    richprint(f"NSDF Dark Matter CLI: {semver('nsdf_dark_matter_cli')}")
 
 
 @app.command()
-def ls(ctx: typer.Context,
-       prefix: Annotated[str, typer.Option("--prefix","-p",help="List all files that start with prefix")] = "",
-       limit: Annotated[int, typer.Option("--limit","-l",help="The number of files to show")] = 100):
+def ls(prefix: Annotated[str, typer.Option("--prefix","-p",help="List all files that start with prefix")] = "",
+       limit: Annotated[int, typer.Option("--limit","-l",help="The number of files to show")] = None):
     """
-    List all the files available to download from remote
+    List all available files
     """
-    dataset = ctx.obj
 
-    if limit < 0 or limit > len(dataset):
-        richprint(f"[bold red] Invalid limit set {limit}[/bold red]")
-        return
+    is_match = (lambda f: f.startswith(prefix)) if prefix else (lambda _: True)
+    limit = (1_000_000 if prefix else 10) if (limit is None or limit < 0) else limit
 
-    # prefix option
-    if prefix:
-        for entry in dataset:
-            filename, size, rseries = entry[0], entry[1], entry[2]
-            if filename.startswith(prefix) and limit:
-                richprint(f"[bold green]{filename}\t{size}\t{rseries}[/bold green]")
-                limit -= 1
-        return
+    for entry in DATASET:
+        if limit <= 0:
+            break
 
-    # limit option
-    for i in range(0, limit):
-        richprint(f"[bold green]{dataset[i][0]}\t{dataset[i][1]}\t{dataset[i][2]}[/bold green]")
+        filename, size, rseries = entry
+        if is_match(filename):
+            richprint(f"[bold green]{filename}\t{size}\t{rseries}[/bold green]")
+            limit -= 1
+
+    richprint(f"[bold blue]Total Files Available: {len(DATASET)}[/bold blue]")
 
 
 @app.command()
@@ -146,7 +138,7 @@ def download(
     ] = "",
 ):
     """
-    Download all processed files derived from mid file (idx, channel metadata, event metadata)
+    Download a Dataset
     """
     if filename == "" or not(re.match(MID_PATTERN, filename) or re.match(FILE_PATTERN, filename)):
         richprint(
