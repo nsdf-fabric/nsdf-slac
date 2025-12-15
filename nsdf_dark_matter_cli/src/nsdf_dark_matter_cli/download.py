@@ -19,10 +19,10 @@ def isvalid_midfile(filename: str) -> bool:
     ----------
     filename(str): the filename to check
     """
-    return filename != "" and (re.match(MID_PATTERN, filename) or re.match(FILE_PATTERN, filename))
+    return filename != "" and (re.match(MID_PATTERN, filename) != None or re.match(FILE_PATTERN, filename) != None)
 
 
-def download_routine(midfile: str, progress: Progress) -> (str, Exception | None):
+def download_routine(midfile: str, progress: Progress) -> tuple[str, Exception | None]:
     """
     UI Wrapper of download_dataset
     ----------------------------
@@ -36,7 +36,7 @@ def download_routine(midfile: str, progress: Progress) -> (str, Exception | None
     Tuple(str, Exception|None): Returns an exception if input is invalid or operation failed, otherwise none.
     """
     if not isvalid_midfile(midfile):
-        return (midfile, ValueError(f"[bold red]Must provide a valid mid file identifier,  i.e, 07180808_1558_F0001. File {midfile} is not valid[/bold red] "))
+        return (midfile, ValueError(f"[bold red]Must provide a valid mid file identifier,  i.e, 07180808_1558_F0001. File {midfile} is not valid[/bold red]"))
 
     try:
         download_dataset(midfile, progress)

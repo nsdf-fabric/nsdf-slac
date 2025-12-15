@@ -157,7 +157,7 @@ nsdf-cli ls --prefix 072 --limit 5
 
 Great! we have found files from the **R76** dataset.
 
-### Downloading a dataset locally
+### Downloading datasets
 
 Once you've found the file you want, downloading it is easy with the `download` command:
 
@@ -166,6 +166,14 @@ nsdf-cli download 07180827_0000_F0001
 ```
 
 ![Terminal showing the CLI download command. It downloads the file specified](./assets/cli/cli-download.gif)
+
+You can also download a set of files at once by providing the `-f` flag:
+
+```bash
+nsdf-cli download -f files.txt
+```
+
+![Terminal showing the CLI download command passing the -f flag. It downloads a set of files at the same time](./assets/cli/cli-download-multiple.gif)
 
 Downloaded files go into the idx directory, and each one gets its own subfolder based on the `mid_id`. After downloading a few datasets, your folder might look like this:
 

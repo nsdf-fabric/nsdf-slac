@@ -81,6 +81,7 @@ def download(
     Download a Dataset
     """
     files = set()
+    errors = []
     # check if filelist flag is provided
     if filelist:
         if os.path.exists(filelist):
@@ -88,11 +89,14 @@ def download(
                 for line in f:
                     files.add(line.strip())
         else:
-            richprint(f"[bold red] path: {filelist} does not exists [/bold red]")
+            errors.append(f"[bold red]path: {filelist} does not exists [/bold red]")
     else:
         files.add(filename.strip())
 
-    errors = []
+    if len(files) < 1:
+        richprint("[bold red]Must provide at least 1 file[/bold red]")
+        return
+
     with progress:
         with ThreadPoolExecutor(max_workers=min(len(files), 16)) as executor:
             futures = [executor.submit(download_routine, file, progress) for file in files]
