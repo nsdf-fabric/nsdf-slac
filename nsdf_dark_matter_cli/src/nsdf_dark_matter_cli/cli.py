@@ -1,17 +1,25 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import typer
-from rich import print as richprint
-from rich.console import Console
 from typing_extensions import Annotated
 import os
 import csv
 from importlib import resources
 from importlib.metadata import version as semver
+from rich import print as richprint
+from rich.console import Console
+from rich.progress import Progress, BarColumn, DownloadColumn, TransferSpeedColumn, TimeRemainingColumn, TextColumn
 from .download import download_routine
 
 
 app = typer.Typer(no_args_is_help=True, help="NSDF Dark Matter CLI")
 console = Console()
+progress = Progress(
+    TextColumn("[bold blue]{task.fields[filename]}"),
+    BarColumn(),
+    DownloadColumn(),
+    TransferSpeedColumn(),
+    TimeRemainingColumn(),
+)
 
 
 def load_dataset():
@@ -84,12 +92,18 @@ def download(
     else:
         files.add(filename.strip())
 
-    with ThreadPoolExecutor(max_workers=min(len(files), 16)) as executor:
-        futures = [executor.submit(download_routine, file) for file in files]
+    errors = []
+    with progress:
+        with ThreadPoolExecutor(max_workers=min(len(files), 16)) as executor:
+            futures = [executor.submit(download_routine, file, progress) for file in files]
 
-        for future in as_completed(futures):
-            midfile, result = future.result()
-            if isinstance(result, Exception):
-                richprint(f"[bold red] {result} [/bold red]")
-            else:
-                richprint(f"[bold green] Downloaded {midfile}! [/bold green]")
+            for future in as_completed(futures):
+                midfile, result = future.result()
+                if isinstance(result, Exception):
+                    errors.append(f"[bold red] {result} [/bold red]")
+
+    if len(errors) > 0:
+        for err in errors:
+            richprint(err)
+    else:
+        richprint(f"[bold green]Successfully downloaded {len(files)} dataset(s)![/bold green]")
