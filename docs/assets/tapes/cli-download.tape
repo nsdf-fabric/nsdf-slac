@@ -2,7 +2,7 @@ Output cli-download.gif
 
 Set Shell zsh
 Set FontSize 32
-Set Width 1200
+Set Width 1600
 Set Height 600
 Set Theme "Dracula"
 Set TypingSpeed 75ms

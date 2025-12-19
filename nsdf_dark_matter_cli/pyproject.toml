@@ -41,3 +41,6 @@ include-package-data = true
 
 [tool.setuptools.package-data]
 "nsdf_dark_matter_cli" = ["*.csv"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
