@@ -1,6 +1,6 @@
 services:
   dashboard:
-    image: slac-dashboard:latest
+    image: dashboard-slac:latest
     container_name: dashboard
     env_file:
       - ".env"
@@ -9,6 +9,11 @@ services:
     restart: always
     volumes:
       - "idx:/usr/src/channels_dashboard/idx"
+    develop:
+      watch:
+        - action: sync
+          path: ./slac.py
+          target: /usr/src/channels_dashboard/slac.py
 
 volumes:
   idx:
