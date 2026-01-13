@@ -505,6 +505,12 @@ def main():
         name="Select/Deselect All Detectors", disabled=True
     )
 
+    cite_button = pn.widgets.Button(name="Cite", button_type="success")
+    cite_button.js_on_click(args={}, code="""
+    const w = window.open("https://nsdf-fabric.github.io/nsdf-slac/citations/", "_blank", "noopener,noreferrer");
+    if(w) w.opener = null;
+    """)
+
     runtime_info_section = pn.Row(app_state.loading_dataset_spinner, app_state.app_info_text)
 
     # ------------------- REACTIVITY ---------------------
@@ -623,8 +629,8 @@ def main():
             channels_grid[i].disabled = False if i < limit else True
 
     main_layout = pn.template.MaterialTemplate(
-        title="NSDF Dark Matter",
-        header=[evt_bind, detectors_bind, toggle_detectors_bind, fig_bind],
+        title="Nexus DM Dashboard",
+        header=[evt_bind, detectors_bind, toggle_detectors_bind, fig_bind, cite_button],
         sidebar=[
             select_scene,
             input_event,
