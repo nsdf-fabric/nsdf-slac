@@ -72,6 +72,8 @@ nav:
       - Opening Issues: issues.md
       - Contributing Guide: contributing.md
       - Code of Conduct: CODE_OF_CONDUCT.md
+  - Community:
+      - Zulip Channel: community.md
   - Research:
       - Citations: citations.md
       - Acknowledgements: acknowledgment.md
