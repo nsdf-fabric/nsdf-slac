@@ -70,7 +70,12 @@ nav:
       - Visualizing Pulses: plotting_tutorial.md
   - Contributing:
       - Opening Issues: issues.md
-      - Contributing Guide: contributing.md
+      - Contributing Guide:
+          - contributing.md
+          - CLI: cli_contrib.md
+          - Library: library_contrib.md
+          - Documentation: documentation_contrib.md
+          - Pull Requests: pullrequests.md
       - Code of Conduct: CODE_OF_CONDUCT.md
   - Community:
       - Zulip Channel: community.md
