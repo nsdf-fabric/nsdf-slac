@@ -1,0 +1,13 @@
+wheel
+numpy
+pandas
+matplotlib
+jupyter
+ipywidgets
+bokeh
+ipywidgets-bokeh
+panel
+ipympl
+clickhouse-driver
+patchelf
+OpenVisus
