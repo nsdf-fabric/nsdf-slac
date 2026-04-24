@@ -1,0 +1,117 @@
+import os
+import gzip
+import io
+import boto3
+import psycopg
+
+
+def get_s3_client():
+    return boto3.client(
+        "s3",
+        endpoint_url=os.getenv("ENDPOINT_URL"),
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+    )
+
+
+def get_db_connection():
+    return psycopg.connect(
+        host=os.getenv("POSTGRES_HOST", "localhost"),
+        port=os.getenv("POSTGRES_PORT", "5432"),
+        dbname=os.getenv("POSTGRES_DB", "catalog"),
+        user=os.getenv("POSTGRES_USER", "postgres"),
+        password=os.getenv("POSTGRES_PASSWORD", "mypassword"),
+    )
+
+
+def create_staging_table(conn):
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS staging_catalog (
+                catalog TEXT,
+                bucket TEXT,
+                name TEXT,
+                size BIGINT,
+                last_modified TEXT,
+                etag TEXT
+            );
+            """
+        )
+    conn.commit()
+
+
+def process_file(s3_client, conn, bucket, key):
+    print(f"Processing: {key}")
+
+    try:
+        obj = s3_client.get_object(Bucket=bucket, Key=key)
+
+        gz_stream = gzip.GzipFile(fileobj=obj["Body"])
+        text_stream = io.TextIOWrapper(gz_stream, encoding="utf-8", errors="ignore")
+
+        with conn.cursor() as cur:
+            # COPY into staging
+            with cur.copy(
+                """
+                COPY staging_catalog (catalog, bucket, name, size, last_modified, etag)
+                FROM STDIN WITH (FORMAT CSV, HEADER TRUE)
+                """
+            ) as copy:
+                for line in text_stream:
+                    if line.count(",") == 5:
+                        copy.write(line)
+
+            # Merge into main table
+            cur.execute(
+                """
+                INSERT INTO catalog (catalog, bucket, name, size, last_modified, etag)
+                SELECT DISTINCT ON (catalog, bucket, name) catalog, bucket, name, size, last_modified, etag
+                FROM staging_catalog
+                ON CONFLICT (catalog, bucket, name)
+                DO UPDATE SET
+                    size = EXCLUDED.size,
+                    last_modified = EXCLUDED.last_modified,
+                    etag = EXCLUDED.etag
+                WHERE catalog.size IS DISTINCT FROM EXCLUDED.size
+                   OR catalog.last_modified IS DISTINCT FROM EXCLUDED.last_modified
+                   OR catalog.etag IS DISTINCT FROM EXCLUDED.etag;
+                """
+            )
+
+            # Clear staging for next file
+            cur.execute("TRUNCATE staging_catalog;")
+
+        conn.commit()
+        print(f"Finished: {key}")
+
+    except Exception as e:
+        conn.rollback()
+        print(f"Error processing {key}: {e}")
+
+
+def insert_records(s3_client, conn, bucket="nsdf-catalog", limit=None):
+    paginator = s3_client.get_paginator("list_objects_v2")
+
+    objects = []
+    for page in paginator.paginate(Bucket=bucket):
+        objects.extend(page.get("Contents", []))
+
+    for obj in objects:
+        key = obj["Key"]
+        if key.endswith(".csv.gz"):
+            process_file(s3_client, conn, bucket, key)
+
+
+def main():
+    s3_client = get_s3_client()
+    conn = get_db_connection()
+
+    create_staging_table(conn)
+    insert_records(s3_client, conn, limit=None)
+
+    conn.close()
+
+
+if __name__ == "__main__":
+    main()

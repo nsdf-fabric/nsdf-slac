@@ -9,3 +9,5 @@ idx
 configuration.yml
 *.egg-info
 site
+*.venv
+*/*.venv
