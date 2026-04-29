@@ -3,6 +3,13 @@ import gzip
 import io
 import boto3
 import psycopg
+import logging
+
+logging.basicConfig(
+    filename="migration.log",
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
 
 
 def get_s3_client():
@@ -41,14 +48,17 @@ def create_staging_table(conn):
     conn.commit()
 
 
-def process_file(s3_client, conn, bucket, key):
-    print(f"Processing: {key}")
+def process_file(s3_client, conn, bucket, key: str):
+    logging.info(f"Processing: {key}")
 
     try:
         obj = s3_client.get_object(Bucket=bucket, Key=key)
 
-        gz_stream = gzip.GzipFile(fileobj=obj["Body"])
-        text_stream = io.TextIOWrapper(gz_stream, encoding="utf-8", errors="ignore")
+        body = obj["Body"]
+        if key.endswith("gz"):
+            body = gzip.GzipFile(fileobj=obj["Body"])
+
+        text_stream = io.TextIOWrapper(body, encoding="utf-8", errors="ignore")
 
         with conn.cursor() as cur:
             # COPY into staging
@@ -59,6 +69,10 @@ def process_file(s3_client, conn, bucket, key):
                 """
             ) as copy:
                 for line in text_stream:
+                    line = line.replace("\x00", "")
+                    if not line.strip(): 
+                        continue
+
                     if line.count(",") == 5:
                         copy.write(line)
 
@@ -83,14 +97,14 @@ def process_file(s3_client, conn, bucket, key):
             cur.execute("TRUNCATE staging_catalog;")
 
         conn.commit()
-        print(f"Finished: {key}")
+        logging.info(f"Finished: {key}")
 
     except Exception as e:
         conn.rollback()
-        print(f"Error processing {key}: {e}")
+        logging.error(f"Error processing {key}: {e}")
 
 
-def insert_records(s3_client, conn, bucket="nsdf-catalog", limit=None):
+def insert_records(s3_client, conn, bucket="nsdf-catalog"):
     paginator = s3_client.get_paginator("list_objects_v2")
 
     objects = []
@@ -98,9 +112,7 @@ def insert_records(s3_client, conn, bucket="nsdf-catalog", limit=None):
         objects.extend(page.get("Contents", []))
 
     for obj in objects:
-        key = obj["Key"]
-        if key.endswith(".csv.gz"):
-            process_file(s3_client, conn, bucket, key)
+        process_file(s3_client, conn, bucket, obj["Key"])
 
 
 def main():
@@ -108,7 +120,7 @@ def main():
     conn = get_db_connection()
 
     create_staging_table(conn)
-    insert_records(s3_client, conn, limit=None)
+    insert_records(s3_client, conn)
 
     conn.close()
 
