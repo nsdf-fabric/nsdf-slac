@@ -1,6 +1,14 @@
 # Running Locally with Docker Compose (dev)
 
 All the components can be deployed locally using using Docker Compose. You will need to provide the environment variables for the clickhouse database via a `.env` file, and example its provided at `.env.example`.
+
+First, run the following commands to build the images:
+
+```bash
+make build
+make buildseed
+```
+
 Then, run the following command:
 
 ```bash
