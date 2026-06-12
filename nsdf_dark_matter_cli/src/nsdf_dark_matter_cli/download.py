@@ -59,7 +59,7 @@ def download_dataset(midfile: str, progress: Progress):
     if os.path.exists(local_path):
         return
 
-    response = requests.get("https://services.nationalsciencedatafabric.org/api/v1/darkmatter/gen-url", params={"filename" : midfile})
+    response = requests.get("https://intersect.nationalsciencedatafabric.org/nexus/api/v1/darkmatter/gen-url", params={"filename" : midfile})
 
     if response.status_code != 200:
         typer.secho("could not retrieve object resource", fg=typer.colors.RED)
