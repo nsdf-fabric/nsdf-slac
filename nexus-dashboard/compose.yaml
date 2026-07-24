@@ -1,0 +1,20 @@
+services:
+  dashboard:
+    image: nexus-dashboard:latest
+    container_name: nexus-dashboard
+    env_file:
+      - ".env"
+    ports:
+      - "0.0.0.0:8000:8000"
+    restart: always
+    volumes:
+      - "idx:/usr/src/nexus-dashboard/idx"
+    develop:
+      watch:
+        - action: sync
+          path: ./app.py
+          target: /usr/src/nexus-dashboard/app.py
+
+volumes:
+  idx:
+    driver: local

@@ -18,7 +18,7 @@
 **Nexus-DM** delivers state-of-the-art tools for accessing and analyzing dark matter data, including a web-based event visualization [dashboard](./dashboard), a [command-line interface](./nsdf_dark_matter_cli) (CLI) for data access,
 and a [library](./nsdf_dark_matter) for data manipulation. By combining ease of access with scientific depth, the initiative empowers the community to accelerate discovery in dark matter research.
 
-![Channel Dashboard](./docs/assets/dashboard/slacdashboard.png)
+![Channel Dashboard](./docs/assets/dashboard/nexusdashboard.png)
 
 ## ⚡Quick Start
 

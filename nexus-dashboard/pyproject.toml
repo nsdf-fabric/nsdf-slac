@@ -1,0 +1,14 @@
+[project]
+name = "nexus-dashboard"
+version = "0.1.0"
+description = "NSDF Dark Matter Dashboard (Panel + Plotly)"
+readme = "README.md"
+requires-python = "==3.10.*"
+dependencies = [
+    "nsdf-dark-matter>=0.3",
+    "panel",
+    "plotly",
+    "python-dotenv",
+    "boto3",
+    "numpy",
+]
