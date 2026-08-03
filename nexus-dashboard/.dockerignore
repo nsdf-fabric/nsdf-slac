@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+.venv
+.env
+.idx
+test_s3.py
+Makefile
+compose.yaml
+.git
+.gitignore
+*.md
