@@ -20,11 +20,9 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /usr/src/nexus-dashboard/
 
 COPY --from=builder /usr/src/nexus-dashboard/.venv /usr/src/nexus-dashboard/.venv
-COPY nexus.py uploaded_files.txt ./
+COPY nexus-dashboard.py uploaded_files.txt ./
 
 ENV PATH="/usr/src/nexus-dashboard/.venv/bin:$PATH"
-EXPOSE 10042
+EXPOSE 8000
 
-ENTRYPOINT [ "panel", "serve", "nexus.py" ]
-
-CMD ["--address", "0.0.0.0", "--port", "8000", "--prefix", "/darkmatter"]
+ENTRYPOINT [ "panel", "serve", "nexus-dashboard.py" ]

@@ -1,6 +1,6 @@
 services:
   dashboard:
-    image: nexus-dashboard:latest
+    image: nexus-dashboard
     container_name: nexus-dashboard
     env_file:
       - ".env"
