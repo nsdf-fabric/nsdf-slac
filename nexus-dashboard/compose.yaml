@@ -1,6 +1,6 @@
 services:
   dashboard:
-    image: nexus-dashboard
+    image: ghcr.io/nsdf-fabric/nexus-dashboard:0.0.7
     container_name: nexus-dashboard
     env_file:
       - ".env"
