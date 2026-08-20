@@ -15,7 +15,7 @@ Then, run the following command:
 make up
 ```
 
-This will spawn up the UI, Clickhouse Server, and seed the Clickhouse DB with synthetic data.
+This will spawn up the UI, Postgres Server, and seed the Postgres DB with synthetic data.
 
 ## Seed with Nexus-DM data (Optional)
 

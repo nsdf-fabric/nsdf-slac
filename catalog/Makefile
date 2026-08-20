@@ -13,11 +13,11 @@ up:
 .PHONY=down
 down:
 	@docker compose down
-	@docker volume rm catalog_clickhouse_data
+	@docker volume rm catalog_postgres_data
 
 .PHONY=rmdb
 rmdb:
-	@docker volume rm catalog_clickhouse_data
+	@docker volume rm catalog_postgres_data
 
 .PHONY=buildseed
 buildseed:

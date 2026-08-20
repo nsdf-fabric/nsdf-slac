@@ -11,3 +11,4 @@ ipympl
 clickhouse-driver
 patchelf
 OpenVisus
+psycopg[binary]

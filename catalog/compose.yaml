@@ -8,27 +8,26 @@ services:
       - "10002:10002"
     restart: always
     depends_on:
-      - "clickhouse"
+      - "postgres"
     develop:
       watch:
         - action: sync
           path: ./run.py
           target: /app/run.py
 
-  # Clickhouse database
-  clickhouse:
-    image: clickhouse/clickhouse-server:25.9.3.48
-    container_name: clickhouse-server
+  # POSTGRES database
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres-catalog-server
     env_file:
       - ".env"
     ports:
-      - "8123:8123" # HTTP
-      - "9000:9000" # Native interface
+      - "5432:5432"
     volumes:
-      - clickhouse_data:/var/lib/clickhouse
-      - ./clickhouse/migrations:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_catalog/migrations:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "clickhouse-client --query 'SELECT 1' || exit 1"]
+      test: ["CMD-SHELL", "pg_isready -U postgres || exit 1"]
       interval: 5s
       timeout: 2s
       retries: 12
@@ -39,12 +38,12 @@ services:
     image: nsdf-catalog-seed:latest
     container_name: dbseed
     depends_on:
-      clickhouse:
+      postgres:
         condition: "service_healthy"
     env_file:
       - ".env"
     restart: no
 
 volumes:
-  clickhouse_data:
+  postgres_data:
     driver: local
