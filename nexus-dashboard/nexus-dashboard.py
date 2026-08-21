@@ -83,8 +83,8 @@ def main():
     channel_state = {"active": set()}
 
     mid_file = pn.widgets.AutocompleteInput(
-        name="Mid File", options=mid_files, placeholder="Search Mid File",
-        value=mid_files[0] if mid_files else "", restrict=True, case_sensitive=False, search_strategy="includes",
+        name="Mid File", options=mid_files, placeholder="Search Mid File, i.e., 07180808_1558_F0001",
+        value="", restrict=True, case_sensitive=False, search_strategy="includes",
     )
 
     event_id = pn.widgets.AutocompleteInput(
