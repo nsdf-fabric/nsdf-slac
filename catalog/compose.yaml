@@ -5,15 +5,15 @@ services:
     env_file:
       - ".env"
     ports:
-      - "10002:10002"
+      - "${BOKEH_PORT}:${BOKEH_PORT}"
     restart: always
     depends_on:
       - "postgres"
     develop:
       watch:
         - action: sync
-          path: ./run.py
-          target: /app/run.py
+          path: ./catalog.py
+          target: /app/catalog.py
 
   # POSTGRES database
   postgres:
