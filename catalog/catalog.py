@@ -133,21 +133,20 @@ class NSDFCatalogDashboard:
         )
         self.material = pn.template.MaterialTemplate(title="NSDF-Catalog")
 
-        schema_path = os.path.join(os.path.dirname(__file__), "umn_schema.png")
+        schema_path = os.path.join(os.path.dirname(__file__), "umn_catalog.png")
         if os.path.exists(schema_path):
             self.schema_pane = pn.pane.PNG(
             schema_path,
             sizing_mode="stretch_width",
-            max_width=784,)
+            )
 
             self.schema_centered = pn.Row(
-                pn.layout.HSpacer(),
                 self.schema_pane,
-                pn.layout.HSpacer(),
+                align = "center",
                 sizing_mode="stretch_width",)
         else:
             self.schema_pane = pn.pane.Markdown(
-            "Schema image not found at catalog/umn_schema.png")
+            "Schema image not found at catalog/umn_catalog.png")
 
         self.material.main.append(
             pn.Column(

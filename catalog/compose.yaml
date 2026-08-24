@@ -5,7 +5,7 @@ services:
     env_file:
       - ".env"
     ports:
-      - "${BOKEH_PORT}:${BOKEH_PORT}"
+      - "${BOKEH_DEFAULT_SERVER_PORT}:${BOKEH_DEFAULT_SERVER_PORT}"
     restart: always
     depends_on:
       - "postgres"

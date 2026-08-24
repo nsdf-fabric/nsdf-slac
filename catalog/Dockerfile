@@ -8,11 +8,11 @@ ENV APP_HOME=/app
 WORKDIR ${APP_HOME}
 
 COPY catalog.py ./
-COPY umn_schema.png ./
+COPY umn_catalog.png ./
 COPY postgres_catalog/migrations ./postgres_catalog/migrations
 
 ENV BOKEH_RESOURCES=cdn
 ENV PYTHONUNBUFFERED=True
 
 # For development run with --autoreload
-CMD ["sh", "-c", "exec python3 -m panel serve catalog.py --address \"$BOKEH_ADDRESS\" --port \"$BOKEH_PORT\" --allow-websocket-origin \"$BOKEH_ALLOW_WS_ORIGIN\""]
+CMD ["python3", "-m", "panel", "serve", "catalog.py"]
