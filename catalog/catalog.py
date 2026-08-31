@@ -16,11 +16,10 @@ class NSDFCatalogDashboard:
             host=os.environ["POSTGRES_HOST"],
             port=os.environ["POSTGRES_PORT"],
             dbname=os.environ["POSTGRES_DB"],
-            user=os.environ["POSTGRES_USER"],
-            password=os.environ["POSTGRES_PASSWORD"],
+            user=os.environ["POSTGRES_RO_USER"],
+            password=os.environ["POSTGRES_RO_PASSWORD"],
+            options="-c default_transaction_read_only=on"
         )
-
-        self._ensure_tables_exist()
 
         def fetchall(sql, params=None):
             with self.conn.cursor() as cur:
@@ -187,48 +186,6 @@ class NSDFCatalogDashboard:
         self.show_run_context()
         self.refresh()
 
-
-    def _ensure_tables_exist(self):
-        #Ensure that the required tables exist in the database, and if not, create them using the 01_init_postgres.sql script.
-        required_tables = [
-            "source_config",
-            "shield_config",
-            "trigger_config",
-            "run_context",
-            "metadata",
-        ]
-
-        try:
-            with self.conn.cursor() as cur:
-                cur.execute(
-                    """
-                    SELECT COUNT(*) = %s
-                    FROM information_schema.tables
-                    WHERE table_schema = 'nsdf'
-                      AND table_name = ANY(%s)
-                    """,
-                    (len(required_tables), required_tables),
-                )
-                schema_exists = cur.fetchone()[0]
-
-                if not schema_exists:
-                    migration_path = os.path.join(
-                        os.path.dirname(__file__),
-                        "postgres_catalog",
-                        "migrations",
-                        "01_init_postgres.sql",
-                    )
-
-                    with open(migration_path, encoding="utf-8") as migration_file:
-                        migration_sql = migration_file.read()
-
-                    cur.execute(migration_sql)
-
-            self.conn.commit()
-
-        except Exception:
-            self.conn.rollback()
-            raise
 
     def _trigger_types(self, cfg):
         """Extract trigger types from trigger config JSON"""

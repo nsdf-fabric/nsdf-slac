@@ -71,3 +71,14 @@ CREATE INDEX IF NOT EXISTS idx_metadata_source_config_id ON nsdf.metadata(source
 CREATE INDEX IF NOT EXISTS idx_metadata_shield_config_id ON nsdf.metadata(shield_config_id);
 CREATE INDEX IF NOT EXISTS idx_metadata_trigger_config_id ON nsdf.metadata(trigger_config_id);
 CREATE INDEX IF NOT EXISTS idx_run_context_run_number ON nsdf.run_context(run_number);
+
+-- for local-test: CREATE ROLE nsdf_readonly LOGIN PASSWORD 'local_password';
+
+-- Allow the readonly role to access the nsdf schema.
+GRANT USAGE ON SCHEMA nsdf TO nsdf_readonly;
+-- Allow the readonly role to read all existing tables.
+GRANT SELECT ON ALL TABLES IN SCHEMA nsdf TO nsdf_readonly;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres
+IN SCHEMA nsdf 
+GRANT SELECT ON TABLES TO nsdf_readonly;
