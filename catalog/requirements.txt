@@ -8,6 +8,6 @@ bokeh
 ipywidgets-bokeh
 panel
 ipympl
-clickhouse-driver
 patchelf
 OpenVisus
+psycopg[binary]
