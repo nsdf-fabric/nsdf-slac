@@ -22,7 +22,7 @@ This set of guides is designed to help you interact and analyze dark matter data
 
 ## 🚀 Features
 
-- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and time stamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
+- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and time stamps, all within the browser with the [NSDF Dark Matter Dashboard](https://intersect.nationalsciencedatafabric.org/darkmatter/nexus-dashboard).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./cli.md).
 - **Workflow integration**: Leverage [NSDF Dark Matter Library](./library.md) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 - **Search events**: Search for specific events using the autocomplete input.
@@ -32,5 +32,5 @@ This set of guides is designed to help you interact and analyze dark matter data
 
 ## Next Steps
 
-Start by exploring the [CLI Guide](./cli.md) to download data or visit the web-based [Dashboard](https://services.nationalsciencedatafabric.org/darkmatter)
+Start by exploring the [CLI Guide](./cli.md) to download data or visit the web-based [Dashboard](https://intersect.nationalsciencedatafabric.org/darkmatter/nexus-dashboard)
 to visualize the data.

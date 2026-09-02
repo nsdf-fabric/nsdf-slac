@@ -8,7 +8,7 @@
 </figcaption> 
 </figure>
 
-The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter) provides a way to visualize the **SuperCDMS DAQ data** format and follows the event structure defined by [Midas](https://daq00.triumf.ca/MidasWiki/index.php/Event_Structure). The dashboard is made up of multiple components and is divided into two main sections: the sidebar controls and the channels plot.
+The [NSDF Dark Matter Dashboard](https://intersect.nationalsciencedatafabric.org/darkmatter/nexus-dashboard) provides a way to visualize the **SuperCDMS DAQ data** format and follows the event structure defined by [Midas](https://daq00.triumf.ca/MidasWiki/index.php/Event_Structure). The dashboard is made up of multiple components and is divided into two main sections: the sidebar controls and the channels plot.
 
 ## ☰ Sidebar controls
 

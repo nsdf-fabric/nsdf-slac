@@ -26,7 +26,7 @@ To get up and running quickly, follow the step-by-step guides found in the [Nexu
 
 ## 🚀 Features
 
-- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter).
+- **Web-based visualization:** Explore midas files, isolate detector channels, and examine detailed metadata such as trigger types and timestamps, all within the browser with the [NSDF Dark Matter Dashboard](https://intersect.nationalsciencedatafabric.org/darkmatter/nexus-dashboard).
 - **Easy data access via CLI**: Effortlessly search, and download dark matter data files using the [NSDF Dark Matter CLI](./docs/cli.md).
 - **Workflow integration**: Leverage [NSDF Dark Matter Library](./docs/library.md) to load and manipulate dark matter data, enabling seamless integration into workflow pipelines, including machine learning.
 - **Search events**: Search for specific events using the autocomplete input.
@@ -38,7 +38,7 @@ To get up and running quickly, follow the step-by-step guides found in the [Nexu
 
 ### 📊 NSDF Dark Matter Dashboard
 
-The [NSDF Dark Matter Dashboard](https://services.nationalsciencedatafabric.org/darkmatter) provides a web-based interface to visualize and explore dark matter data all within the browser. Learn about the controls that make the dashboard from [dashboard guide](./docs/dashboard.md).
+The [NSDF Dark Matter Dashboard](https://intersect.nationalsciencedatafabric.org/darkmatter/nexus-dashboard) provides a web-based interface to visualize and explore dark matter data all within the browser. Learn about the controls that make the dashboard from [dashboard guide](./docs/dashboard.md).
 
 ### 🖥️ NSDF Dark Matter CLI
 
