@@ -6,10 +6,8 @@ from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import as_completed
 from rich.progress import Progress
 
-IDX_FILES_DIR = "./idx"
 MID_PATTERN = r"^\d{8}_\d{4}_F\d{4}$"
 FILE_PATTERN = r"^\d{8}_\d{4}_F\d{4}\.mid\.gz$"
-
 
 def isvalid_midfile(filename: str) -> bool:
     """
@@ -22,7 +20,7 @@ def isvalid_midfile(filename: str) -> bool:
     return filename != "" and (re.match(MID_PATTERN, filename) != None or re.match(FILE_PATTERN, filename) != None)
 
 
-def download_routine(midfile: str, progress: Progress) -> tuple[str, Exception | None]:
+def download_routine(midfile: str, progress: Progress, output_dir: str) -> tuple[str, Exception | None]:
     """
     UI Wrapper of download_dataset
     ----------------------------
@@ -30,6 +28,7 @@ def download_routine(midfile: str, progress: Progress) -> tuple[str, Exception |
     ----------
     midfile(str): the filename to download
     progress: The rich Progress object to keep track of downloads
+    output_dir(str): the directory to download files into
 
     Returns
     -------
@@ -39,14 +38,14 @@ def download_routine(midfile: str, progress: Progress) -> tuple[str, Exception |
         return (midfile, ValueError(f"[bold red]Must provide a valid mid file identifier,  i.e, 07180808_1558_F0001. File {midfile} is not valid[/bold red]"))
 
     try:
-        download_dataset(midfile, progress)
+        download_dataset(midfile, progress, output_dir)
         return (midfile, None)
 
     except Exception as e:
         return (midfile, e)
 
 
-def download_dataset(midfile: str, progress: Progress):
+def download_dataset(midfile: str, progress: Progress, output_dir: str):
     """
     Download dataset from storage (.idx, .csv, .txt)
     -----------------------------------------------------------------------------
@@ -54,8 +53,9 @@ def download_dataset(midfile: str, progress: Progress):
     ----------
     file(str): the mid file to download in the the format 07180808_1558_F0001
     progress: The rich Progress object to keep track of downloads
+    output_dir(str): the directory to download series files into
     """
-    local_path = os.path.join(IDX_FILES_DIR, midfile)
+    local_path = os.path.join(output_dir, midfile)
     if os.path.exists(local_path):
         return
 

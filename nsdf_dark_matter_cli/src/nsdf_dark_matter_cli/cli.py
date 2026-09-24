@@ -75,7 +75,8 @@ def ls(prefix: Annotated[str, typer.Option("--prefix","-p",help="List all files 
 @app.command()
 def download(
     filename: Annotated[ str, typer.Argument( help="The name of the file to download, i.e, 07180808_1558_F0001"), ] = "",
-    filelist: Annotated[str, typer.Option("--file-list", "-f", help="A path to a text file listing the files to download")] = ""
+    filelist: Annotated[str, typer.Option("--file-list", "-f", help="A path to a text file listing the files to download")] = "",
+    output_dir: Annotated[str, typer.Option("--output-dir", "-o", help="Directory to download series files into")] = "./idx"
 ):
     """
     Download a Dataset
@@ -99,7 +100,7 @@ def download(
 
     with progress:
         with ThreadPoolExecutor(max_workers=min(len(files), 16)) as executor:
-            futures = [executor.submit(download_routine, file, progress) for file in files]
+            futures = [executor.submit(download_routine, file, progress, output_dir) for file in files]
 
             for future in as_completed(futures):
                 midfile, result = future.result()

@@ -16,3 +16,22 @@ nsdf-cli ls
 ```bash
 nsdf-cli download 07180827_0000_F0001
 ```
+
+Download multiple series
+
+```txt
+07180808_1558_F0006
+07180808_1558_F0007
+07180808_1558_F0008
+07180808_1558_F0009
+```
+
+```bash
+nsdf-cli download -f download.txt
+```
+
+Download into a specific output directory:
+
+```bash
+nsdf-cli download 07180827_0000_F0001 -o /path/to/output
+```
