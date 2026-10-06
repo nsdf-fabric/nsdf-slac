@@ -1,0 +1,13 @@
+/* Increase font size inside all admonitions */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: 1em;
+}
+
+.md-typeset .tabbed-labels > label {
+  font-size: 1em;
+}
+
+.md-typeset code {
+  font-size: 1em; /* Adjust to taste */
+}
