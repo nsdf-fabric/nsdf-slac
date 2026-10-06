@@ -7,6 +7,7 @@ on:
       - "mkdocs.yml"
     branches:
       - main # or 'master' or whatever your default branch is
+  workflow_dispatch:
 
 jobs:
   deploy:
