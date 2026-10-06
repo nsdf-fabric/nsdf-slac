@@ -30,3 +30,4 @@ jobs:
           mkdocs gh-deploy --force
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NO_MKDOCS_2_WARNING: "1"
